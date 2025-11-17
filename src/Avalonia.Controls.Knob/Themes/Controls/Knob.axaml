@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Avalonia.Controls"
+                    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <controls:Knob Value="21"
+                       Minimum="0"
+                       Maximum="100"
+                       Increment="1" />
+
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:Knob}"
+                  TargetType="controls:Knob">
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Height" Value="120" />
+        <Setter Property="Background" Value="{DynamicResource SystemBaseMediumColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel x:Name="PART_Panel">
+                    <Arc x:Name="PART_LevelBackgroundArc"
+                         Stroke="{TemplateBinding Background}"
+                         StartAngle="{TemplateBinding StartAngle}"
+                         SweepAngle="{TemplateBinding EndAngle}"
+                         StrokeThickness="3"
+                         Margin="11"
+                         Stretch="None" />
+
+                    <Arc x:Name="PART_LevelArc"
+                         Stroke="{TemplateBinding Foreground}"
+                         StartAngle="{TemplateBinding StartAngle}"
+                         SweepAngle="{TemplateBinding LevelEndAngle}"
+                         StrokeThickness="5"
+                         Margin="10"
+                         Stretch="None" />
+
+                    <Ellipse x:Name="PART_Ellipse"
+                             Margin="20"
+                             Fill="{TemplateBinding Background}" />
+
+                    <Arc x:Name="PART_LevelArc2"
+                         Stroke="{TemplateBinding Foreground}"
+                         StartAngle="{TemplateBinding PointerStartAngle}"
+                         SweepAngle="{TemplateBinding PointerEndAngle}"
+                         StrokeThickness="10"
+                         Margin="30"
+                         Stretch="None" />
+
+                    <TextBox x:Name="PART_TextBox" IsVisible="False"
+                             Background="{TemplateBinding Background}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             Foreground="{TemplateBinding Foreground}"
+                             Watermark="{TemplateBinding Watermark}"
+                             Text="{TemplateBinding Text}"
+                             AcceptsReturn="False"
+                             TextWrapping="NoWrap"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Bottom" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

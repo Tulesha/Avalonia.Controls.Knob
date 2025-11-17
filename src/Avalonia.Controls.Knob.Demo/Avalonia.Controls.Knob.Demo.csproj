@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <OutputType>WinExe</OutputType>
+        <IsPackable>False</IsPackable>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Avalonia.Controls.Knob.Demo</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PublishTrimmed>False</PublishTrimmed>
+        <PublishSingleFile>False</PublishSingleFile>
+        <PublishReadyToRun>False</PublishReadyToRun>
+    </PropertyGroup>
+
+    <Import Project="..\..\build\Base.props"/>
+    <Import Project="..\..\build\Avalonia.props"/>
+    <Import Project="..\..\build\Avalonia.Desktop.props"/>
+    <Import Project="..\..\build\Avalonia.Diagnostics.props"/>
+    <Import Project="..\..\build\Avalonia.Themes.Fluent.props"/>
+    <Import Project="..\..\build\CommunityToolkit.Mvvm.props"/>
+
+    <ItemGroup>
+        <Folder Include="Models\"/>
+        <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Avalonia.Controls.Knob\Avalonia.Controls.Knob.csproj"/>
+    </ItemGroup>
+</Project>

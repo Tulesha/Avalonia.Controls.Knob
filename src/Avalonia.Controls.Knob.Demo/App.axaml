@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Avalonia.Controls.Knob.Demo.App"
+             xmlns:local="using:Avalonia.Controls.Knob.Demo"
+             RequestedThemeVariant="Default">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.Knob/Themes/Avalonia.Controls.Knob.axaml" />
+    </Application.Styles>
+</Application>
