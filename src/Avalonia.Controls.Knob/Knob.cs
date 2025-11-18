@@ -2,7 +2,6 @@
 using Avalonia.Controls.Helpers;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Shapes;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -12,41 +11,44 @@ namespace Avalonia.Controls;
 /// <summary>
 /// Knob control
 /// </summary>
-[TemplatePart("PART_Ellipse", typeof(Ellipse), IsRequired = true)]
-[TemplatePart("PART_TextBox", typeof(TextBox), IsRequired = true)]
-public partial class Knob : TemplatedControl
+[PseudoClasses(":pressed")]
+public partial class Knob : RangeBase
 {
-    private IDisposable? _textBoxTextChangedSubscription;
+    private const double MinDraggingChangesValue = 2.0;
 
-    private bool _internalValueSet;
-    private bool _isSyncingTextAndValueProperties;
-    private bool _isTextChangedFromUi;
+    private bool _isFocusEngaged;
+    private bool _isDragging;
+    private bool _isCaptured;
 
-    private bool _capturedFromPressed;
-    private Point _previousMousePosition;
+    private Point _startDragPoint;
+    private double _startDragAngle;
 
-    /// <summary>
-    /// Gets the Ellipse template part.
-    /// </summary>
-    private Ellipse? _ellipse;
+    private IDisposable? _pointerPressedDispose;
+    private IDisposable? _pointerMovedDispose;
+    private IDisposable? _pointerReleasedDispose;
+    private IDisposable? _pointerWheelDispose;
 
-    /// <summary>
-    /// Gets the TextBox template part.
-    /// </summary>
-    private TextBox? _textBox;
-
-    /// <summary>
-    /// Initializes new instance of <see cref="Knob"/> class.
-    /// </summary>
+    /// <inheritdoc />
     public Knob()
     {
-        Initialized += (_, _) =>
+        UpdateValueRange();
+    }
+
+    /// <summary>
+    /// Get the center of the control.
+    /// </summary>
+    protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);
+
+    /// <inheritdoc />
+    protected override void UpdateDataValidation(
+        AvaloniaProperty property,
+        BindingValueType state,
+        Exception? error)
+    {
+        if (property == ValueProperty)
         {
-            if (!_internalValueSet && IsInitialized)
-            {
-                SyncTextAndValueProperties(false, null, true);
-            }
-        };
+            DataValidationErrors.SetError(this, error);
+        }
     }
 
     /// <inheritdoc />
@@ -54,157 +56,292 @@ public partial class Knob : TemplatedControl
     {
         base.OnApplyTemplate(e);
 
-        if (_ellipse != null)
+        _pointerPressedDispose?.Dispose();
+        _pointerMovedDispose?.Dispose();
+        _pointerReleasedDispose?.Dispose();
+        _pointerWheelDispose?.Dispose();
+
+        _pointerPressedDispose = this.AddDisposableHandler(PointerPressedEvent,
+            OnPointerPressedInternal,
+            RoutingStrategies.Tunnel);
+        _pointerMovedDispose = this.AddDisposableHandler(PointerMovedEvent,
+            OnPointerMovedInternal,
+            RoutingStrategies.Tunnel);
+        _pointerReleasedDispose = this.AddDisposableHandler(PointerReleasedEvent,
+            OnPointerReleasedInternal,
+            RoutingStrategies.Tunnel);
+        _pointerWheelDispose = this.AddDisposableHandler(PointerWheelChangedEvent,
+            OnPointerWheelChangedInternal,
+            RoutingStrategies.Tunnel);
+
+        RecalculateAngles();
+    }
+
+    /// <inheritdoc />
+    protected override void OnKeyUp(KeyEventArgs e)
+    {
+        base.OnKeyUp(e);
+        if (e.Handled || e.KeyModifiers != KeyModifiers.None)
+            return;
+
+        var usingXyNavigation = this.IsAllowedXyNavigationMode(e.KeyDeviceType);
+        var allowArrowKeys = _isFocusEngaged || !usingXyNavigation;
+
+        var handled = true;
+        switch (e.Key)
         {
-            _ellipse.RemoveHandler(PointerPressedEvent,
-                Ellipse_OnPointerPressed);
-            _ellipse.RemoveHandler(PointerMovedEvent,
-                Ellipse_OnPointerMoved);
-            _ellipse.RemoveHandler(PointerReleasedEvent,
-                Ellipse_OnPointerReleased);
-            _ellipse.RemoveHandler(PointerWheelChangedEvent,
-                Ellipse_OnPointerWheelChanged);
-            _ellipse = null;
+            case Key.Enter when usingXyNavigation:
+                _isFocusEngaged = !_isFocusEngaged;
+                handled = true;
+                break;
+            case Key.Escape when usingXyNavigation:
+                _isFocusEngaged = false;
+                handled = true;
+                break;
+
+            case Key.Down when allowArrowKeys:
+            case Key.Left when allowArrowKeys:
+                MoveToNextValue(-SmallChange);
+                break;
+
+            case Key.Up when allowArrowKeys:
+            case Key.Right when allowArrowKeys:
+                MoveToNextValue(SmallChange);
+                break;
+
+            case Key.PageUp:
+                MoveToNextValue(LargeChange);
+                break;
+
+            case Key.PageDown:
+                MoveToNextValue(-LargeChange);
+                break;
+
+            case Key.Home:
+                SetCurrentValue(ValueProperty, Minimum);
+                break;
+
+            case Key.End:
+                SetCurrentValue(ValueProperty, Maximum);
+                break;
+
+            default:
+                handled = false;
+                break;
         }
 
-        if (_textBox != null)
-        {
-            _textBoxTextChangedSubscription?.Dispose();
-            _textBox.RemoveHandler(KeyDownEvent,
-                TextBox_OnKeyDown);
-            _textBox = null;
-        }
-
-        _textBox = e.NameScope.Find<TextBox>("PART_TextBox");
-        if (_textBox != null)
-        {
-            _textBox.Text = Text;
-            _textBoxTextChangedSubscription =
-                _textBox.GetObservable(TextBox.TextProperty).Subscribe(_ => TextBoxOnTextChanged());
-
-            _textBox.AddHandler(KeyDownEvent,
-                TextBox_OnKeyDown,
-                RoutingStrategies.Bubble | RoutingStrategies.Tunnel);
-        }
-
-        _ellipse = e.NameScope.Find<Ellipse>("PART_Ellipse");
-        if (_ellipse != null)
-        {
-            _ellipse.AddHandler(PointerPressedEvent,
-                Ellipse_OnPointerPressed,
-                RoutingStrategies.Bubble | RoutingStrategies.Tunnel);
-            _ellipse.AddHandler(PointerMovedEvent,
-                Ellipse_OnPointerMoved,
-                RoutingStrategies.Bubble | RoutingStrategies.Tunnel);
-            _ellipse.AddHandler(PointerReleasedEvent,
-                Ellipse_OnPointerReleased,
-                RoutingStrategies.Bubble | RoutingStrategies.Tunnel);
-            _ellipse.AddHandler(PointerWheelChangedEvent,
-                Ellipse_OnPointerWheelChanged,
-                RoutingStrategies.Bubble | RoutingStrategies.Tunnel);
-        }
-
-        UpdateUi();
+        e.Handled = handled;
     }
 
     /// <summary>
-    /// Called to update the validation state for properties for which data validation is
-    /// enabled.
+    /// Recalculates the angle
     /// </summary>
-    /// <param name="property">The property.</param>
-    /// <param name="state">The current data binding state.</param>
-    /// <param name="error">The current data binding error, if any.</param>
-    protected override void UpdateDataValidation(
-        AvaloniaProperty property,
-        BindingValueType state,
-        Exception? error)
+    protected virtual void RecalculateAngles()
     {
-        if (property == TextProperty || property == ValueProperty)
-        {
-            DataValidationErrors.SetError(this, error);
-        }
+        // v1, v2:
+        // var newAngle = (StartAngle + SweepAngle - StartAngle) / (Maximum - Minimum) * (Value - Minimum);
+        //
+        // SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, newAngle);
+        // SetAndRaise(PointerStartAngleProperty, ref _pointerStartAngle, StartAngle + newAngle - PointerThickness);
+
+        // v3:
+        var valuePosition = ValueRange > 0 ? (Value - Minimum) / ValueRange : 0;
+        var calculatedAngle = StartAngle + SweepAngle * valuePosition;
+
+        SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, calculatedAngle - StartAngle);
+        SetAndRaise(PointerStartAngleProperty,
+            ref _pointerStartAngle,
+            calculatedAngle - PointerThickness); // Adjust pointer width
     }
 
-    private void TextBoxOnTextChanged()
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerPressedEvent"/> event called.
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Pointer pressed event args</param>
+    protected virtual void OnPointerPressedInternal(object sender, PointerPressedEventArgs e)
     {
-        try
-        {
-            _isTextChangedFromUi = true;
-            if (_textBox != null)
-            {
-                SetCurrentValue(TextProperty, _textBox.Text);
-            }
-        }
-        finally
-        {
-            _isTextChangedFromUi = false;
-        }
-    }
+        if (!IsEnabled)
+            return;
 
-    private void TextBox_OnKeyDown(object? sender, KeyEventArgs e)
-    {
-        switch (e.Key)
-        {
-            case Key.Enter:
-                var commitSuccess = CommitInput();
-                e.Handled = !commitSuccess;
-                break;
-        }
-    }
-
-    private void Ellipse_OnPointerPressed(object sender, PointerPressedEventArgs e)
-    {
         if (!e.Properties.IsLeftButtonPressed)
             return;
 
-        _capturedFromPressed = true;
-        e.Pointer.Capture(_ellipse);
-        _previousMousePosition = e.GetPosition(_ellipse);
+        StartCapturing(e.GetPosition(this));
 
         e.Handled = true;
     }
 
-    private void Ellipse_OnPointerMoved(object sender, PointerEventArgs e)
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerMovedEvent"/> event called.
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Pointer moved event args</param>
+    protected virtual void OnPointerMovedInternal(object sender, PointerEventArgs e)
     {
-        if (Equals(e.Pointer.Captured, _ellipse))
+        if (!IsEnabled)
+            return;
+
+        if (!_isCaptured)
+            return;
+
+        var currentPoint = e.GetPosition(this);
+
+        // Threshold to detect actual dragging
+        if (!(currentPoint.LengthFromPoints(_startDragPoint) > MinDraggingChangesValue))
+            return;
+
+        ProcessDragging(currentPoint);
+
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerReleasedEvent"/> event called.
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Pointer released event args</param>
+    protected virtual void OnPointerReleasedInternal(object sender, PointerReleasedEventArgs e)
+    {
+        if (!IsEnabled)
+            return;
+
+        if (!_isCaptured)
+            return;
+
+        if (_isDragging)
         {
-            var newMousePosition = e.GetPosition(_ellipse);
-            var dY = _previousMousePosition.Y - newMousePosition.Y;
-            SetCurrentValue(ValueProperty, Value + Math.Sign(dY) * Increment);
-            _previousMousePosition = newMousePosition;
-
-            e.Handled = true;
+            StopDragging();
         }
-    }
-
-    private void Ellipse_OnPointerReleased(object sender, PointerReleasedEventArgs e)
-    {
-        if (Equals(e.Pointer.Captured, _ellipse) && _capturedFromPressed)
+        else
         {
-            _previousMousePosition = default;
-            e.Pointer.Capture(null);
-            e.Handled = true;
+            ProcessPressing(e.GetPosition(this));
         }
 
-        _capturedFromPressed = false;
+        _isCaptured = false;
+        e.Handled = true;
     }
 
-    private void Ellipse_OnPointerWheelChanged(object sender, PointerWheelEventArgs e)
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerWheelChangedEvent"/> event called.
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Pointer wheel changed event args</param>
+    protected virtual void OnPointerWheelChangedInternal(object sender, PointerWheelEventArgs e)
     {
-        var d = e.Delta.Length / 120;
-        SetCurrentValue(ValueProperty, Value + d * Increment);
+        if (!IsEnabled)
+            return;
+
+        MoveToNextValue(e.Delta.Y * SmallChange);
+        e.Handled = true;
     }
 
-    private bool CommitInput(bool forceTextUpdate = false)
+    private void MoveToNextValue(double direction)
     {
-        return SyncTextAndValueProperties(true, Text, forceTextUpdate);
+        if (direction == 0.0) return;
+
+        SetCurrentValue(ValueProperty, Value + direction);
     }
 
-    private void UpdateUi()
+    private void StartCapturing(Point currentPoint)
     {
-        var newAngle = (EndAngle - StartAngle) / (Maximum - Minimum) * (Value - Minimum) + StartAngle;
-        SetAndRaise(PointerStartAngleProperty, ref _pointerStartAngle, newAngle - 3);
-        SetAndRaise(PointerEndAngleProperty, ref _pointerEndAngle, newAngle + 3);
-        SetAndRaise(LevelEndAngleProperty, ref _levelEndAngle, newAngle);
+        var center = Center;
+        _isDragging = false;
+        _isCaptured = true;
+        _startDragPoint = currentPoint;
+        _startDragAngle = _startDragPoint.Atan2FromCenter(center);
+    }
+
+    private void ProcessDragging(Point currentPoint)
+    {
+        _isDragging = true;
+
+        var center = Center;
+        var currentAngle = currentPoint.Atan2FromCenter(center);
+
+        // Calculate the difference in angle from the start of the drag
+        var angleDelta = currentAngle - _startDragAngle;
+
+        // Normalize the angle delta to handle wrap-around
+        while (angleDelta > Math.PI)
+            angleDelta -= 2 * Math.PI;
+        while (angleDelta < -Math.PI)
+            angleDelta += 2 * Math.PI;
+
+        // Calculate the total sweep in radians
+        var sweepAngleRad = SweepAngle * Math.PI / 180.0;
+
+        // Map the angle delta to the value range
+        var normalizedDelta = angleDelta / sweepAngleRad;
+        var rawValueChange = normalizedDelta * ValueRange;
+
+        SetCurrentValue(ValueProperty, Value + Math.Sign(rawValueChange) * SmallChange);
+        _startDragAngle = currentAngle;
+    }
+
+    private void StopDragging()
+    {
+        // Reset dragging state
+        _isDragging = false;
+        _startDragPoint = default;
+        _startDragAngle = 0;
+    }
+
+    private void ProcessPressing(Point currentPoint)
+    {
+        var center = Center;
+        var currentAngle = currentPoint.Atan2FromCenter(center);
+
+        // Convert StartAngle and SweepAngle to radians for consistent calculation
+        var startAngleRad = StartAngle * Math.PI / 180.0;
+        var sweepAngleRad = SweepAngle * Math.PI / 180.0;
+        var endAngleRad = startAngleRad + sweepAngleRad;
+
+        // Normalize the angle to be in the range [startAngleRad, startAngleRad + 2*PI)
+        var normalizedAngle = currentAngle;
+        while (normalizedAngle < startAngleRad)
+            normalizedAngle += 2 * Math.PI;
+        while (normalizedAngle >= startAngleRad + 2 * Math.PI)
+            normalizedAngle -= 2 * Math.PI;
+
+        // Check if the angle is within the sweep range
+        var relativeAngle = normalizedAngle - startAngleRad; // This is the angle within the sweep
+
+        // Within the range
+        if (relativeAngle <= sweepAngleRad)
+        {
+            // Map the angle to a value between Minimum and Maximum
+            var anglePosition = relativeAngle / sweepAngleRad;
+
+            var newValue = Minimum + anglePosition * ValueRange;
+
+            // Set value in increments of SmallChange
+            var targetValueInSmallChanges = Math.Round((newValue - Minimum) / SmallChange);
+            SetCurrentValue(ValueProperty, Minimum + targetValueInSmallChanges * SmallChange);
+        }
+        else
+        {
+            // Angle is outside the valid range - determine which end is closer
+
+            // Calculate distances to both ends
+            var distanceToStart = Math.Abs(normalizedAngle - startAngleRad);
+            var distanceToEnd = Math.Abs(normalizedAngle - endAngleRad);
+
+            // Consider wrap-around distances
+            var wrapDistanceToStart = 2 * Math.PI - distanceToStart;
+            var wrapDistanceToEnd = 2 * Math.PI - distanceToEnd;
+
+            var effectiveDistanceToStart = Math.Min(distanceToStart, wrapDistanceToStart);
+            var effectiveDistanceToEnd = Math.Min(distanceToEnd, wrapDistanceToEnd);
+
+            if (effectiveDistanceToStart <= effectiveDistanceToEnd)
+            {
+                SetCurrentValue(ValueProperty, Minimum);
+            }
+            else
+            {
+                SetCurrentValue(ValueProperty, Maximum);
+            }
+        }
     }
 }
