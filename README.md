@@ -1,6 +1,6 @@
 # Avalonia.Controls.Knob
 
-[![NuGet](https://img.shields.io/nuget/v/Tulesha.Avalonia.Control.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Control.Knob) [![downloads](https://img.shields.io/nuget/dt/Tulesha.Avalonia.Control.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Control.Knob)
+[![NuGet](https://img.shields.io/nuget/v/Tulesha.Avalonia.Controls.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Controls.Knob) [![downloads](https://img.shields.io/nuget/dt/Tulesha.Avalonia.Controls.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Controls.Knob)
 
 ## Description
 

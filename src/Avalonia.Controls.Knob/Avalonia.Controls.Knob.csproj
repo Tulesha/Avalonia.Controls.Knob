@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>Tulesha.Avalonia.Control.Knob</PackageId>
+        <PackageId>Tulesha.Avalonia.Controls.Knob</PackageId>
         <Description>Knob control for Avalonia</Description>
         <PackageTags>Avalonia;Knob;Control;Xaml</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
