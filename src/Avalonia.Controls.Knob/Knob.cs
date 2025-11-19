@@ -31,13 +31,28 @@ public partial class Knob : RangeBase
     /// <inheritdoc />
     public Knob()
     {
-        UpdateValueRange();
+        UpdateRange();
     }
 
     /// <summary>
     /// Get the center of the control.
     /// </summary>
     protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);
+
+    /// <summary>
+    /// Get the start angle in radians.
+    /// </summary>
+    protected double StartAngleRad => StartAngle * Math.PI / 180.0;
+
+    /// <summary>
+    /// Get the sweep angle in radians.
+    /// </summary>
+    protected double SweepAngleRad => SweepAngle * Math.PI / 180.0;
+
+    /// <summary>
+    /// Get the end angle in radians.
+    /// </summary>
+    protected double EndAngleRad => StartAngleRad + SweepAngleRad;
 
     /// <inheritdoc />
     protected override void UpdateDataValidation(
@@ -145,7 +160,7 @@ public partial class Knob : RangeBase
         // SetAndRaise(PointerStartAngleProperty, ref _pointerStartAngle, StartAngle + newAngle - PointerThickness);
 
         // v3:
-        var valuePosition = ValueRange > 0 ? (Value - Minimum) / ValueRange : 0;
+        var valuePosition = Range > 0 ? (Value - Minimum) / Range : 0;
         var calculatedAngle = StartAngle + SweepAngle * valuePosition;
 
         SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, calculatedAngle - StartAngle);
@@ -159,7 +174,7 @@ public partial class Knob : RangeBase
     /// </summary>
     /// <param name="sender">Sender</param>
     /// <param name="e">Pointer pressed event args</param>
-    protected virtual void OnPointerPressedInternal(object sender, PointerPressedEventArgs e)
+    protected virtual void OnPointerPressedInternal(object? sender, PointerPressedEventArgs e)
     {
         if (!IsEnabled)
             return;
@@ -177,7 +192,7 @@ public partial class Knob : RangeBase
     /// </summary>
     /// <param name="sender">Sender</param>
     /// <param name="e">Pointer moved event args</param>
-    protected virtual void OnPointerMovedInternal(object sender, PointerEventArgs e)
+    protected virtual void OnPointerMovedInternal(object? sender, PointerEventArgs e)
     {
         if (!IsEnabled)
             return;
@@ -201,7 +216,7 @@ public partial class Knob : RangeBase
     /// </summary>
     /// <param name="sender">Sender</param>
     /// <param name="e">Pointer released event args</param>
-    protected virtual void OnPointerReleasedInternal(object sender, PointerReleasedEventArgs e)
+    protected virtual void OnPointerReleasedInternal(object? sender, PointerReleasedEventArgs e)
     {
         if (!IsEnabled)
             return;
@@ -227,7 +242,7 @@ public partial class Knob : RangeBase
     /// </summary>
     /// <param name="sender">Sender</param>
     /// <param name="e">Pointer wheel changed event args</param>
-    protected virtual void OnPointerWheelChangedInternal(object sender, PointerWheelEventArgs e)
+    protected virtual void OnPointerWheelChangedInternal(object? sender, PointerWheelEventArgs e)
     {
         if (!IsEnabled)
             return;
@@ -269,11 +284,11 @@ public partial class Knob : RangeBase
             angleDelta += 2 * Math.PI;
 
         // Calculate the total sweep in radians
-        var sweepAngleRad = SweepAngle * Math.PI / 180.0;
+        var sweepAngleRad = SweepAngleRad;
 
         // Map the angle delta to the value range
         var normalizedDelta = angleDelta / sweepAngleRad;
-        var rawValueChange = normalizedDelta * ValueRange;
+        var rawValueChange = normalizedDelta * Range;
 
         SetCurrentValue(ValueProperty, Value + Math.Sign(rawValueChange) * SmallChange);
         _startDragAngle = currentAngle;
@@ -293,9 +308,9 @@ public partial class Knob : RangeBase
         var currentAngle = currentPoint.Atan2FromCenter(center);
 
         // Convert StartAngle and SweepAngle to radians for consistent calculation
-        var startAngleRad = StartAngle * Math.PI / 180.0;
-        var sweepAngleRad = SweepAngle * Math.PI / 180.0;
-        var endAngleRad = startAngleRad + sweepAngleRad;
+        var startAngleRad = StartAngleRad;
+        var sweepAngleRad = SweepAngleRad;
+        var endAngleRad = EndAngleRad;
 
         // Normalize the angle to be in the range [startAngleRad, startAngleRad + 2*PI)
         var normalizedAngle = currentAngle;
@@ -313,7 +328,7 @@ public partial class Knob : RangeBase
             // Map the angle to a value between Minimum and Maximum
             var anglePosition = relativeAngle / sweepAngleRad;
 
-            var newValue = Minimum + anglePosition * ValueRange;
+            var newValue = Minimum + anglePosition * Range;
 
             // Set value in increments of SmallChange
             var targetValueInSmallChanges = Math.Round((newValue - Minimum) / SmallChange);

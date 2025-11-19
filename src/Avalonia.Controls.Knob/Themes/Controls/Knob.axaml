@@ -8,10 +8,11 @@
                Background="White">
             <controls:Knob Value="21"
                            Minimum="0"
-                           Maximum="200"
+                           Maximum="100"
                            SmallChange="1"
-                           StartAngle="-270"
-                           SweepAngle="360" />
+                           StartAngle="-225"
+                           SweepAngle="270"
+                           TickFrequency="10" />
         </Panel>
 
     </Design.PreviewWith>
@@ -28,6 +29,15 @@
                 <DataValidationErrors>
                     <Panel x:Name="PART_KnobContainer"
                            Background="{DynamicResource SliderContainerBackground}">
+                        <controls:KnobTickBar x:Name="PART_KnobTickBar"
+                                              Fill="{TemplateBinding Foreground}"
+                                              StartAngle="{TemplateBinding StartAngle}"
+                                              SweepAngle="{TemplateBinding SweepAngle}"
+                                              Maximum="{TemplateBinding Maximum}"
+                                              Minimum="{TemplateBinding Minimum}"
+                                              TickFrequency="{TemplateBinding TickFrequency}"
+                                              Ticks="{TemplateBinding Ticks}" />
+
                         <Arc x:Name="PART_MainArc"
                              Stroke="{TemplateBinding Background}"
                              StartAngle="{TemplateBinding StartAngle}"

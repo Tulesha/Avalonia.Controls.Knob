@@ -26,12 +26,13 @@
                        SmallChange="{Binding SmallChange}"
                        LargeChange="{Binding LargeChange}"
                        StartAngle="{Binding StartAngle}"
-                       SweepAngle="{Binding SweepAngle}" />
+                       SweepAngle="{Binding SweepAngle}"
+                       TickFrequency="{Binding TickFrequency}" />
 
         <Grid Grid.Column="1"
               VerticalAlignment="Center"
               ColumnDefinitions="Auto, *"
-              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
               ColumnSpacing="8"
               RowSpacing="4">
             <TextBlock Grid.Column="0"
@@ -89,6 +90,14 @@
             <NumericUpDown Grid.Column="1"
                            Grid.Row="6"
                            Value="{Binding SweepAngle}" />
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="7"
+                       Text="Tick Frequency"
+                       VerticalAlignment="Center" />
+            <NumericUpDown Grid.Column="1"
+                           Grid.Row="7"
+                           Value="{Binding TickFrequency}" />
         </Grid>
     </Grid>
 </Window>

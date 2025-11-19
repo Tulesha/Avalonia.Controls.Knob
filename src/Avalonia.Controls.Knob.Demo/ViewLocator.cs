@@ -1,7 +1,6 @@
 using System;
-using Avalonia.Controls;
-using Avalonia.Controls.Templates;
 using Avalonia.Controls.Knob.Demo.ViewModels;
+using Avalonia.Controls.Templates;
 
 namespace Avalonia.Controls.Knob.Demo;
 

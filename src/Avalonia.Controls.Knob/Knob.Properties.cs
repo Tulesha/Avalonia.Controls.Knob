@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls.Mixins;
+﻿using Avalonia.Collections;
+using Avalonia.Controls.Helpers;
+using Avalonia.Controls.Mixins;
 using Avalonia.Controls.Primitives;
 using Avalonia.Reactive;
 
@@ -87,22 +89,22 @@ public partial class Knob
 
     #endregion
 
-    #region ValueRange Property
+    #region Range Property
 
-    private double _valueRange;
+    private double _range;
 
     /// <summary>
-    /// Defines the <see cref="ValueRange"/> property.
+    /// Defines the <see cref="Range"/> property.
     /// </summary>
-    public static readonly DirectProperty<Knob, double> ValueRangeProperty =
+    public static readonly DirectProperty<Knob, double> RangeProperty =
         AvaloniaProperty.RegisterDirect<Knob, double>(
-            nameof(ValueRange),
-            o => o.ValueRange);
+            nameof(Range),
+            o => o.Range);
 
     /// <summary>
     /// Get the range from <see cref="RangeBase.Minimum"/> and <see cref="RangeBase.Maximum"/> properties.
     /// </summary>
-    public double ValueRange => _valueRange;
+    public double Range => _range;
 
     #endregion
 
@@ -186,14 +188,43 @@ public partial class Knob
 
     #endregion
 
+    #region TickFrequency Property
+
     /// <summary>
-    /// Checks if the double value is not infinity nor NaN.
+    /// Defines the <see cref="TickFrequency"/> property.
     /// </summary>
-    /// <param name="value">The value.</param>
-    private static bool ValidateDouble(double value)
+    public static readonly StyledProperty<double> TickFrequencyProperty =
+        KnobTickBar.TickFrequencyProperty.AddOwner<Knob>();
+
+    /// <summary>
+    /// Gets or sets the interval between tick marks.
+    /// </summary>
+    public double TickFrequency
     {
-        return !double.IsInfinity(value) && !double.IsNaN(value);
+        get => GetValue(TickFrequencyProperty);
+        set => SetValue(TickFrequencyProperty, value);
     }
+
+    #endregion
+
+    #region Ticks Property
+
+    /// <summary>
+    /// Defines the <see cref="Ticks"/> property.
+    /// </summary>
+    public static readonly StyledProperty<AvaloniaList<double>?> TicksProperty =
+        KnobTickBar.TicksProperty.AddOwner<Knob>();
+
+    /// <summary>
+    /// Defines the ticks to be drawn on the tick bar.
+    /// </summary>
+    public AvaloniaList<double>? Ticks
+    {
+        get => GetValue(TicksProperty);
+        set => SetValue(TicksProperty, value);
+    }
+
+    #endregion
 
     /// <summary>
     /// Marks a property as affecting the control's recalculating angles.
@@ -233,7 +264,7 @@ public partial class Knob
         if (change.Property == MinimumProperty ||
             change.Property == MaximumProperty)
         {
-            UpdateValueRange();
+            UpdateRange();
         }
     }
 
@@ -243,11 +274,7 @@ public partial class Knob
     /// <param name="baseValue">The value.</param>
     protected virtual double CoerceStartAngle(double baseValue)
     {
-        return ValidateDouble(baseValue) &&
-               baseValue >= -360 &&
-               baseValue <= 360
-            ? baseValue
-            : StartAngle;
+        return CoerceHelpers.CoerceStartAngle(baseValue, StartAngle);
     }
 
     /// <summary>
@@ -256,15 +283,11 @@ public partial class Knob
     /// <param name="baseValue">The value.</param>
     protected virtual double CoerceSweepAngle(double baseValue)
     {
-        return ValidateDouble(baseValue) &&
-               baseValue > 0 &&
-               baseValue < 360
-            ? baseValue
-            : SweepAngle;
+        return CoerceHelpers.CoerceSweepAngle(baseValue, SweepAngle);
     }
 
-    private void UpdateValueRange()
+    private void UpdateRange()
     {
-        SetAndRaise(ValueRangeProperty, ref _valueRange, Maximum - Minimum);
+        SetAndRaise(RangeProperty, ref _range, Maximum - Minimum);
     }
 }

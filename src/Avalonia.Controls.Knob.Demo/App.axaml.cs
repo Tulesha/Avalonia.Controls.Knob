@@ -1,11 +1,9 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
 using System.Linq;
-using Avalonia.Markup.Xaml;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Knob.Demo.ViewModels;
 using Avalonia.Controls.Knob.Demo.Views;
+using Avalonia.Data.Core.Plugins;
+using Avalonia.Markup.Xaml;
 
 namespace Avalonia.Controls.Knob.Demo;
 

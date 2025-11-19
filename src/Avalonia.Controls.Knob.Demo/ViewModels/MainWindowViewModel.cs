@@ -11,4 +11,5 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private double _largeChange = 10.0;
     [ObservableProperty] private double _startAngle = -225.0;
     [ObservableProperty] private double _sweepAngle = 270.0;
+    [ObservableProperty] private double _tickFrequency = 10.0;
 }
