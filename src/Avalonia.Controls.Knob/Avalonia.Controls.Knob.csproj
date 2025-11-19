@@ -11,8 +11,15 @@
         <PackageId>Tulesha.Avalonia.Control.Knob</PackageId>
         <Description>Knob control for Avalonia</Description>
         <PackageTags>Avalonia;Knob;Control;Xaml</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile >
     </PropertyGroup>
 
     <Import Project="..\..\build\Base.props"/>
     <Import Project="..\..\build\Avalonia.props"/>
+    
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>

@@ -5,7 +5,6 @@
         <Authors>Tulesha</Authors>
         <Company>Tulesha</Company>
         <Copyright>Copyright © Tulesha 2025</Copyright>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/Tulesha/Avalonia.Controls.Knob</PackageProjectUrl>
     </PropertyGroup>
     <PropertyGroup>
