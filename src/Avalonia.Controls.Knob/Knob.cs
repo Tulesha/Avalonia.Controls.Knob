@@ -231,7 +231,7 @@ public partial class Knob : RangeBase
         SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, calculatedAngle - StartAngle);
         SetAndRaise(PointerStartAngleProperty,
             ref _pointerStartAngle,
-            calculatedAngle - PointerThickness);
+            calculatedAngle - PointerThickness / 2);
     }
 
     private void MoveToNextTick(double direction)

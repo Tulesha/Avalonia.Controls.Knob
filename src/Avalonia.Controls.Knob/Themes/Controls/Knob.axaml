@@ -67,15 +67,56 @@
                              Margin="30"
                              Stretch="None" />
 
-                        <ContentPresenter x:Name="PART_ContentPresenter"
+                        <ContentPresenter x:Name="PART_HeaderValueContentPresenter"
                                           Content="{TemplateBinding Value}"
-                                          IsVisible="{TemplateBinding IsValueTextVisible}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Bottom" />
+                                          ContentTemplate="{TemplateBinding HeaderValueTemplate}"
+                                          IsVisible="{TemplateBinding IsHeaderValueVisible}"
+                                          HorizontalContentAlignment="{TemplateBinding HeaderValueHorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding HeaderValueVerticalContentAlignment}" />
                     </Panel>
                 </DataValidationErrors>
             </ControlTemplate>
         </Setter>
+
+        <!-- Left -->
+        <Style Selector="^[HeaderValuePlacement=Left]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
+
+        <!-- Top -->
+        <Style Selector="^[HeaderValuePlacement=Top]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+            </Style>
+        </Style>
+
+        <!-- Rigth -->
+        <Style Selector="^[HeaderValuePlacement=Right]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
+
+        <!-- Bottom -->
+        <Style Selector="^[HeaderValuePlacement=Bottom]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+        </Style>
+
+        <!-- Center -->
+        <Style Selector="^[HeaderValuePlacement=Center]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
 
         <!--  PointerOver State  -->
         <Style Selector="^:pointerover">

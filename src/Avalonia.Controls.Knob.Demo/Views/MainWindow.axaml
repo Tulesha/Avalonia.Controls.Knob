@@ -10,6 +10,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Avalonia.Controls.Knob.Demo"
         SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
         Padding="10"
         x:CompileBindings="True">
 
@@ -19,7 +20,8 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Grid ColumnDefinitions="*, *">
+    <Grid ColumnDefinitions="*, *"
+          ColumnSpacing="8">
         <controls:Knob Grid.Column="0"
                        Value="{Binding Value}"
                        Maximum="{Binding Maximum}"
@@ -28,13 +30,17 @@
                        LargeChange="{Binding LargeChange}"
                        StartAngle="{Binding StartAngle}"
                        SweepAngle="{Binding SweepAngle}"
+                       IsPointerVisible="{Binding IsPointerVisible}"
+                       PointerThickness="{Binding PointerThickness}"
                        TickFrequency="{Binding TickFrequency}"
-                       IsSnapToTickEnabled="{Binding IsSnapToTickEnabled}" />
+                       IsSnapToTickEnabled="{Binding IsSnapToTickEnabled}"
+                       IsHeaderValueVisible="{Binding IsHeaderValueVisible}"
+                       HeaderValuePlacement="{Binding SelectedHeaderValuePlacement}" />
 
         <Grid Grid.Column="1"
               VerticalAlignment="Center"
               ColumnDefinitions="Auto, *"
-              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
               ColumnSpacing="8"
               RowSpacing="4">
             <TextBlock Grid.Column="0"
@@ -95,19 +101,52 @@
 
             <TextBlock Grid.Column="0"
                        Grid.Row="7"
-                       Text="Tick Frequency"
+                       Text="Is Pointer Visible"
                        VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
-                           Grid.Row="7"
-                           Value="{Binding TickFrequency}" />
+            <CheckBox Grid.Column="1"
+                      Grid.Row="7"
+                      IsChecked="{Binding IsPointerVisible}" />
 
             <TextBlock Grid.Column="0"
                        Grid.Row="8"
+                       Text="Pointer Thickness"
+                       VerticalAlignment="Center" />
+            <NumericUpDown Grid.Column="1"
+                           Grid.Row="8"
+                           Value="{Binding PointerThickness}" />
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="9"
+                       Text="Tick Frequency"
+                       VerticalAlignment="Center" />
+            <NumericUpDown Grid.Column="1"
+                           Grid.Row="9"
+                           Value="{Binding TickFrequency}" />
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="10"
                        Text="Is Snap To Tick Enabled"
                        VerticalAlignment="Center" />
             <CheckBox Grid.Column="1"
-                      Grid.Row="8"
+                      Grid.Row="10"
                       IsChecked="{Binding IsSnapToTickEnabled}" />
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="11"
+                       Text="Is Header Value Visible"
+                       VerticalAlignment="Center" />
+            <CheckBox Grid.Column="1"
+                      Grid.Row="11"
+                      IsChecked="{Binding IsHeaderValueVisible}" />
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="12"
+                       Text="Header Value Placement"
+                       VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1"
+                      Grid.Row="12"
+                      ItemsSource="{Binding HeaderValuePlacements}"
+                      SelectedItem="{Binding SelectedHeaderValuePlacement}" />
         </Grid>
     </Grid>
 </Window>

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia.Controls.Knob.Demo.ViewModels;
 
@@ -11,6 +13,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private double _largeChange = 10.0;
     [ObservableProperty] private double _startAngle = -225.0;
     [ObservableProperty] private double _sweepAngle = 270.0;
+    [ObservableProperty] private double _pointerThickness = 3.0;
     [ObservableProperty] private double _tickFrequency = 10.0;
+    [ObservableProperty] private bool _isPointerVisible = true;
     [ObservableProperty] private bool _isSnapToTickEnabled;
+    [ObservableProperty] private bool _isHeaderValueVisible = true;
+    [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacement = KnobHeaderPlacement.Bottom;
+
+    public IEnumerable<KnobHeaderPlacement> HeaderValuePlacements => Enum.GetValues<KnobHeaderPlacement>();
 }

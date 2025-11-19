@@ -16,7 +16,7 @@ public partial class KnobTickBar
             nameof(Fill));
 
     /// <summary>
-    /// Brush used to fill the KnobTickBar's Ticks.
+    /// Gets or sets the brush used to fill the KnobTickBar's Ticks.
     /// </summary>
     public IBrush? Fill
     {
@@ -34,11 +34,11 @@ public partial class KnobTickBar
     public static readonly StyledProperty<double> StartAngleProperty =
         AvaloniaProperty.Register<KnobTickBar, double>(
             nameof(StartAngle),
-            defaultValue: -240,
+            defaultValue: -240.0,
             coerce: CoerceStartAngle);
 
     /// <summary>
-    /// Get or set the start angle in degree.
+    /// Gets or sets the start angle in degree.
     /// </summary>
     public double StartAngle
     {
@@ -64,11 +64,11 @@ public partial class KnobTickBar
     public static readonly StyledProperty<double> SweepAngleProperty =
         AvaloniaProperty.Register<KnobTickBar, double>(
             nameof(SweepAngle),
-            defaultValue: 300,
+            defaultValue: 300.0,
             coerce: CoerceSweepAngle);
 
     /// <summary>
-    /// Get or set the sweep angle in degree.
+    /// Gets or sets the sweep angle in degree.
     /// </summary>
     public double SweepAngle
     {
@@ -96,7 +96,7 @@ public partial class KnobTickBar
             nameof(Maximum));
 
     /// <summary>
-    /// Logical position where the Maximum Tick will be drawn
+    /// Gets or sets the logical position where the Maximum Tick will be drawn.
     /// </summary>
     public double Maximum
     {
@@ -116,7 +116,7 @@ public partial class KnobTickBar
             nameof(Minimum));
 
     /// <summary>
-    /// Logical position where the Minimum Tick will be drawn
+    /// Gets or sets the logical position where the Minimum Tick will be drawn.
     /// </summary>
     public double Minimum
     {
@@ -155,7 +155,7 @@ public partial class KnobTickBar
             nameof(TickFrequency));
 
     /// <summary>
-    /// TickFrequency property defines how the tick will be drawn.
+    /// Gets or sets the value, which defines how the tick will be drawn.
     /// </summary>
     public double TickFrequency
     {
@@ -175,7 +175,7 @@ public partial class KnobTickBar
             nameof(Ticks));
 
     /// <summary>
-    /// The Ticks property contains collection of value of type Double which
+    /// Gets or sets the value, which contains collection of value of type Double which
     /// are the logical positions use to draw the ticks.
     /// The property value is a <see cref="AvaloniaList{T}" />.
     /// </summary>

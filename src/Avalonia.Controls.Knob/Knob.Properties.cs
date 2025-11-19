@@ -2,6 +2,8 @@
 using Avalonia.Controls.Helpers;
 using Avalonia.Controls.Mixins;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
+using Avalonia.Layout;
 using Avalonia.Reactive;
 
 namespace Avalonia.Controls;
@@ -16,11 +18,11 @@ public partial class Knob
     public static readonly StyledProperty<double> StartAngleProperty =
         AvaloniaProperty.Register<Knob, double>(
             nameof(StartAngle),
-            defaultValue: -240,
+            defaultValue: -240.0,
             coerce: CoerceStartAngle);
 
     /// <summary>
-    /// Get or set the start angle in degree.
+    /// Gets or sets the start angle in degree.
     /// </summary>
     public double StartAngle
     {
@@ -46,11 +48,11 @@ public partial class Knob
     public static readonly StyledProperty<double> SweepAngleProperty =
         AvaloniaProperty.Register<Knob, double>(
             nameof(SweepAngle),
-            defaultValue: 300,
+            defaultValue: 300.0,
             coerce: CoerceSweepAngle);
 
     /// <summary>
-    /// Get or set the sweep angle in degree.
+    /// Gets or sets the sweep angle in degree.
     /// </summary>
     public double SweepAngle
     {
@@ -68,27 +70,6 @@ public partial class Knob
 
     #endregion
 
-    #region IsValueTextVisible Property
-
-    /// <summary>
-    /// Defines the <see cref="IsValueTextVisible"/> property.
-    /// </summary>
-    public static readonly StyledProperty<bool> IsValueTextVisibleProperty =
-        AvaloniaProperty.Register<Knob, bool>(
-            nameof(IsValueTextVisible),
-            true);
-
-    /// <summary>
-    /// Get or set the visibility for text value.
-    /// </summary>
-    public bool IsValueTextVisible
-    {
-        get => GetValue(IsValueTextVisibleProperty);
-        set => SetValue(IsValueTextVisibleProperty, value);
-    }
-
-    #endregion
-
     #region Range Property
 
     private double _range;
@@ -102,7 +83,7 @@ public partial class Knob
             o => o.Range);
 
     /// <summary>
-    /// Get the range from <see cref="RangeBase.Minimum"/> and <see cref="RangeBase.Maximum"/> properties.
+    /// Gets the range from <see cref="RangeBase.Minimum"/> and <see cref="RangeBase.Maximum"/> properties.
     /// </summary>
     public double Range => _range;
 
@@ -121,7 +102,7 @@ public partial class Knob
             o => o.LevelSweepAngle);
 
     /// <summary>
-    /// Get the pointer level sweep angle.
+    /// Gets the pointer level sweep angle.
     /// </summary>
     public double LevelSweepAngle => _levelSweepAngle;
 
@@ -140,7 +121,7 @@ public partial class Knob
             o => o.PointerStartAngle);
 
     /// <summary>
-    /// Get the pointer start angle.
+    /// Gets the pointer start angle.
     /// </summary>
     public double PointerStartAngle => _pointerStartAngle;
 
@@ -154,10 +135,10 @@ public partial class Knob
     public static readonly StyledProperty<double> PointerThicknessProperty =
         AvaloniaProperty.Register<Knob, double>(
             nameof(PointerThickness),
-            defaultValue: 3);
+            defaultValue: 3.0);
 
     /// <summary>
-    /// Get or set the thickness of the pointer.
+    /// Gets or sets the thickness of the pointer.
     /// </summary>
     public double PointerThickness
     {
@@ -178,7 +159,7 @@ public partial class Knob
             defaultValue: true);
 
     /// <summary>
-    /// Get or set is pointer visible.
+    /// Gets or sets is pointer visible.
     /// </summary>
     public bool IsPointerVisible
     {
@@ -242,6 +223,110 @@ public partial class Knob
     {
         get => GetValue(IsSnapToTickEnabledProperty);
         set => SetValue(IsSnapToTickEnabledProperty, value);
+    }
+
+    #endregion
+
+    #region HeaderValueTemplate Property
+
+    /// <summary>
+    /// Defines the <see cref="HeaderValueTemplate"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IDataTemplate?> HeaderValueTemplateProperty =
+        AvaloniaProperty.Register<Knob, IDataTemplate?>(
+            nameof(HeaderValueTemplate));
+
+    /// <summary>
+    /// Gets or sets the template for header control.
+    /// </summary>
+    public IDataTemplate? HeaderValueTemplate
+    {
+        get => GetValue(HeaderValueTemplateProperty);
+        set => SetValue(HeaderValueTemplateProperty, value);
+    }
+
+    #endregion
+
+    #region HeaderValueHorizontalContentAlignment Property
+
+    /// <summary>
+    /// Defines the <see cref="HeaderValueHorizontalContentAlignment"/> property.
+    /// </summary>
+    public static readonly StyledProperty<HorizontalAlignment> HeaderValueHorizontalContentAlignmentProperty =
+        AvaloniaProperty.Register<Knob, HorizontalAlignment>(
+            nameof(HeaderValueHorizontalContentAlignment),
+            defaultValue: HorizontalAlignment.Stretch);
+
+    /// <summary>
+    /// Gets or sets the horizontal alignment of content in header section.
+    /// </summary>
+    public HorizontalAlignment HeaderValueHorizontalContentAlignment
+    {
+        get => GetValue(HeaderValueHorizontalContentAlignmentProperty);
+        set => SetValue(HeaderValueHorizontalContentAlignmentProperty, value);
+    }
+
+    #endregion
+
+    #region HeaderValueVerticalContentAlignment Property
+
+    /// <summary>
+    /// Defines the <see cref="HeaderValueVerticalContentAlignment"/> property.
+    /// </summary>
+    public static readonly StyledProperty<VerticalAlignment> HeaderValueVerticalContentAlignmentProperty =
+        AvaloniaProperty.Register<Knob, VerticalAlignment>(
+            nameof(HeaderValueVerticalContentAlignment),
+            defaultValue: VerticalAlignment.Stretch);
+
+    /// <summary>
+    /// Gets or sets the vertical alignment of control in header section.
+    /// </summary>
+    public VerticalAlignment HeaderValueVerticalContentAlignment
+    {
+        get => GetValue(HeaderValueVerticalContentAlignmentProperty);
+        set => SetValue(HeaderValueVerticalContentAlignmentProperty, value);
+    }
+
+    #endregion
+
+    #region HeaderValuePlacement Property
+
+    /// <summary>
+    /// Defines the <see cref="HeaderValuePlacement"/> property.
+    /// </summary>
+    public static readonly StyledProperty<KnobHeaderPlacement> HeaderValuePlacementProperty =
+        AvaloniaProperty.Register<Knob, KnobHeaderPlacement>(
+            nameof(HeaderValuePlacement),
+            defaultValue: KnobHeaderPlacement.Bottom);
+
+    /// <summary>
+    /// Gets or sets the placement of header control.
+    /// </summary>
+    public KnobHeaderPlacement HeaderValuePlacement
+    {
+        get => GetValue(HeaderValuePlacementProperty);
+        set => SetValue(HeaderValuePlacementProperty, value);
+    }
+
+    #endregion
+
+    #region IsHeaderValueVisible Property
+
+    /// <summary>
+    /// Defines the <see cref="IsHeaderValueVisible"/> property.
+    /// </summary>
+    public static readonly StyledProperty<bool> IsHeaderValueVisibleProperty =
+        AvaloniaProperty.Register<Knob, bool>(
+            nameof(IsHeaderValueVisible),
+            defaultValue: true);
+
+    /// <summary>
+    /// Gets or sets the visibility of header control.
+    /// </summary>
+    public bool IsHeaderValueVisible
+    {
+        get => GetValue(IsHeaderValueVisibleProperty);
+        set => SetValue(IsHeaderValueVisibleProperty, value);
     }
 
     #endregion
