@@ -1,9 +1,11 @@
 ﻿using System;
-using Avalonia.Controls.Helpers;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
+using Tulesha.Avalonia.Controls.Helpers;
 
-namespace Avalonia.Controls;
+namespace Tulesha.Avalonia.Controls;
 
 /// <summary>
 /// An element that is used for drawing <see cref="Knob"/>'s Ticks.

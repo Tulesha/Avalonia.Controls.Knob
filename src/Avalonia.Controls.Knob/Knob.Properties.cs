@@ -1,12 +1,13 @@
-﻿using Avalonia.Collections;
-using Avalonia.Controls.Helpers;
+﻿using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls.Mixins;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Reactive;
+using Tulesha.Avalonia.Controls.Helpers;
 
-namespace Avalonia.Controls;
+namespace Tulesha.Avalonia.Controls;
 
 public partial class Knob
 {

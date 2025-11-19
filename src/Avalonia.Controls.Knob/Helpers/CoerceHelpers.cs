@@ -1,4 +1,4 @@
-﻿namespace Avalonia.Controls.Helpers;
+﻿namespace Tulesha.Avalonia.Controls.Helpers;
 
 internal static class CoerceHelpers
 {

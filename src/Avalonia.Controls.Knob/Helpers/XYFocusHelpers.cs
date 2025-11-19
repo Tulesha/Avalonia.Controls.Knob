@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia.Input;
 
-namespace Avalonia.Controls.Helpers;
+namespace Tulesha.Avalonia.Controls.Helpers;
 
 internal static class XyFocusHelpers
 {

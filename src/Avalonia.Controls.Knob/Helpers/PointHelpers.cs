@@ -1,6 +1,7 @@
 ﻿using System;
+using Avalonia;
 
-namespace Avalonia.Controls.Helpers;
+namespace Tulesha.Avalonia.Controls.Helpers;
 
 internal static class PointHelpers
 {

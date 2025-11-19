@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avalonia.Controls.Helpers;
+namespace Tulesha.Avalonia.Controls.Helpers;
 
 /// <summary>
 /// Copy of methods from <see cref="Avalonia.Utilities.MathUtilities"/>.

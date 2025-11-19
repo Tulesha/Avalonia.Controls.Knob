@@ -1,11 +1,13 @@
 ﻿using System;
-using Avalonia.Controls.Helpers;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
+using Tulesha.Avalonia.Controls.Helpers;
 
-namespace Avalonia.Controls;
+namespace Tulesha.Avalonia.Controls;
 
 /// <summary>
 /// Knob control

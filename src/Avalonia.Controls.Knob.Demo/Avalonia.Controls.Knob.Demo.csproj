@@ -5,7 +5,7 @@
         <OutputType>WinExe</OutputType>
         <IsPackable>False</IsPackable>
         <Nullable>enable</Nullable>
-        <RootNamespace>Avalonia.Controls.Knob.Demo</RootNamespace>
+        <RootNamespace>Tulesha.Avalonia.Controls.Knob.Demo</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -14,19 +14,19 @@
         <PublishReadyToRun>False</PublishReadyToRun>
     </PropertyGroup>
 
-    <Import Project="..\..\build\Base.props"/>
-    <Import Project="..\..\build\Avalonia.props"/>
-    <Import Project="..\..\build\Avalonia.Desktop.props"/>
-    <Import Project="..\..\build\Avalonia.Diagnostics.props"/>
-    <Import Project="..\..\build\Avalonia.Themes.Fluent.props"/>
-    <Import Project="..\..\build\CommunityToolkit.Mvvm.props"/>
+    <Import Project="..\..\build\Base.props" />
+    <Import Project="..\..\build\Avalonia.props" />
+    <Import Project="..\..\build\Avalonia.Desktop.props" />
+    <Import Project="..\..\build\Avalonia.Diagnostics.props" />
+    <Import Project="..\..\build\Avalonia.Themes.Fluent.props" />
+    <Import Project="..\..\build\CommunityToolkit.Mvvm.props" />
 
     <ItemGroup>
-        <Folder Include="Models\"/>
-        <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Models\" />
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Avalonia.Controls.Knob\Avalonia.Controls.Knob.csproj"/>
+        <ProjectReference Include="..\Avalonia.Controls.Knob\Avalonia.Controls.Knob.csproj" />
     </ItemGroup>
 </Project>

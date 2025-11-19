@@ -1,11 +1,12 @@
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Knob.Demo.ViewModels;
-using Avalonia.Controls.Knob.Demo.Views;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Tulesha.Avalonia.Controls.Knob.Demo.ViewModels;
+using Tulesha.Avalonia.Controls.Knob.Demo.Views;
 
-namespace Avalonia.Controls.Knob.Demo;
+namespace Tulesha.Avalonia.Controls.Knob.Demo;
 
 public partial class App : Application
 {

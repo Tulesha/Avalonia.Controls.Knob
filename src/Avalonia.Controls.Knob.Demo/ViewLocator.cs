@@ -1,8 +1,9 @@
 using System;
-using Avalonia.Controls.Knob.Demo.ViewModels;
+using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Tulesha.Avalonia.Controls.Knob.Demo.ViewModels;
 
-namespace Avalonia.Controls.Knob.Demo;
+namespace Tulesha.Avalonia.Controls.Knob.Demo;
 
 public class ViewLocator : IDataTemplate
 {

@@ -4,7 +4,7 @@
         <OutputType>Library</OutputType>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <Nullable>enable</Nullable>
-        <RootNamespace>Avalonia.Controls</RootNamespace>
+        <RootNamespace>Tulesha.Avalonia.Controls</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>

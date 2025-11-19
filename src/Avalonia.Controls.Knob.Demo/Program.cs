@@ -1,6 +1,7 @@
 ﻿using System;
+using Avalonia;
 
-namespace Avalonia.Controls.Knob.Demo;
+namespace Tulesha.Avalonia.Controls.Knob.Demo;
 
 sealed class Program
 {

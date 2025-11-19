@@ -1,8 +1,9 @@
-﻿using Avalonia.Collections;
-using Avalonia.Controls.Helpers;
+﻿using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Media;
+using Tulesha.Avalonia.Controls.Helpers;
 
-namespace Avalonia.Controls;
+namespace Tulesha.Avalonia.Controls;
 
 public partial class KnobTickBar
 {

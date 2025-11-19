@@ -1,4 +1,6 @@
-namespace Avalonia.Controls.Knob.Demo.Views;
+using Avalonia.Controls;
+
+namespace Tulesha.Avalonia.Controls.Knob.Demo.Views;
 
 public partial class MainWindow : Window
 {
