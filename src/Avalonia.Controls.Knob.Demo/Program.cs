@@ -1,5 +1,4 @@
-﻿using Avalonia;
-using System;
+﻿using System;
 
 namespace Avalonia.Controls.Knob.Demo;
 

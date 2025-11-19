@@ -4,7 +4,6 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 
 namespace Avalonia.Controls;
 
@@ -14,6 +13,7 @@ namespace Avalonia.Controls;
 [PseudoClasses(":pressed")]
 public partial class Knob : RangeBase
 {
+    private const double Tolerance = 0.0001;
     private const double MinDraggingChangesValue = 2.0;
 
     private bool _isFocusEngaged;
@@ -21,12 +21,6 @@ public partial class Knob : RangeBase
     private bool _isCaptured;
 
     private Point _startDragPoint;
-    private double _startDragAngle;
-
-    private IDisposable? _pointerPressedDispose;
-    private IDisposable? _pointerMovedDispose;
-    private IDisposable? _pointerReleasedDispose;
-    private IDisposable? _pointerWheelDispose;
 
     /// <inheritdoc />
     public Knob()
@@ -71,31 +65,109 @@ public partial class Knob : RangeBase
     {
         base.OnApplyTemplate(e);
 
-        _pointerPressedDispose?.Dispose();
-        _pointerMovedDispose?.Dispose();
-        _pointerReleasedDispose?.Dispose();
-        _pointerWheelDispose?.Dispose();
-
-        _pointerPressedDispose = this.AddDisposableHandler(PointerPressedEvent,
-            OnPointerPressedInternal,
-            RoutingStrategies.Tunnel);
-        _pointerMovedDispose = this.AddDisposableHandler(PointerMovedEvent,
-            OnPointerMovedInternal,
-            RoutingStrategies.Tunnel);
-        _pointerReleasedDispose = this.AddDisposableHandler(PointerReleasedEvent,
-            OnPointerReleasedInternal,
-            RoutingStrategies.Tunnel);
-        _pointerWheelDispose = this.AddDisposableHandler(PointerWheelChangedEvent,
-            OnPointerWheelChangedInternal,
-            RoutingStrategies.Tunnel);
-
         RecalculateAngles();
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerPressedEvent"/> event called.
+    /// </summary>
+    /// <param name="e">Pointer pressed event args</param>
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+
+        if (!IsEnabled)
+            return;
+
+        if (!e.Properties.IsLeftButtonPressed)
+            return;
+
+        var center = Center;
+        _isDragging = false;
+        _isCaptured = true;
+        _startDragPoint = e.GetPosition(this);
+        _startDragPoint.Atan2FromCenter(center);
+
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerMovedEvent"/> event called.
+    /// </summary>
+    /// <param name="e">Pointer moved event args</param>
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+
+        if (!IsEnabled)
+            return;
+
+        if (!_isCaptured)
+            return;
+
+        var currentPoint = e.GetPosition(this);
+
+        // Threshold to detect actual dragging
+        if (!(currentPoint.LengthFromPoints(_startDragPoint) > MinDraggingChangesValue))
+            return;
+
+        _isDragging = true;
+        Snap(currentPoint);
+
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerReleasedEvent"/> event called.
+    /// </summary>
+    /// <param name="e">Pointer released event args</param>
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+
+        if (!IsEnabled)
+            return;
+
+        if (!_isCaptured)
+            return;
+
+        if (_isDragging)
+        {
+            _isDragging = false;
+            _startDragPoint = default;
+        }
+        else
+        {
+            Snap(e.GetPosition(this));
+        }
+
+        _isCaptured = false;
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerWheelChangedEvent"/> event called.
+    /// </summary>
+    /// <param name="e">Pointer wheel changed event args</param>
+    protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+    {
+        base.OnPointerWheelChanged(e);
+
+        if (!IsEnabled)
+            return;
+
+        MoveToNextTick(e.Delta.Y * SmallChange);
+        e.Handled = true;
     }
 
     /// <inheritdoc />
     protected override void OnKeyUp(KeyEventArgs e)
     {
         base.OnKeyUp(e);
+
+        if (!IsEnabled)
+            return;
+
         if (e.Handled || e.KeyModifiers != KeyModifiers.None)
             return;
 
@@ -116,20 +188,20 @@ public partial class Knob : RangeBase
 
             case Key.Down when allowArrowKeys:
             case Key.Left when allowArrowKeys:
-                MoveToNextValue(-SmallChange);
+                MoveToNextTick(-SmallChange);
                 break;
 
             case Key.Up when allowArrowKeys:
             case Key.Right when allowArrowKeys:
-                MoveToNextValue(SmallChange);
+                MoveToNextTick(SmallChange);
                 break;
 
             case Key.PageUp:
-                MoveToNextValue(LargeChange);
+                MoveToNextTick(LargeChange);
                 break;
 
             case Key.PageDown:
-                MoveToNextValue(-LargeChange);
+                MoveToNextTick(-LargeChange);
                 break;
 
             case Key.Home:
@@ -153,156 +225,75 @@ public partial class Knob : RangeBase
     /// </summary>
     protected virtual void RecalculateAngles()
     {
-        // v1, v2:
-        // var newAngle = (StartAngle + SweepAngle - StartAngle) / (Maximum - Minimum) * (Value - Minimum);
-        //
-        // SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, newAngle);
-        // SetAndRaise(PointerStartAngleProperty, ref _pointerStartAngle, StartAngle + newAngle - PointerThickness);
-
-        // v3:
         var valuePosition = Range > 0 ? (Value - Minimum) / Range : 0;
         var calculatedAngle = StartAngle + SweepAngle * valuePosition;
 
         SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, calculatedAngle - StartAngle);
         SetAndRaise(PointerStartAngleProperty,
             ref _pointerStartAngle,
-            calculatedAngle - PointerThickness); // Adjust pointer width
+            calculatedAngle - PointerThickness);
     }
 
-    /// <summary>
-    /// Called when the <see cref="InputElement.PointerPressedEvent"/> event called.
-    /// </summary>
-    /// <param name="sender">Sender</param>
-    /// <param name="e">Pointer pressed event args</param>
-    protected virtual void OnPointerPressedInternal(object? sender, PointerPressedEventArgs e)
+    private void MoveToNextTick(double direction)
     {
-        if (!IsEnabled)
+        if (direction == 0.0)
             return;
 
-        if (!e.Properties.IsLeftButtonPressed)
-            return;
+        var value = Value;
 
-        StartCapturing(e.GetPosition(this));
+        // Find the next value by snapping
+        var next = SnapToTick(Math.Max(Minimum, Math.Min(Maximum, value + direction)));
 
-        e.Handled = true;
-    }
+        var greaterThan = direction > 0; //search for the next tick greater than value?
 
-    /// <summary>
-    /// Called when the <see cref="InputElement.PointerMovedEvent"/> event called.
-    /// </summary>
-    /// <param name="sender">Sender</param>
-    /// <param name="e">Pointer moved event args</param>
-    protected virtual void OnPointerMovedInternal(object? sender, PointerEventArgs e)
-    {
-        if (!IsEnabled)
-            return;
-
-        if (!_isCaptured)
-            return;
-
-        var currentPoint = e.GetPosition(this);
-
-        // Threshold to detect actual dragging
-        if (!(currentPoint.LengthFromPoints(_startDragPoint) > MinDraggingChangesValue))
-            return;
-
-        ProcessDragging(currentPoint);
-
-        e.Handled = true;
-    }
-
-    /// <summary>
-    /// Called when the <see cref="InputElement.PointerReleasedEvent"/> event called.
-    /// </summary>
-    /// <param name="sender">Sender</param>
-    /// <param name="e">Pointer released event args</param>
-    protected virtual void OnPointerReleasedInternal(object? sender, PointerReleasedEventArgs e)
-    {
-        if (!IsEnabled)
-            return;
-
-        if (!_isCaptured)
-            return;
-
-        if (_isDragging)
+        // If the snapping brought us back to value, find the next tick point
+        if (Math.Abs(next - value) < Tolerance
+            && !(greaterThan && Math.Abs(value - Maximum) < Tolerance) // Stop if searching up if already at Max
+            && !(!greaterThan && Math.Abs(value - Minimum) < Tolerance)) // Stop if searching down if already at Min
         {
-            StopDragging();
-        }
-        else
-        {
-            ProcessPressing(e.GetPosition(this));
+            var ticks = Ticks;
+
+            // If ticks collection is available, use it.
+            // Note that ticks may be unsorted.
+            if (ticks != null && ticks.Count > 0)
+            {
+                foreach (var tick in ticks)
+                {
+                    // Find the smallest tick greater than value or the largest tick less than value
+                    if (greaterThan && MathHelpers.GreaterThan(tick, value) &&
+                        (MathHelpers.LessThan(tick, next) || Math.Abs(next - value) < Tolerance)
+                        || !greaterThan && MathHelpers.LessThan(tick, value) &&
+                        (MathHelpers.GreaterThan(tick, next) || Math.Abs(next - value) < Tolerance))
+                    {
+                        next = tick;
+                    }
+                }
+            }
+            else if (MathHelpers.GreaterThan(TickFrequency, 0.0))
+            {
+                // Find the current tick we are at
+                var tickNumber = Math.Round((value - Minimum) / TickFrequency);
+
+                if (greaterThan)
+                    tickNumber += 1.0;
+                else
+                    tickNumber -= 1.0;
+
+                next = Minimum + tickNumber * TickFrequency;
+            }
         }
 
-        _isCaptured = false;
-        e.Handled = true;
+        // Update if we've found a better value
+        if (Math.Abs(next - value) > Tolerance)
+        {
+            SetCurrentValue(ValueProperty, next);
+        }
     }
 
     /// <summary>
-    /// Called when the <see cref="InputElement.PointerWheelChangedEvent"/> event called.
+    /// Snap the input 'value'.
     /// </summary>
-    /// <param name="sender">Sender</param>
-    /// <param name="e">Pointer wheel changed event args</param>
-    protected virtual void OnPointerWheelChangedInternal(object? sender, PointerWheelEventArgs e)
-    {
-        if (!IsEnabled)
-            return;
-
-        MoveToNextValue(e.Delta.Y * SmallChange);
-        e.Handled = true;
-    }
-
-    private void MoveToNextValue(double direction)
-    {
-        if (direction == 0.0) return;
-
-        SetCurrentValue(ValueProperty, Value + direction);
-    }
-
-    private void StartCapturing(Point currentPoint)
-    {
-        var center = Center;
-        _isDragging = false;
-        _isCaptured = true;
-        _startDragPoint = currentPoint;
-        _startDragAngle = _startDragPoint.Atan2FromCenter(center);
-    }
-
-    private void ProcessDragging(Point currentPoint)
-    {
-        _isDragging = true;
-
-        var center = Center;
-        var currentAngle = currentPoint.Atan2FromCenter(center);
-
-        // Calculate the difference in angle from the start of the drag
-        var angleDelta = currentAngle - _startDragAngle;
-
-        // Normalize the angle delta to handle wrap-around
-        while (angleDelta > Math.PI)
-            angleDelta -= 2 * Math.PI;
-        while (angleDelta < -Math.PI)
-            angleDelta += 2 * Math.PI;
-
-        // Calculate the total sweep in radians
-        var sweepAngleRad = SweepAngleRad;
-
-        // Map the angle delta to the value range
-        var normalizedDelta = angleDelta / sweepAngleRad;
-        var rawValueChange = normalizedDelta * Range;
-
-        SetCurrentValue(ValueProperty, Value + Math.Sign(rawValueChange) * SmallChange);
-        _startDragAngle = currentAngle;
-    }
-
-    private void StopDragging()
-    {
-        // Reset dragging state
-        _isDragging = false;
-        _startDragPoint = default;
-        _startDragAngle = 0;
-    }
-
-    private void ProcessPressing(Point currentPoint)
+    private void Snap(Point currentPoint)
     {
         var center = Center;
         var currentAngle = currentPoint.Atan2FromCenter(center);
@@ -332,7 +323,7 @@ public partial class Knob : RangeBase
 
             // Set value in increments of SmallChange
             var targetValueInSmallChanges = Math.Round((newValue - Minimum) / SmallChange);
-            SetCurrentValue(ValueProperty, Minimum + targetValueInSmallChanges * SmallChange);
+            SetCurrentValue(ValueProperty, SnapToTick(Minimum + targetValueInSmallChanges * SmallChange));
         }
         else
         {
@@ -358,5 +349,53 @@ public partial class Knob : RangeBase
                 SetCurrentValue(ValueProperty, Maximum);
             }
         }
+    }
+
+    /// <summary>
+    /// Snap the input 'value' to the closest tick.
+    /// </summary>
+    /// <param name="value">Value that want to snap to closest Tick.</param>
+    private double SnapToTick(double value)
+    {
+        if (IsSnapToTickEnabled)
+        {
+            var previous = Minimum;
+            var next = Maximum;
+
+            // This property is rarely set so let's try to avoid the GetValue
+            var ticks = Ticks;
+
+            // If ticks collection is available, use it.
+            // Note that ticks may be unsorted.
+            if (ticks != null && ticks.Count > 0)
+            {
+                foreach (var tick in ticks)
+                {
+                    if (MathHelpers.AreClose(tick, value))
+                    {
+                        return value;
+                    }
+
+                    if (MathHelpers.LessThan(tick, value) && MathHelpers.GreaterThan(tick, previous))
+                    {
+                        previous = tick;
+                    }
+                    else if (MathHelpers.GreaterThan(tick, value) && MathHelpers.LessThan(tick, next))
+                    {
+                        next = tick;
+                    }
+                }
+            }
+            else if (MathHelpers.GreaterThan(TickFrequency, 0.0))
+            {
+                previous = Minimum + Math.Round((value - Minimum) / TickFrequency) * TickFrequency;
+                next = Math.Min(Maximum, previous + TickFrequency);
+            }
+
+            // Choose the closest value between previous and next. If tie, snap to 'next'.
+            value = MathHelpers.GreaterThanOrClose(value, (previous + next) * 0.5) ? next : previous;
+        }
+
+        return value;
     }
 }

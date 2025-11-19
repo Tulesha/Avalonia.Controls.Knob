@@ -2,7 +2,7 @@
 
 namespace Avalonia.Controls.Helpers;
 
-internal static class PointUtils
+internal static class PointHelpers
 {
     public static double Atan2FromCenter(this Point original, Point centerPoint)
     {

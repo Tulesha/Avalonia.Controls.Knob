@@ -1,7 +1,7 @@
 ﻿using System;
+using Avalonia.Controls.Helpers;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using Avalonia.Utilities;
 
 namespace Avalonia.Controls;
 
@@ -59,7 +59,7 @@ public partial class KnobTickBar : Control
         var pen = new ImmutablePen(Fill?.ToImmutable());
 
         var range = Range;
-        if (MathUtilities.IsZero(range))
+        if (MathHelpers.IsZero(range))
             return;
 
         var startAngleRad = StartAngleRad;
@@ -88,8 +88,8 @@ public partial class KnobTickBar : Control
             // Draw ticks using specified Ticks collection
             foreach (var tickValue in ticks)
             {
-                if (MathUtilities.LessThanOrClose(tickValue, Minimum) ||
-                    MathUtilities.GreaterThanOrClose(tickValue, Maximum))
+                if (MathHelpers.LessThanOrClose(tickValue, Minimum) ||
+                    MathHelpers.GreaterThanOrClose(tickValue, Maximum))
                     continue;
 
                 var valuePosition = (tickValue - Minimum) / range;
@@ -106,8 +106,8 @@ public partial class KnobTickBar : Control
             // Draw ticks using specified TickFrequency
             for (var value = Minimum; value <= Maximum; value += interval)
             {
-                if (MathUtilities.LessThanOrClose(value, Minimum) ||
-                    MathUtilities.GreaterThanOrClose(value, Maximum))
+                if (MathHelpers.LessThanOrClose(value, Minimum) ||
+                    MathHelpers.GreaterThanOrClose(value, Maximum))
                     continue;
 
                 var valuePosition = (value - Minimum) / range;

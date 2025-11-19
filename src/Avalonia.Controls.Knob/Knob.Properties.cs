@@ -226,6 +226,26 @@ public partial class Knob
 
     #endregion
 
+    #region IsSnapToTickEnabled Property
+
+    /// <summary>
+    /// Defines the <see cref="IsSnapToTickEnabled"/> property.
+    /// </summary>
+    public static readonly StyledProperty<bool> IsSnapToTickEnabledProperty =
+        AvaloniaProperty.Register<Knob, bool>(
+            nameof(IsSnapToTickEnabled));
+
+    /// <summary>
+    /// Gets or sets a value that indicates whether the <see cref="Knob"/> automatically moves the pointer to the closest tick mark.
+    /// </summary>
+    public bool IsSnapToTickEnabled
+    {
+        get => GetValue(IsSnapToTickEnabledProperty);
+        set => SetValue(IsSnapToTickEnabledProperty, value);
+    }
+
+    #endregion
+
     /// <summary>
     /// Marks a property as affecting the control's recalculating angles.
     /// </summary>
