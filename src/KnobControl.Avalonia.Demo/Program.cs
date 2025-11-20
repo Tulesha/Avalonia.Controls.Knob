@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia;
 
-namespace Tulesha.Avalonia.Controls.Knob.Demo;
+namespace KnobControl.Avalonia.Demo;
 
 sealed class Program
 {

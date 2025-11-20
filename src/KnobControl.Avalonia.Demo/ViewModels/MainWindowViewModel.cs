@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Tulesha.Avalonia.Controls.Knob.Demo.ViewModels;
+namespace KnobControl.Avalonia.Demo.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {

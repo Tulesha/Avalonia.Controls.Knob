@@ -5,8 +5,8 @@
         <Authors>Tulesha</Authors>
         <Company>Tulesha</Company>
         <Copyright>Copyright © Tulesha 2025</Copyright>
-        <PackageProjectUrl>https://github.com/Tulesha/Avalonia.Controls.Knob</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Tulesha/Avalonia.Controls.Knob</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Tulesha/KnobControl.Avalonia</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Tulesha/KnobControl.Avalonia</RepositoryUrl>
     </PropertyGroup>
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>

@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Controls.Knob", "src\Avalonia.Controls.Knob\Avalonia.Controls.Knob.csproj", "{EA3BED8F-E139-4805-86A7-555F7BCB9FDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnobControl.Avalonia", "src\KnobControl.Avalonia\KnobControl.Avalonia.csproj", "{EA3BED8F-E139-4805-86A7-555F7BCB9FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Controls.Knob.Demo", "src\Avalonia.Controls.Knob.Demo\Avalonia.Controls.Knob.Demo.csproj", "{388DFFC1-79A3-4D47-ABD6-89B8CBB4C76C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnobControl.Avalonia.Demo", "src\KnobControl.Avalonia.Demo\KnobControl.Avalonia.Demo.csproj", "{388DFFC1-79A3-4D47-ABD6-89B8CBB4C76C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{412DBE60-0FF3-4816-B55C-28F152B72194}"
 EndProject

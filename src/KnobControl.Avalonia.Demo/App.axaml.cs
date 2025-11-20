@@ -3,10 +3,10 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Tulesha.Avalonia.Controls.Knob.Demo.ViewModels;
-using Tulesha.Avalonia.Controls.Knob.Demo.Views;
+using KnobControl.Avalonia.Demo.ViewModels;
+using KnobControl.Avalonia.Demo.Views;
 
-namespace Tulesha.Avalonia.Controls.Knob.Demo;
+namespace KnobControl.Avalonia.Demo;
 
 public partial class App : Application
 {

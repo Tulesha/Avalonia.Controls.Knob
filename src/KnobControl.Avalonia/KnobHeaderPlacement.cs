@@ -1,4 +1,4 @@
-﻿namespace Tulesha.Avalonia.Controls;
+﻿namespace KnobControl.Avalonia;
 
 /// <summary>
 /// Defines the placement of header in <see cref="Knob"/>

@@ -4,20 +4,20 @@
         <OutputType>Library</OutputType>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <Nullable>enable</Nullable>
-        <RootNamespace>Tulesha.Avalonia.Controls</RootNamespace>
+        <RootNamespace>KnobControl.Avalonia</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>Tulesha.Avalonia.Controls.Knob</PackageId>
+        <PackageId>Tulesha.KnobControl.Avalonia</PackageId>
         <Description>Knob control for Avalonia</Description>
         <PackageTags>Avalonia;Knob;Control;Xaml</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile >
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
 
-    <Import Project="..\..\build\Base.props"/>
-    <Import Project="..\..\build\Avalonia.props"/>
-    
+    <Import Project="..\..\build\Base.props" />
+    <Import Project="..\..\build\Avalonia.props" />
+
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />

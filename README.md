@@ -1,6 +1,6 @@
-# Avalonia.Controls.Knob
+# KnobControl.Avalonia
 
-[![NuGet](https://img.shields.io/nuget/v/Tulesha.Avalonia.Controls.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Controls.Knob) [![downloads](https://img.shields.io/nuget/dt/Tulesha.Avalonia.Controls.Knob)](https://www.nuget.org/packages/Tulesha.Avalonia.Controls.Knob)
+[![NuGet](https://img.shields.io/nuget/v/Tulesha.KnobControl.Avalonia)](https://www.nuget.org/packages/Tulesha.KnobControl.Avalonia) [![downloads](https://img.shields.io/nuget/dt/Tulesha.KnobControl.Avalonia)](https://www.nuget.org/packages/Tulesha.KnobControl.Avalonia)
 
 ## Description
 
@@ -34,4 +34,4 @@ settings panels, and any scenario where you need a circular value selection inte
 
 ## Demo
 
-![](https://github.com/Tulesha/Avalonia.Controls.Knob/blob/master/workflows/KnobSample.gif)
+![](https://github.com/Tulesha/KnobControl.Avalonia/blob/master/workflows/KnobSample.gif)

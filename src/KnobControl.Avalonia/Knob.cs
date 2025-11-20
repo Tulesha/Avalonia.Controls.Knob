@@ -5,9 +5,9 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
-using Tulesha.Avalonia.Controls.Helpers;
+using KnobControl.Avalonia.Helpers;
 
-namespace Tulesha.Avalonia.Controls;
+namespace KnobControl.Avalonia;
 
 /// <summary>
 /// Knob control

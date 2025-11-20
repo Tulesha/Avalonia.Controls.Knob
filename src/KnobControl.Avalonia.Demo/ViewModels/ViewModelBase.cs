@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Tulesha.Avalonia.Controls.Knob.Demo.ViewModels;
+namespace KnobControl.Avalonia.Demo.ViewModels;
 
 public class ViewModelBase : ObservableObject
 {

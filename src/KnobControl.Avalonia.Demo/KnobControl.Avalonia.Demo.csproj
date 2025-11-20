@@ -5,7 +5,7 @@
         <OutputType>WinExe</OutputType>
         <IsPackable>False</IsPackable>
         <Nullable>enable</Nullable>
-        <RootNamespace>Tulesha.Avalonia.Controls.Knob.Demo</RootNamespace>
+        <RootNamespace>KnobControl.Avalonia.Demo</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -27,6 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Avalonia.Controls.Knob\Avalonia.Controls.Knob.csproj" />
+        <ProjectReference Include="..\KnobControl.Avalonia\KnobControl.Avalonia.csproj" />
     </ItemGroup>
 </Project>

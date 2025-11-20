@@ -1,4 +1,4 @@
-﻿namespace Tulesha.Avalonia.Controls.Helpers;
+﻿namespace KnobControl.Avalonia.Helpers;
 
 internal static class ValidateHelpers
 {

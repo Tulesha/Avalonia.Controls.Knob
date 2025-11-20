@@ -5,9 +5,9 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Reactive;
-using Tulesha.Avalonia.Controls.Helpers;
+using KnobControl.Avalonia.Helpers;
 
-namespace Tulesha.Avalonia.Controls;
+namespace KnobControl.Avalonia;
 
 public partial class Knob
 {

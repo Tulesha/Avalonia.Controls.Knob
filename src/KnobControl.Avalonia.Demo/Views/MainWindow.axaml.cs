@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Tulesha.Avalonia.Controls.Knob.Demo.Views;
+namespace KnobControl.Avalonia.Demo.Views;
 
 public partial class MainWindow : Window
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tulesha.Avalonia.Controls.Helpers;
+namespace KnobControl.Avalonia.Helpers;
 
 /// <summary>
 /// Copy of methods from <see cref="Avalonia.Utilities.MathUtilities"/>.
