@@ -1,9 +1,5 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Metadata;
-using Avalonia.Controls.Primitives;
-using Avalonia.Data;
 using Avalonia.Input;
 using KnobControl.Avalonia.Helpers;
 
@@ -12,33 +8,9 @@ namespace KnobControl.Avalonia;
 /// <summary>
 /// Knob control
 /// </summary>
-[PseudoClasses(":pressed")]
-public partial class Knob : RangeBase
+public partial class Knob : KnobBase
 {
-    private const double Tolerance = 0.0001;
-    private const double MinDraggingChangesValue = 2.0;
-
-    private bool _isFocusEngaged;
-    private bool _isDragging;
-    private bool _isCaptured;
-
-    private Point _startDragPoint;
-
-    /// <inheritdoc />
-    public Knob()
-    {
-        UpdateRange();
-    }
-
-    /// <summary>
-    /// Get the center of the control.
-    /// </summary>
-    protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);
-
-    /// <summary>
-    /// Get the start angle in radians.
-    /// </summary>
-    protected double StartAngleRad => StartAngle * Math.PI / 180.0;
+    private bool _isDataContextChanging;
 
     /// <summary>
     /// Get the sweep angle in radians.
@@ -51,115 +23,64 @@ public partial class Knob : RangeBase
     protected double EndAngleRad => StartAngleRad + SweepAngleRad;
 
     /// <inheritdoc />
-    protected override void UpdateDataValidation(
-        AvaloniaProperty property,
-        BindingValueType state,
-        Exception? error)
+    protected override void OnInitialized()
     {
-        if (property == ValueProperty)
-        {
-            DataValidationErrors.SetError(this, error);
-        }
+        CoerceValue(MaximumProperty);
+        base.OnInitialized();
+        UpdateRange();
     }
 
     /// <inheritdoc />
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    protected override void OnDataContextBeginUpdate()
     {
-        base.OnApplyTemplate(e);
-
-        RecalculateAngles();
+        _isDataContextChanging = true;
+        base.OnDataContextBeginUpdate();
     }
 
-    /// <summary>
-    /// Called when the <see cref="InputElement.PointerPressedEvent"/> event called.
-    /// </summary>
-    /// <param name="e">Pointer pressed event args</param>
-    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    /// <inheritdoc />
+    protected override void OnDataContextEndUpdate()
     {
-        base.OnPointerPressed(e);
-
-        if (!IsEnabled)
-            return;
-
-        if (!e.Properties.IsLeftButtonPressed)
-            return;
-
-        var center = Center;
-        _isDragging = false;
-        _isCaptured = true;
-        _startDragPoint = e.GetPosition(this);
-        _startDragPoint.Atan2FromCenter(center);
-
-        e.Handled = true;
+        base.OnDataContextEndUpdate();
+        _isDataContextChanging = false;
     }
 
     /// <summary>
     /// Called when the <see cref="InputElement.PointerMovedEvent"/> event called.
     /// </summary>
     /// <param name="e">Pointer moved event args</param>
-    protected override void OnPointerMoved(PointerEventArgs e)
+    protected override void OnPointerMovedInternal(PointerEventArgs e)
     {
-        base.OnPointerMoved(e);
+        base.OnPointerMovedInternal(e);
 
-        if (!IsEnabled)
-            return;
-
-        if (!_isCaptured)
-            return;
-
-        var currentPoint = e.GetPosition(this);
-
-        // Threshold to detect actual dragging
-        if (!(currentPoint.LengthFromPoints(_startDragPoint) > MinDraggingChangesValue))
-            return;
-
-        _isDragging = true;
-        Snap(currentPoint);
-
-        e.Handled = true;
+        Snap(e.GetPosition(this));
     }
 
     /// <summary>
     /// Called when the <see cref="InputElement.PointerReleasedEvent"/> event called.
     /// </summary>
     /// <param name="e">Pointer released event args</param>
-    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    protected override void OnPointerReleasedInternal(PointerReleasedEventArgs e)
     {
-        base.OnPointerReleased(e);
-
-        if (!IsEnabled)
-            return;
-
-        if (!_isCaptured)
-            return;
-
-        if (_isDragging)
+        if (IsDragging)
         {
-            _isDragging = false;
-            _startDragPoint = default;
+            IsDragging = false;
+            StartDragPoint = default;
         }
         else
         {
             Snap(e.GetPosition(this));
         }
 
-        _isCaptured = false;
-        e.Handled = true;
+        IsCaptured = false;
     }
 
     /// <summary>
     /// Called when the <see cref="InputElement.PointerWheelChangedEvent"/> event called.
     /// </summary>
     /// <param name="e">Pointer wheel changed event args</param>
-    protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+    protected override void OnPointerWheelChangedInternal(PointerWheelEventArgs e)
     {
-        base.OnPointerWheelChanged(e);
-
-        if (!IsEnabled)
-            return;
-
         MoveToNextTick(e.Delta.Y * SmallChange);
-        e.Handled = true;
     }
 
     /// <inheritdoc />
@@ -174,17 +95,17 @@ public partial class Knob : RangeBase
             return;
 
         var usingXyNavigation = this.IsAllowedXyNavigationMode(e.KeyDeviceType);
-        var allowArrowKeys = _isFocusEngaged || !usingXyNavigation;
+        var allowArrowKeys = IsFocusEngaged || !usingXyNavigation;
 
         var handled = true;
         switch (e.Key)
         {
             case Key.Enter when usingXyNavigation:
-                _isFocusEngaged = !_isFocusEngaged;
+                IsFocusEngaged = !IsFocusEngaged;
                 handled = true;
                 break;
             case Key.Escape when usingXyNavigation:
-                _isFocusEngaged = false;
+                IsFocusEngaged = false;
                 handled = true;
                 break;
 
@@ -225,15 +146,13 @@ public partial class Knob : RangeBase
     /// <summary>
     /// Recalculates the angle
     /// </summary>
-    protected virtual void RecalculateAngles()
+    protected override void RecalculateAngles()
     {
         var valuePosition = Range > 0 ? (Value - Minimum) / Range : 0;
         var calculatedAngle = StartAngle + SweepAngle * valuePosition;
 
-        SetAndRaise(LevelSweepAngleProperty, ref _levelSweepAngle, calculatedAngle - StartAngle);
-        SetAndRaise(PointerStartAngleProperty,
-            ref _pointerStartAngle,
-            calculatedAngle - PointerThickness / 2);
+        SetAndRaiseLevelSweepAngle(calculatedAngle - StartAngle);
+        SetAndRaisePointerStartAngle(calculatedAngle - PointerThickness / 2);
     }
 
     private void MoveToNextTick(double direction)

@@ -1,62 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.Collections;
-using Avalonia.Media;
 using KnobControl.Avalonia.Helpers;
 
 namespace KnobControl.Avalonia;
 
 public partial class KnobTickBar
 {
-    #region Fill Property
-
-    /// <summary>
-    /// Defines the <see cref="Fill"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IBrush?> FillProperty =
-        AvaloniaProperty.Register<KnobTickBar, IBrush?>(
-            nameof(Fill));
-
-    /// <summary>
-    /// Gets or sets the brush used to fill the KnobTickBar's Ticks.
-    /// </summary>
-    public IBrush? Fill
-    {
-        get => GetValue(FillProperty);
-        set => SetValue(FillProperty, value);
-    }
-
-    #endregion
-
-    #region StartAngle Property
-
-    /// <summary>
-    /// Defines the <see cref="StartAngle"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(StartAngle),
-            defaultValue: -240.0,
-            coerce: CoerceStartAngle);
-
-    /// <summary>
-    /// Gets or sets the start angle in degree.
-    /// </summary>
-    public double StartAngle
-    {
-        get => GetValue(StartAngleProperty);
-        set => SetValue(StartAngleProperty, value);
-    }
-
-    private static double CoerceStartAngle(AvaloniaObject sender, double value)
-    {
-        if (sender is KnobTickBar knobTickBar)
-            return knobTickBar.CoerceStartAngle(value);
-
-        return value;
-    }
-
-    #endregion
-
     #region SweepAngle Property
 
     /// <summary>
@@ -87,26 +36,6 @@ public partial class KnobTickBar
 
     #endregion
 
-    #region Maximum Property
-
-    /// <summary>
-    /// Defines the <see cref="Maximum"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(Maximum));
-
-    /// <summary>
-    /// Gets or sets the logical position where the Maximum Tick will be drawn.
-    /// </summary>
-    public double Maximum
-    {
-        get => GetValue(MaximumProperty);
-        set => SetValue(MaximumProperty, value);
-    }
-
-    #endregion
-
     #region Minimum Property
 
     /// <summary>
@@ -127,6 +56,26 @@ public partial class KnobTickBar
 
     #endregion
 
+    #region Maximum Property
+
+    /// <summary>
+    /// Defines the <see cref="Maximum"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> MaximumProperty =
+        AvaloniaProperty.Register<KnobTickBar, double>(
+            nameof(Maximum));
+
+    /// <summary>
+    /// Gets or sets the logical position where the Maximum Tick will be drawn.
+    /// </summary>
+    public double Maximum
+    {
+        get => GetValue(MaximumProperty);
+        set => SetValue(MaximumProperty, value);
+    }
+
+    #endregion
+
     #region Range Property
 
     private double _range;
@@ -143,26 +92,6 @@ public partial class KnobTickBar
     /// Get the range from <see cref="Minimum"/> and <see cref="Maximum"/> properties.
     /// </summary>
     public double Range => _range;
-
-    #endregion
-
-    #region TickFrequency Property
-
-    /// <summary>
-    /// Defines the <see cref="TickFrequency"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> TickFrequencyProperty =
-        AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(TickFrequency));
-
-    /// <summary>
-    /// Gets or sets the value, which defines how the tick will be drawn.
-    /// </summary>
-    public double TickFrequency
-    {
-        get => GetValue(TickFrequencyProperty);
-        set => SetValue(TickFrequencyProperty, value);
-    }
 
     #endregion
 
@@ -190,12 +119,9 @@ public partial class KnobTickBar
 
     static KnobTickBar()
     {
-        AffectsRender<KnobTickBar>(FillProperty,
-            StartAngleProperty,
-            SweepAngleProperty,
+        AffectsRender<KnobTickBar>(SweepAngleProperty,
             MaximumProperty,
             MinimumProperty,
-            TickFrequencyProperty,
             TicksProperty);
     }
 
@@ -210,16 +136,7 @@ public partial class KnobTickBar
             UpdateRange();
         }
     }
-
-    /// <summary>
-    /// Called when the <see cref="StartAngle"/> property has to be coerced.
-    /// </summary>
-    /// <param name="baseValue">The value.</param>
-    protected virtual double CoerceStartAngle(double baseValue)
-    {
-        return CoerceHelpers.CoerceStartAngle(baseValue, StartAngle);
-    }
-
+    
     /// <summary>
     /// Called when the <see cref="SweepAngle"/> property has to be coerced.
     /// </summary>

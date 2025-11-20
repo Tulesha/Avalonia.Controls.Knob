@@ -1,9 +1,10 @@
 ﻿using System;
+using Avalonia.Utilities;
 
 namespace KnobControl.Avalonia.Helpers;
 
 /// <summary>
-/// Copy of methods from <see cref="Avalonia.Utilities.MathUtilities"/>.
+/// Copy of methods from <see cref="MathUtilities"/>.
 /// </summary>
 internal static class MathHelpers
 {
@@ -80,5 +81,38 @@ internal static class MathHelpers
     public static bool GreaterThanOrClose(double value1, double value2)
     {
         return value1 > value2 || AreClose(value1, value2);
+    }
+
+    /// <summary>
+    /// Clamps a value between a minimum and maximum value.
+    /// </summary>
+    /// <param name="val">The value.</param>
+    /// <param name="min">The minimum value.</param>
+    /// <param name="max">The maximum value.</param>
+    /// <returns>The clamped value.</returns>
+    public static double Clamp(double val, double min, double max)
+    {
+        if (min > max)
+        {
+            ThrowCannotBeGreaterThanException(min, max);
+        }
+
+        if (val < min)
+        {
+            return min;
+        }
+        else if (val > max)
+        {
+            return max;
+        }
+        else
+        {
+            return val;
+        }
+    }
+
+    private static void ThrowCannotBeGreaterThanException<T>(T min, T max)
+    {
+        throw new ArgumentException($"{min} cannot be greater than {max}.");
     }
 }

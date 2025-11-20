@@ -1,0 +1,155 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:KnobControl.Avalonia"
+                    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <Panel Width="400"
+               Height="400"
+               Background="White">
+            <controls:KnobCycle Value="21"
+                                SmallChange="1"
+                                StartAngle="-225"
+                                TickFrequency="10" />
+        </Panel>
+
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:KnobCycle}"
+                  TargetType="controls:KnobCycle">
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Height" Value="120" />
+        <Setter Property="Background" Value="{DynamicResource SliderTrackFill}" />
+        <Setter Property="Foreground" Value="{DynamicResource SliderTrackValueFill}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DataValidationErrors>
+                    <Panel x:Name="PART_KnobContainer"
+                           Background="{DynamicResource SliderContainerBackground}">
+                        <controls:KnobCycleTickBar x:Name="PART_KnobCycleTickBar"
+                                                   Fill="{TemplateBinding Foreground}"
+                                                   StartAngle="{TemplateBinding StartAngle}"
+                                                   TickFrequency="{TemplateBinding TickFrequency}" />
+
+                        <Arc x:Name="PART_MainArc"
+                             Stroke="{TemplateBinding Background}"
+                             StartAngle="{TemplateBinding StartAngle}"
+                             SweepAngle="360"
+                             StrokeThickness="3"
+                             Margin="11"
+                             Stretch="None" />
+
+                        <Arc x:Name="PART_LevelArc"
+                             Stroke="{TemplateBinding Foreground}"
+                             StartAngle="{TemplateBinding StartAngle}"
+                             SweepAngle="{TemplateBinding LevelSweepAngle}"
+                             StrokeThickness="5"
+                             Margin="10"
+                             Stretch="None" />
+
+                        <Ellipse x:Name="PART_Ellipse"
+                                 Margin="20"
+                                 Fill="{TemplateBinding Background}" />
+
+                        <Arc x:Name="PART_LevelArc2"
+                             Stroke="{TemplateBinding Foreground}"
+                             StartAngle="{TemplateBinding PointerStartAngle}"
+                             SweepAngle="{TemplateBinding PointerThickness}"
+                             IsVisible="{TemplateBinding IsPointerVisible}"
+                             StrokeThickness="10"
+                             Margin="30"
+                             Stretch="None" />
+
+                        <ContentPresenter x:Name="PART_HeaderValueContentPresenter"
+                                          Content="{TemplateBinding Value}"
+                                          ContentTemplate="{TemplateBinding HeaderValueTemplate}"
+                                          IsVisible="{TemplateBinding IsHeaderValueVisible}"
+                                          HorizontalContentAlignment="{TemplateBinding HeaderValueHorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding HeaderValueVerticalContentAlignment}" />
+                    </Panel>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+
+        <!-- Left -->
+        <Style Selector="^[HeaderValueHorizontalContentAlignment=Left]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
+
+        <!-- Top -->
+        <Style Selector="^[HeaderValueVerticalContentAlignment=Top]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+            </Style>
+        </Style>
+
+        <!-- Right -->
+        <Style Selector="^[HeaderValueHorizontalContentAlignment=Right]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
+
+        <!-- Bottom -->
+        <Style Selector="^[HeaderValueVerticalContentAlignment=Bottom]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+        </Style>
+
+        <!-- Center -->
+        <Style Selector="^[HeaderValueHorizontalContentAlignment=Center]">
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style>
+
+        <!--  PointerOver State  -->
+        <Style Selector="^:pointerover">
+            <Style Selector="^ /template/ Panel#PART_KnobContainer">
+                <Setter Property="Background"
+                        Value="{DynamicResource SliderContainerBackgroundPointerOver}" />
+            </Style>
+            <Style Selector="^ /template/ Ellipse#PART_Ellipse">
+                <Setter Property="Fill"
+                        Value="{DynamicResource SliderThumbBackgroundPointerOver}" />
+            </Style>
+        </Style>
+
+        <!--  Pressed State  -->
+        <Style Selector="^:pressed">
+            <Style Selector="^ /template/ Panel#PART_KnobContainer">
+                <Setter Property="Background"
+                        Value="{DynamicResource SliderContainerBackgroundPressed}" />
+            </Style>
+            <Style Selector="^ /template/ Ellipse#PART_Ellipse">
+                <Setter Property="Fill"
+                        Value="{DynamicResource SliderThumbBackgroundPressed}" />
+            </Style>
+        </Style>
+
+        <!-- Disabled State -->
+        <Style Selector="^:disabled">
+            <Style Selector="^ /template/ Ellipse#PART_Ellipse">
+                <Setter Property="Fill"
+                        Value="{DynamicResource SliderThumbBackgroundDisabled}" />
+            </Style>
+        </Style>
+
+        <!-- Error State -->
+        <Style Selector="^:error">
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+            <Style Selector="^ /template/ Ellipse#PART_Ellipse">
+                <Setter Property="Fill"
+                        Value="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
