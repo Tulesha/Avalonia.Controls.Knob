@@ -34,4 +34,4 @@ settings panels, and any scenario where you need a circular value selection inte
 
 ## Demo
 
-![](https://github.com/Tulesha/KnobControl.Avalonia/blob/master/workflows/KnobSample.gif)
+![](https://github.com/Tulesha/KnobControl.Avalonia/blob/main/workflows/KnobSample.gif)
