@@ -21,132 +21,213 @@
     </Design.DataContext>
 
     <Grid ColumnDefinitions="*, *"
-          ColumnSpacing="8">
-        <controls:Knob Grid.Column="0"
-                       Value="{Binding Value}"
-                       Maximum="{Binding Maximum}"
-                       Minimum="{Binding Minimum}"
-                       SmallChange="{Binding SmallChange}"
-                       LargeChange="{Binding LargeChange}"
-                       StartAngle="{Binding StartAngle}"
-                       SweepAngle="{Binding SweepAngle}"
-                       IsPointerVisible="{Binding IsPointerVisible}"
-                       PointerThickness="{Binding PointerThickness}"
-                       TickFrequency="{Binding TickFrequency}"
-                       IsSnapToTickEnabled="{Binding IsSnapToTickEnabled}"
-                       IsHeaderValueVisible="{Binding IsHeaderValueVisible}"
-                       HeaderValuePlacement="{Binding SelectedHeaderValuePlacement}" />
+          ColumnSpacing="16">
+        <Grid Grid.Column="0"
+              ColumnDefinitions="*, *"
+              ColumnSpacing="8">
+            <controls:Knob Grid.Column="0"
+                           Value="{Binding Value}"
+                           Maximum="{Binding Maximum}"
+                           Minimum="{Binding Minimum}"
+                           SmallChange="{Binding SmallChange}"
+                           LargeChange="{Binding LargeChange}"
+                           StartAngle="{Binding StartAngle}"
+                           SweepAngle="{Binding SweepAngle}"
+                           IsPointerVisible="{Binding IsPointerVisible}"
+                           PointerThickness="{Binding PointerThickness}"
+                           TickFrequency="{Binding TickFrequency}"
+                           IsSnapToTickEnabled="{Binding IsSnapToTickEnabled}"
+                           IsHeaderValueVisible="{Binding IsHeaderValueVisible}"
+                           HeaderValuePlacement="{Binding SelectedHeaderValuePlacement}" />
+
+            <Grid Grid.Column="1"
+                  VerticalAlignment="Center"
+                  ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="8"
+                  RowSpacing="4">
+                <TextBlock Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Value"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="0"
+                               Value="{Binding Value}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Maximum"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="1"
+                               Value="{Binding Maximum}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Minimum"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="2"
+                               Value="{Binding Minimum}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="3"
+                           Text="Small Change"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="3"
+                               Value="{Binding SmallChange}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="4"
+                           Text="Large Change"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="4"
+                               Value="{Binding LargeChange}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="5"
+                           Text="Start Angle"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="5"
+                               Value="{Binding StartAngle}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="6"
+                           Text="Sweep Angle"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="6"
+                               Value="{Binding SweepAngle}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="7"
+                           Text="Is Pointer Visible"
+                           VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1"
+                          Grid.Row="7"
+                          IsChecked="{Binding IsPointerVisible}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="8"
+                           Text="Pointer Thickness"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="8"
+                               Value="{Binding PointerThickness}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="9"
+                           Text="Tick Frequency"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="9"
+                               Value="{Binding TickFrequency}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="10"
+                           Text="Is Snap To Tick Enabled"
+                           VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1"
+                          Grid.Row="10"
+                          IsChecked="{Binding IsSnapToTickEnabled}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="11"
+                           Text="Is Header Value Visible"
+                           VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1"
+                          Grid.Row="11"
+                          IsChecked="{Binding IsHeaderValueVisible}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="12"
+                           Text="Header Value Placement"
+                           VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="12"
+                          ItemsSource="{Binding HeaderValuePlacements}"
+                          SelectedItem="{Binding SelectedHeaderValuePlacement}" />
+            </Grid>
+        </Grid>
 
         <Grid Grid.Column="1"
-              VerticalAlignment="Center"
-              ColumnDefinitions="Auto, *"
-              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-              ColumnSpacing="8"
-              RowSpacing="4">
-            <TextBlock Grid.Column="0"
-                       Grid.Row="0"
-                       Text="Value"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+              ColumnDefinitions="*, *"
+              ColumnSpacing="8">
+            <controls:KnobCycle Grid.Column="0"
+                                Value="{Binding ValueCycle}"
+                                Maximum="{Binding MaximumCycle}"
+                                Minimum="{Binding MinimumCycle}"
+                                SmallChange="{Binding SmallChangeCycle}"
+                                LargeChange="{Binding LargeChangeCycle}"
+                                IsHeaderValueVisible="{Binding IsHeaderValueVisibleCycle}"
+                                HeaderValuePlacement="{Binding SelectedHeaderValuePlacementCycle}" />
+
+            <Grid Grid.Column="1"
+                  VerticalAlignment="Center"
+                  ColumnDefinitions="Auto, *"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="8"
+                  RowSpacing="4">
+                <TextBlock Grid.Column="0"
                            Grid.Row="0"
-                           Value="{Binding Value}" />
+                           Text="Value"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="0"
+                               Value="{Binding ValueCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="1"
-                       Text="Maximum"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="1"
-                           Value="{Binding Maximum}" />
+                           Text="Maximum"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="1"
+                               Value="{Binding MaximumCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="2"
-                       Text="Minimum"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="2"
-                           Value="{Binding Minimum}" />
+                           Text="Minimum"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="2"
+                               Value="{Binding MinimumCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="3"
-                       Text="Small Change"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="3"
-                           Value="{Binding SmallChange}" />
+                           Text="Small Change"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="3"
+                               Value="{Binding SmallChangeCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="4"
-                       Text="Large Change"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="4"
-                           Value="{Binding LargeChange}" />
+                           Text="Large Change"
+                           VerticalAlignment="Center" />
+                <NumericUpDown Grid.Column="1"
+                               Grid.Row="4"
+                               Value="{Binding LargeChangeCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="5"
-                       Text="Start Angle"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="5"
-                           Value="{Binding StartAngle}" />
+                           Text="Is Header Value Visible"
+                           VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1"
+                          Grid.Row="5"
+                          IsChecked="{Binding IsHeaderValueVisibleCycle}" />
 
-            <TextBlock Grid.Column="0"
-                       Grid.Row="6"
-                       Text="Sweep Angle"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
+                <TextBlock Grid.Column="0"
                            Grid.Row="6"
-                           Value="{Binding SweepAngle}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="7"
-                       Text="Is Pointer Visible"
-                       VerticalAlignment="Center" />
-            <CheckBox Grid.Column="1"
-                      Grid.Row="7"
-                      IsChecked="{Binding IsPointerVisible}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="8"
-                       Text="Pointer Thickness"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
-                           Grid.Row="8"
-                           Value="{Binding PointerThickness}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="9"
-                       Text="Tick Frequency"
-                       VerticalAlignment="Center" />
-            <NumericUpDown Grid.Column="1"
-                           Grid.Row="9"
-                           Value="{Binding TickFrequency}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="10"
-                       Text="Is Snap To Tick Enabled"
-                       VerticalAlignment="Center" />
-            <CheckBox Grid.Column="1"
-                      Grid.Row="10"
-                      IsChecked="{Binding IsSnapToTickEnabled}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="11"
-                       Text="Is Header Value Visible"
-                       VerticalAlignment="Center" />
-            <CheckBox Grid.Column="1"
-                      Grid.Row="11"
-                      IsChecked="{Binding IsHeaderValueVisible}" />
-
-            <TextBlock Grid.Column="0"
-                       Grid.Row="12"
-                       Text="Header Value Placement"
-                       VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="12"
-                      ItemsSource="{Binding HeaderValuePlacements}"
-                      SelectedItem="{Binding SelectedHeaderValuePlacement}" />
+                           Text="Header Value Placement"
+                           VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="6"
+                          ItemsSource="{Binding HeaderValuePlacements}"
+                          SelectedItem="{Binding SelectedHeaderValuePlacementCycle}" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>

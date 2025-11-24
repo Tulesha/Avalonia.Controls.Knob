@@ -20,5 +20,13 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private bool _isHeaderValueVisible = true;
     [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacement = KnobHeaderPlacement.Bottom;
 
+    [ObservableProperty] private double _valueCycle = 21.0;
+    [ObservableProperty] private double _maximumCycle = 100.0;
+    [ObservableProperty] private double _minimumCycle = -50.0;
+    [ObservableProperty] private double _smallChangeCycle = 1.0;
+    [ObservableProperty] private double _largeChangeCycle = 10.0;
+    [ObservableProperty] private bool _isHeaderValueVisibleCycle = true;
+    [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacementCycle = KnobHeaderPlacement.Bottom;
+
     public IEnumerable<KnobHeaderPlacement> HeaderValuePlacements => Enum.GetValues<KnobHeaderPlacement>();
 }

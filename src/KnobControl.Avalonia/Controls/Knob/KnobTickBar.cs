@@ -21,6 +21,11 @@ public partial class KnobTickBar : Control
     }
 
     /// <summary>
+    /// Get the range of the values.
+    /// </summary>
+    protected double Range => Maximum - Minimum;
+
+    /// <summary>
     /// Get the center of the control.
     /// </summary>
     protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);

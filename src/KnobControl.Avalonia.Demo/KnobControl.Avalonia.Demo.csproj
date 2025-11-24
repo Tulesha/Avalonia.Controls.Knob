@@ -22,7 +22,6 @@
     <Import Project="..\..\build\CommunityToolkit.Mvvm.props" />
 
     <ItemGroup>
-        <Folder Include="Models\" />
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 

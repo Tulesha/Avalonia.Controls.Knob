@@ -127,25 +127,6 @@ public partial class KnobTickBar
 
     #endregion
 
-    #region Range Property
-
-    private double _range;
-
-    /// <summary>
-    /// Defines the <see cref="Range"/> property.
-    /// </summary>
-    public static readonly DirectProperty<KnobTickBar, double> RangeProperty =
-        AvaloniaProperty.RegisterDirect<KnobTickBar, double>(
-            nameof(Range),
-            o => o.Range);
-
-    /// <summary>
-    /// Get the range from <see cref="Minimum"/> and <see cref="Maximum"/> properties.
-    /// </summary>
-    public double Range => _range;
-
-    #endregion
-
     #region TickFrequency Property
 
     /// <summary>
@@ -199,18 +180,6 @@ public partial class KnobTickBar
             TicksProperty);
     }
 
-    /// <inheritdoc />
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
-    {
-        base.OnPropertyChanged(change);
-
-        if (change.Property == MinimumProperty ||
-            change.Property == MaximumProperty)
-        {
-            UpdateRange();
-        }
-    }
-
     /// <summary>
     /// Called when the <see cref="StartAngle"/> property has to be coerced.
     /// </summary>
@@ -227,10 +196,5 @@ public partial class KnobTickBar
     protected virtual double CoerceSweepAngle(double baseValue)
     {
         return CoerceHelpers.CoerceSweepAngle(baseValue, SweepAngle);
-    }
-
-    private void UpdateRange()
-    {
-        SetAndRaise(RangeProperty, ref _range, Maximum - Minimum);
     }
 }
