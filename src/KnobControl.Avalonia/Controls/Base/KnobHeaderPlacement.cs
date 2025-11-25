@@ -1,7 +1,7 @@
 ﻿namespace KnobControl.Avalonia;
 
 /// <summary>
-/// Defines the placement of header in <see cref="Knob"/>
+/// Defines the placement of header in <see cref="KnobBase"/>
 /// </summary>
 public enum KnobHeaderPlacement
 {

@@ -1,6 +1,4 @@
 ﻿using System;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using KnobControl.Avalonia.Helpers;
@@ -10,25 +8,12 @@ namespace KnobControl.Avalonia;
 /// <summary>
 /// An element that is used for drawing <see cref="Knob"/>'s Ticks.
 /// </summary>
-public partial class KnobTickBar : Control
+public partial class KnobTickBar : KnobDecoratorBase
 {
-    private static Point GetPoint(Point center, double angleRad, double radius)
-    {
-        var x = center.X + Math.Cos(angleRad) * radius;
-        var y = center.Y + Math.Sin(angleRad) * radius;
-
-        return new Point(x, y);
-    }
-
     /// <summary>
-    /// Get the center of the control.
+    /// Get the range of the values.
     /// </summary>
-    protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);
-
-    /// <summary>
-    /// Get the radius of the control.
-    /// </summary>
-    protected double Radius => Math.Min(Bounds.Width, Bounds.Height) / 2;
+    protected double Range => Maximum - Minimum;
 
     /// <summary>
     /// Get the start angle in radians.
@@ -55,10 +40,11 @@ public partial class KnobTickBar : Control
         var center = Center;
         var radius = Radius;
 
-        var innerRadius = radius - 8; // Length of the min max tick line
-        var innerRadius2 = radius - 4; // Length of the tick line
+        var innerRadius = radius - MinMaxTicksSize; // Length of the min max tick line
+        var innerRadius2 = radius - TicksSize; // Length of the tick line
 
-        var pen = new ImmutablePen(Fill?.ToImmutable());
+        var fillBrush = Fill?.ToImmutable();
+        var pen = new ImmutablePen(fillBrush, DecoratorThickness);
 
         var range = Range;
         if (MathHelpers.IsZero(range))

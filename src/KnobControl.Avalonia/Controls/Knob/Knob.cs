@@ -1,9 +1,6 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
-using Avalonia.Data;
 using Avalonia.Input;
 using KnobControl.Avalonia.Helpers;
 
@@ -12,28 +9,14 @@ namespace KnobControl.Avalonia;
 /// <summary>
 /// Knob control
 /// </summary>
-[PseudoClasses(":pressed")]
-public partial class Knob : RangeBase
+public partial class Knob : KnobBase
 {
     private const double Tolerance = 0.0001;
-    private const double MinDraggingChangesValue = 2.0;
 
-    private bool _isFocusEngaged;
     private bool _isDragging;
     private bool _isCaptured;
 
     private Point _startDragPoint;
-
-    /// <inheritdoc />
-    public Knob()
-    {
-        UpdateRange();
-    }
-
-    /// <summary>
-    /// Get the center of the control.
-    /// </summary>
-    protected Point Center => new(Bounds.Width / 2, Bounds.Height / 2);
 
     /// <summary>
     /// Get the start angle in radians.
@@ -49,18 +32,6 @@ public partial class Knob : RangeBase
     /// Get the end angle in radians.
     /// </summary>
     protected double EndAngleRad => StartAngleRad + SweepAngleRad;
-
-    /// <inheritdoc />
-    protected override void UpdateDataValidation(
-        AvaloniaProperty property,
-        BindingValueType state,
-        Exception? error)
-    {
-        if (property == ValueProperty)
-        {
-            DataValidationErrors.SetError(this, error);
-        }
-    }
 
     /// <inheritdoc />
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -163,64 +134,7 @@ public partial class Knob : RangeBase
     }
 
     /// <inheritdoc />
-    protected override void OnKeyUp(KeyEventArgs e)
-    {
-        base.OnKeyUp(e);
-
-        if (!IsEnabled)
-            return;
-
-        if (e.Handled || e.KeyModifiers != KeyModifiers.None)
-            return;
-
-        var usingXyNavigation = this.IsAllowedXyNavigationMode(e.KeyDeviceType);
-        var allowArrowKeys = _isFocusEngaged || !usingXyNavigation;
-
-        var handled = true;
-        switch (e.Key)
-        {
-            case Key.Enter when usingXyNavigation:
-                _isFocusEngaged = !_isFocusEngaged;
-                handled = true;
-                break;
-            case Key.Escape when usingXyNavigation:
-                _isFocusEngaged = false;
-                handled = true;
-                break;
-
-            case Key.Down when allowArrowKeys:
-            case Key.Left when allowArrowKeys:
-                MoveToNextTick(-SmallChange);
-                break;
-
-            case Key.Up when allowArrowKeys:
-            case Key.Right when allowArrowKeys:
-                MoveToNextTick(SmallChange);
-                break;
-
-            case Key.PageUp:
-                MoveToNextTick(LargeChange);
-                break;
-
-            case Key.PageDown:
-                MoveToNextTick(-LargeChange);
-                break;
-
-            case Key.Home:
-                SetCurrentValue(ValueProperty, Minimum);
-                break;
-
-            case Key.End:
-                SetCurrentValue(ValueProperty, Maximum);
-                break;
-
-            default:
-                handled = false;
-                break;
-        }
-
-        e.Handled = handled;
-    }
+    protected override void MoveToNextValue(double value) => MoveToNextTick(value);
 
     /// <summary>
     /// Recalculates the angle
