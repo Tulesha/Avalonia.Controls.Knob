@@ -43,7 +43,7 @@ public partial class KnobCycleGrips
     public static readonly StyledProperty<double> GripsSizeProperty =
         AvaloniaProperty.Register<KnobCycleGrips, double>(
             nameof(GripsSize),
-            defaultValue: 8.0,
+            defaultValue: 10.0,
             coerce: CoerceGripsSize);
 
     /// <summary>

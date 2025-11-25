@@ -16,8 +16,7 @@
                            StartAngle="-225"
                            SweepAngle="270"
                            TickFrequency="10"
-                           MinMaxTicksSize="10"
-                           TicksThickness="4" />
+                           MinMaxTicksSize="10" />
         </Panel>
 
     </Design.PreviewWith>

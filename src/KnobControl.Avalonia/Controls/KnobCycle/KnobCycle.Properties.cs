@@ -60,4 +60,24 @@ public partial class KnobCycle
     }
 
     #endregion
+
+    #region GripsThickness Property
+
+    /// <summary>
+    /// Defines the <see cref="GripsThickness"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> GripsThicknessProperty =
+        KnobDecoratorBase.DecoratorThicknessProperty.AddOwner<KnobCycle>(
+            new StyledPropertyMetadata<double>(defaultValue: 3));
+
+    /// <summary>
+    /// Gets or sets the thickness of grips.
+    /// </summary>
+    public double GripsThickness
+    {
+        get => GetValue(GripsThicknessProperty);
+        set => SetValue(GripsThicknessProperty, value);
+    }
+
+    #endregion
 }

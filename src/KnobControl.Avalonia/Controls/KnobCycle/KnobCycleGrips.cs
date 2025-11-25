@@ -49,8 +49,6 @@ public partial class KnobCycleGrips : KnobDecoratorBase
         var center = Center;
         var radius = Radius;
 
-        var innerRadius = radius - GripsSize; // Length of the min max grip line
-
         var fillBrush = Fill?.ToImmutable();
         var pen = new ImmutablePen(fillBrush, DecoratorThickness);
 
@@ -60,11 +58,12 @@ public partial class KnobCycleGrips : KnobDecoratorBase
             return;
 
         var step = EndAngleRad / count;
+        var deltaAngleRad = GripsSize / radius;
 
         for (var value = step; value <= EndAngleRad; value += step)
         {
-            var startPoint = GetPoint(center, value, radius);
-            var endPoint = GetPoint(center, value, innerRadius);
+            var startPoint = GetPoint(center, value - deltaAngleRad / 2, radius);
+            var endPoint = GetPoint(center, value + deltaAngleRad / 2, radius);
 
             context.DrawLine(pen, startPoint, endPoint);
         }
