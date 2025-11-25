@@ -68,6 +68,27 @@ public partial class Knob
 
     #endregion
 
+    #region IsPointerVisible Property
+
+    /// <summary>
+    /// Defines the <see cref="IsPointerVisible"/> property.
+    /// </summary>
+    public static readonly StyledProperty<bool> IsPointerVisibleProperty =
+        AvaloniaProperty.Register<Knob, bool>(
+            nameof(IsPointerVisible),
+            defaultValue: true);
+
+    /// <summary>
+    /// Gets or sets is pointer visible.
+    /// </summary>
+    public bool IsPointerVisible
+    {
+        get => GetValue(IsPointerVisibleProperty);
+        set => SetValue(IsPointerVisibleProperty, value);
+    }
+
+    #endregion
+
     #region PointerThickness Property
 
     /// <summary>
@@ -124,27 +145,6 @@ public partial class Knob
             return knob.CoerceArcThickness(value);
 
         return value;
-    }
-
-    #endregion
-
-    #region IsPointerVisible Property
-
-    /// <summary>
-    /// Defines the <see cref="IsPointerVisible"/> property.
-    /// </summary>
-    public static readonly StyledProperty<bool> IsPointerVisibleProperty =
-        AvaloniaProperty.Register<Knob, bool>(
-            nameof(IsPointerVisible),
-            defaultValue: true);
-
-    /// <summary>
-    /// Gets or sets is pointer visible.
-    /// </summary>
-    public bool IsPointerVisible
-    {
-        get => GetValue(IsPointerVisibleProperty);
-        set => SetValue(IsPointerVisibleProperty, value);
     }
 
     #endregion
