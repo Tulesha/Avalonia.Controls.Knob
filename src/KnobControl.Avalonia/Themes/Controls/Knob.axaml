@@ -7,7 +7,9 @@
         <Panel Width="400"
                Height="400"
                Background="White">
-            <controls:Knob Value="21"
+            <controls:Knob Width="120"
+                           Height="120"
+                           Value="21"
                            Minimum="0"
                            Maximum="100"
                            SmallChange="1"
@@ -15,15 +17,15 @@
                            SweepAngle="270"
                            TickFrequency="10"
                            MinMaxTicksSize="10"
-                           TicksThickness="4"/>
+                           TicksThickness="4" />
         </Panel>
 
     </Design.PreviewWith>
 
     <ControlTheme x:Key="{x:Type controls:Knob}"
                   TargetType="controls:Knob">
-        <Setter Property="Width" Value="120" />
-        <Setter Property="Height" Value="120" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="120" />
         <Setter Property="Background" Value="{DynamicResource SliderTrackFill}" />
         <Setter Property="Foreground" Value="{DynamicResource SliderTrackValueFill}" />
 

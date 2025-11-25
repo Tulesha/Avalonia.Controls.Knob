@@ -56,31 +56,10 @@ public partial class KnobDecoratorBase
 
     #endregion
 
-    #region DecoratorStyle Property
-
-    /// <summary>
-    /// Defines the <see cref="DecoratorStyle"/> property.
-    /// </summary>
-    public static readonly StyledProperty<KnobDecoratorStyle> DecoratorStyleProperty =
-        AvaloniaProperty.Register<KnobDecoratorBase, KnobDecoratorStyle>(
-            nameof(DecoratorStyle));
-
-    /// <summary>
-    /// Gets or sets the style for decorated items.
-    /// </summary>
-    public KnobDecoratorStyle DecoratorStyle
-    {
-        get => GetValue(DecoratorStyleProperty);
-        set => SetValue(DecoratorStyleProperty, value);
-    }
-
-    #endregion
-
     static KnobDecoratorBase()
     {
         AffectsRender<KnobDecoratorBase>(FillProperty,
-            DecoratorThicknessProperty,
-            DecoratorStyleProperty);
+            DecoratorThicknessProperty);
     }
 
     /// <summary>

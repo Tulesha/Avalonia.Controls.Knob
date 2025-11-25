@@ -25,6 +25,8 @@
             <Grid ColumnDefinitions="*, *"
                   ColumnSpacing="8">
                 <controls:Knob Grid.Column="0"
+                               Width="120"
+                               Height="120"
                                Value="{Binding Value}"
                                Maximum="{Binding Maximum}"
                                Minimum="{Binding Minimum}"
