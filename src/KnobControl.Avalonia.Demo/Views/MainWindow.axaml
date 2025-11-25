@@ -32,9 +32,13 @@
                                LargeChange="{Binding LargeChange}"
                                StartAngle="{Binding StartAngle}"
                                SweepAngle="{Binding SweepAngle}"
-                               IsPointerVisible="{Binding IsPointerVisible}"
-                               PointerThickness="{Binding PointerThickness}"
                                TickFrequency="{Binding TickFrequency}"
+                               PointerThickness="{Binding PointerThickness}"
+                               ArcThickness="{Binding ArcThickness}"
+                               TicksThickness="{Binding TicksThickness}"
+                               MinMaxTicksSize="{Binding MinMaxTicksSize}"
+                               TicksSize="{Binding TicksSize}"
+                               IsPointerVisible="{Binding IsPointerVisible}"
                                IsSnapToTickEnabled="{Binding IsSnapToTickEnabled}"
                                IsHeaderValueVisible="{Binding IsHeaderValueVisible}"
                                HeaderValuePlacement="{Binding SelectedHeaderValuePlacement}" />
@@ -42,7 +46,7 @@
                 <Grid Grid.Column="1"
                       VerticalAlignment="Center"
                       ColumnDefinitions="Auto, *"
-                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                       ColumnSpacing="8"
                       RowSpacing="4">
                     <TextBlock Grid.Column="0"
@@ -103,11 +107,11 @@
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="7"
-                               Text="Is Pointer Visible"
+                               Text="Tick Frequency"
                                VerticalAlignment="Center" />
-                    <CheckBox Grid.Column="1"
-                              Grid.Row="7"
-                              IsChecked="{Binding IsPointerVisible}" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="7"
+                                   Value="{Binding TickFrequency}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="8"
@@ -119,34 +123,67 @@
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="9"
-                               Text="Tick Frequency"
+                               Text="Arc Thickness"
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="9"
-                                   Value="{Binding TickFrequency}" />
+                                   Value="{Binding ArcThickness}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="10"
-                               Text="Is Snap To Tick Enabled"
+                               Text="Ticks Thickness"
                                VerticalAlignment="Center" />
-                    <CheckBox Grid.Column="1"
-                              Grid.Row="10"
-                              IsChecked="{Binding IsSnapToTickEnabled}" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="10"
+                                   Value="{Binding TicksThickness}" />
+
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="11"
-                               Text="Is Header Value Visible"
+                               Text="Min Max Ticks Size"
                                VerticalAlignment="Center" />
-                    <CheckBox Grid.Column="1"
-                              Grid.Row="11"
-                              IsChecked="{Binding IsHeaderValueVisible}" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="11"
+                                   Value="{Binding MinMaxTicksSize}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="12"
+                               Text="Ticks Size"
+                               VerticalAlignment="Center" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="12"
+                                   Value="{Binding TicksSize}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="13"
+                               Text="Is Pointer Visible"
+                               VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1"
+                              Grid.Row="13"
+                              IsChecked="{Binding IsPointerVisible}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="14"
+                               Text="Is Snap To Tick Enabled"
+                               VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1"
+                              Grid.Row="14"
+                              IsChecked="{Binding IsSnapToTickEnabled}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="15"
+                               Text="Is Header Value Visible"
+                               VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1"
+                              Grid.Row="15"
+                              IsChecked="{Binding IsHeaderValueVisible}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="16"
                                Text="Header Value Placement"
                                VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="12"
+                              Grid.Row="16"
                               ItemsSource="{Binding HeaderValuePlacements}"
                               SelectedItem="{Binding SelectedHeaderValuePlacement}" />
                 </Grid>

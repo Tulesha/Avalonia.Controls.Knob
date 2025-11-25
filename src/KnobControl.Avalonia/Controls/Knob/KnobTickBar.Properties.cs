@@ -1,32 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Collections;
-using Avalonia.Media;
+using Avalonia.Controls.Primitives;
 using KnobControl.Avalonia.Helpers;
 
 namespace KnobControl.Avalonia;
 
 public partial class KnobTickBar
 {
-    #region Fill Property
-
-    /// <summary>
-    /// Defines the <see cref="Fill"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IBrush?> FillProperty =
-        AvaloniaProperty.Register<KnobTickBar, IBrush?>(
-            nameof(Fill));
-
-    /// <summary>
-    /// Gets or sets the brush used to fill the KnobTickBar's Ticks.
-    /// </summary>
-    public IBrush? Fill
-    {
-        get => GetValue(FillProperty);
-        set => SetValue(FillProperty, value);
-    }
-
-    #endregion
-
     #region StartAngle Property
 
     /// <summary>
@@ -93,8 +73,7 @@ public partial class KnobTickBar
     /// Defines the <see cref="Maximum"/> property.
     /// </summary>
     public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(Maximum));
+        RangeBase.MaximumProperty.AddOwner<KnobTickBar>();
 
     /// <summary>
     /// Gets or sets the logical position where the Maximum Tick will be drawn.
@@ -113,8 +92,7 @@ public partial class KnobTickBar
     /// Defines the <see cref="Minimum"/> property.
     /// </summary>
     public static readonly StyledProperty<double> MinimumProperty =
-        AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(Minimum));
+        RangeBase.MinimumProperty.AddOwner<KnobTickBar>();
 
     /// <summary>
     /// Gets or sets the logical position where the Minimum Tick will be drawn.
@@ -134,7 +112,9 @@ public partial class KnobTickBar
     /// </summary>
     public static readonly StyledProperty<double> TickFrequencyProperty =
         AvaloniaProperty.Register<KnobTickBar, double>(
-            nameof(TickFrequency));
+            nameof(TickFrequency),
+            defaultValue: 10.0,
+            coerce: CoerceTickFrequency);
 
     /// <summary>
     /// Gets or sets the value, which defines how the tick will be drawn.
@@ -143,6 +123,14 @@ public partial class KnobTickBar
     {
         get => GetValue(TickFrequencyProperty);
         set => SetValue(TickFrequencyProperty, value);
+    }
+
+    private static double CoerceTickFrequency(AvaloniaObject sender, double value)
+    {
+        if (sender is KnobTickBar knobTickBar)
+            return knobTickBar.CoerceTickFrequency(value);
+
+        return value;
     }
 
     #endregion
@@ -169,6 +157,66 @@ public partial class KnobTickBar
 
     #endregion
 
+    #region MinMaxTicksSize Property
+
+    /// <summary>
+    /// Defines the <see cref="MinMaxTicksSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> MinMaxTicksSizeProperty =
+        AvaloniaProperty.Register<KnobTickBar, double>(
+            nameof(MinMaxTicksSize),
+            defaultValue: 8.0,
+            coerce: CoerceMinMaxTicksSize);
+
+    /// <summary>
+    /// Gets or sets the size of min and max ticks.
+    /// </summary>
+    public double MinMaxTicksSize
+    {
+        get => GetValue(MinMaxTicksSizeProperty);
+        set => SetValue(MinMaxTicksSizeProperty, value);
+    }
+
+    private static double CoerceMinMaxTicksSize(AvaloniaObject sender, double value)
+    {
+        if (sender is KnobTickBar knobTickBar)
+            return knobTickBar.CoerceMinMaxTicksSize(value);
+
+        return value;
+    }
+
+    #endregion
+
+    #region TicksSize Property
+
+    /// <summary>
+    /// Defines the <see cref="TicksSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> TicksSizeProperty =
+        AvaloniaProperty.Register<KnobTickBar, double>(
+            nameof(TicksSize),
+            defaultValue: 4.0,
+            coerce: CoerceTicksSize);
+
+    /// <summary>
+    /// Gets or sets the size of ticks.
+    /// </summary>
+    public double TicksSize
+    {
+        get => GetValue(TicksSizeProperty);
+        set => SetValue(TicksSizeProperty, value);
+    }
+
+    private static double CoerceTicksSize(AvaloniaObject sender, double value)
+    {
+        if (sender is KnobTickBar knobTickBar)
+            return knobTickBar.CoerceTicksSize(value);
+
+        return value;
+    }
+
+    #endregion
+
     static KnobTickBar()
     {
         AffectsRender<KnobTickBar>(FillProperty,
@@ -177,7 +225,9 @@ public partial class KnobTickBar
             MaximumProperty,
             MinimumProperty,
             TickFrequencyProperty,
-            TicksProperty);
+            TicksProperty,
+            MinMaxTicksSizeProperty,
+            TicksSizeProperty);
     }
 
     /// <summary>
@@ -196,5 +246,38 @@ public partial class KnobTickBar
     protected virtual double CoerceSweepAngle(double baseValue)
     {
         return CoerceHelpers.CoerceSweepAngle(baseValue, SweepAngle);
+    }
+
+    /// <summary>
+    /// Called when the <see cref="TickFrequency"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoerceTickFrequency(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > -1
+            ? baseValue
+            : TickFrequency;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="MinMaxTicksSize"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoerceMinMaxTicksSize(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
+            ? baseValue
+            : MinMaxTicksSize;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="TicksSize"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoerceTicksSize(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
+            ? baseValue
+            : TicksSize;
     }
 }

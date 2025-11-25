@@ -68,44 +68,6 @@ public partial class Knob
 
     #endregion
 
-    #region LevelSweepAngle Property
-
-    private double _levelSweepAngle;
-
-    /// <summary>
-    /// Defines the <see cref="LevelSweepAngle"/> property.
-    /// </summary>
-    public static readonly DirectProperty<Knob, double> LevelSweepAngleProperty =
-        AvaloniaProperty.RegisterDirect<Knob, double>(
-            nameof(LevelSweepAngle),
-            o => o.LevelSweepAngle);
-
-    /// <summary>
-    /// Gets the pointer level sweep angle.
-    /// </summary>
-    public double LevelSweepAngle => _levelSweepAngle;
-
-    #endregion
-
-    #region PointerStartAngle Property
-
-    private double _pointerStartAngle;
-
-    /// <summary>
-    /// Defines the <see cref="PointerStartAngle"/> property.
-    /// </summary>
-    public static readonly DirectProperty<Knob, double> PointerStartAngleProperty =
-        AvaloniaProperty.RegisterDirect<Knob, double>(
-            nameof(PointerStartAngle),
-            o => o.PointerStartAngle);
-
-    /// <summary>
-    /// Gets the pointer start angle.
-    /// </summary>
-    public double PointerStartAngle => _pointerStartAngle;
-
-    #endregion
-
     #region PointerThickness Property
 
     /// <summary>
@@ -114,7 +76,8 @@ public partial class Knob
     public static readonly StyledProperty<double> PointerThicknessProperty =
         AvaloniaProperty.Register<Knob, double>(
             nameof(PointerThickness),
-            defaultValue: 3.0);
+            defaultValue: 3.0,
+            coerce: CoercePointerThickness);
 
     /// <summary>
     /// Gets or sets the thickness of the pointer.
@@ -123,6 +86,44 @@ public partial class Knob
     {
         get => GetValue(PointerThicknessProperty);
         set => SetValue(PointerThicknessProperty, value);
+    }
+
+    private static double CoercePointerThickness(AvaloniaObject sender, double value)
+    {
+        if (sender is Knob knob)
+            return knob.CoercePointerThickness(value);
+
+        return value;
+    }
+
+    #endregion
+
+    #region ArcThickness Property
+
+    /// <summary>
+    /// Defines the <see cref="ArcThickness"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> ArcThicknessProperty =
+        AvaloniaProperty.Register<Knob, double>(
+            nameof(ArcThickness),
+            defaultValue: 3.0,
+            coerce: CoerceArcThickness);
+
+    /// <summary>
+    /// Gets or sets the thickness of the arc.
+    /// </summary>
+    public double ArcThickness
+    {
+        get => GetValue(ArcThicknessProperty);
+        set => SetValue(ArcThicknessProperty, value);
+    }
+
+    private static double CoerceArcThickness(AvaloniaObject sender, double value)
+    {
+        if (sender is Knob knob)
+            return knob.CoerceArcThickness(value);
+
+        return value;
     }
 
     #endregion
@@ -186,6 +187,63 @@ public partial class Knob
 
     #endregion
 
+    #region MinMaxTicksSize Property
+
+    /// <summary>
+    /// Defines the <see cref="MinMaxTicksSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> MinMaxTicksSizeProperty =
+        KnobTickBar.MinMaxTicksSizeProperty.AddOwner<Knob>();
+
+    /// <summary>
+    /// Gets or sets the size of min and max ticks.
+    /// </summary>
+    public double MinMaxTicksSize
+    {
+        get => GetValue(MinMaxTicksSizeProperty);
+        set => SetValue(MinMaxTicksSizeProperty, value);
+    }
+
+    #endregion
+
+    #region TicksSize Property
+
+    /// <summary>
+    /// Defines the <see cref="TicksSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> TicksSizeProperty =
+        KnobTickBar.TicksSizeProperty.AddOwner<Knob>();
+
+    /// <summary>
+    /// Gets or sets the size of ticks.
+    /// </summary>
+    public double TicksSize
+    {
+        get => GetValue(TicksSizeProperty);
+        set => SetValue(TicksSizeProperty, value);
+    }
+
+    #endregion
+
+    #region TicksThickness Property
+
+    /// <summary>
+    /// Defines the <see cref="TicksThickness"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> TicksThicknessProperty =
+        KnobDecoratorBase.DecoratorThicknessProperty.AddOwner<Knob>();
+
+    /// <summary>
+    /// Gets or sets the thickness of ticks.
+    /// </summary>
+    public double TicksThickness
+    {
+        get => GetValue(TicksThicknessProperty);
+        set => SetValue(TicksThicknessProperty, value);
+    }
+
+    #endregion
+
     #region IsSnapToTickEnabled Property
 
     /// <summary>
@@ -203,6 +261,44 @@ public partial class Knob
         get => GetValue(IsSnapToTickEnabledProperty);
         set => SetValue(IsSnapToTickEnabledProperty, value);
     }
+
+    #endregion
+
+    #region LevelSweepAngle Property
+
+    private double _levelSweepAngle;
+
+    /// <summary>
+    /// Defines the <see cref="LevelSweepAngle"/> property.
+    /// </summary>
+    public static readonly DirectProperty<Knob, double> LevelSweepAngleProperty =
+        AvaloniaProperty.RegisterDirect<Knob, double>(
+            nameof(LevelSweepAngle),
+            o => o.LevelSweepAngle);
+
+    /// <summary>
+    /// Gets the pointer level sweep angle.
+    /// </summary>
+    public double LevelSweepAngle => _levelSweepAngle;
+
+    #endregion
+
+    #region PointerStartAngle Property
+
+    private double _pointerStartAngle;
+
+    /// <summary>
+    /// Defines the <see cref="PointerStartAngle"/> property.
+    /// </summary>
+    public static readonly DirectProperty<Knob, double> PointerStartAngleProperty =
+        AvaloniaProperty.RegisterDirect<Knob, double>(
+            nameof(PointerStartAngle),
+            o => o.PointerStartAngle);
+
+    /// <summary>
+    /// Gets the pointer start angle.
+    /// </summary>
+    public double PointerStartAngle => _pointerStartAngle;
 
     #endregion
 
@@ -252,5 +348,27 @@ public partial class Knob
     protected virtual double CoerceSweepAngle(double baseValue)
     {
         return CoerceHelpers.CoerceSweepAngle(baseValue, SweepAngle);
+    }
+
+    /// <summary>
+    /// Called when the <see cref="PointerThickness"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoercePointerThickness(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
+            ? baseValue
+            : PointerThickness;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="ArcThickness"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoerceArcThickness(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue >= 3
+            ? baseValue
+            : ArcThickness;
     }
 }

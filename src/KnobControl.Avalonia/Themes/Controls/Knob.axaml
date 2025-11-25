@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:KnobControl.Avalonia"
+                    xmlns:converters="clr-namespace:KnobControl.Avalonia.Converters"
                     x:CompileBindings="True">
     <Design.PreviewWith>
         <Panel Width="400"
@@ -12,7 +13,9 @@
                            SmallChange="1"
                            StartAngle="-225"
                            SweepAngle="270"
-                           TickFrequency="10" />
+                           TickFrequency="10"
+                           MinMaxTicksSize="10"
+                           TicksThickness="4"/>
         </Panel>
 
     </Design.PreviewWith>
@@ -36,36 +39,68 @@
                                               Maximum="{TemplateBinding Maximum}"
                                               Minimum="{TemplateBinding Minimum}"
                                               TickFrequency="{TemplateBinding TickFrequency}"
-                                              Ticks="{TemplateBinding Ticks}" />
+                                              Ticks="{TemplateBinding Ticks}"
+                                              MinMaxTicksSize="{TemplateBinding MinMaxTicksSize}"
+                                              TicksSize="{TemplateBinding TicksSize}"
+                                              DecoratorThickness="{TemplateBinding TicksThickness}" />
 
                         <Arc x:Name="PART_MainArc"
                              Stroke="{TemplateBinding Background}"
                              StartAngle="{TemplateBinding StartAngle}"
                              SweepAngle="{TemplateBinding SweepAngle}"
-                             StrokeThickness="3"
-                             Margin="11"
-                             Stretch="None" />
+                             StrokeThickness="{TemplateBinding ArcThickness}"
+                             Stretch="None">
+                            <Arc.Margin>
+                                <MultiBinding Converter="{x:Static converters:KnobMainArcMarginConverter.Instance}">
+                                    <Binding Path="TicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="MinMaxTicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ArcThickness" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Arc.Margin>
+                        </Arc>
 
                         <Arc x:Name="PART_LevelArc"
                              Stroke="{TemplateBinding Foreground}"
                              StartAngle="{TemplateBinding StartAngle}"
                              SweepAngle="{TemplateBinding LevelSweepAngle}"
-                             StrokeThickness="5"
-                             Margin="10"
-                             Stretch="None" />
+                             StrokeThickness="{TemplateBinding ArcThickness, Converter={x:Static converters:KnobLevelStrokeThicknessConverter.Instance}}"
+                             Stretch="None">
+                            <Arc.Margin>
+                                <MultiBinding Converter="{x:Static converters:KnobLevelArcMarginConverter.Instance}">
+                                    <Binding Path="TicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="MinMaxTicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ArcThickness" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Arc.Margin>
+                        </Arc>
 
                         <Ellipse x:Name="PART_Ellipse"
-                                 Margin="20"
-                                 Fill="{TemplateBinding Background}" />
+                                 Fill="{TemplateBinding Background}">
+                            <Ellipse.Margin>
+                                <MultiBinding Converter="{x:Static converters:KnobEllipseMarginConverter.Instance}">
+                                    <Binding Path="TicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="MinMaxTicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ArcThickness" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Ellipse.Margin>
+                        </Ellipse>
 
-                        <Arc x:Name="PART_LevelArc2"
+                        <Arc x:Name="PART_LevelPointerArc"
                              Stroke="{TemplateBinding Foreground}"
                              StartAngle="{TemplateBinding PointerStartAngle}"
                              SweepAngle="{TemplateBinding PointerThickness}"
                              IsVisible="{TemplateBinding IsPointerVisible}"
                              StrokeThickness="10"
-                             Margin="30"
-                             Stretch="None" />
+                             Stretch="None">
+                            <Arc.Margin>
+                                <MultiBinding
+                                    Converter="{x:Static converters:KnobLevelPointerArcMarginConverter.Instance}">
+                                    <Binding Path="TicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="MinMaxTicksSize" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ArcThickness" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Arc.Margin>
+                        </Arc>
 
                         <ContentPresenter x:Name="PART_HeaderValueContentPresenter"
                                           Content="{TemplateBinding Value}"
@@ -83,6 +118,9 @@
             <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="RenderTransform">
+                    <RotateTransform Angle="90" />
+                </Setter>
             </Style>
         </Style>
 
@@ -99,6 +137,9 @@
             <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
                 <Setter Property="HorizontalAlignment" Value="Right" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="RenderTransform">
+                    <RotateTransform Angle="-90" />
+                </Setter>
             </Style>
         </Style>
 
