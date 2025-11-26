@@ -254,7 +254,7 @@ public partial class KnobTickBar
     /// <param name="baseValue">The value.</param>
     protected virtual double CoerceTickFrequency(double baseValue)
     {
-        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > -1
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue >= 0
             ? baseValue
             : TickFrequency;
     }

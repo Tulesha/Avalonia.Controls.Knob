@@ -409,7 +409,7 @@ public partial class Knob
     /// <param name="baseValue">The value.</param>
     protected virtual double CoerceArcThickness(double baseValue)
     {
-        return ValidateHelpers.ValidateDouble(baseValue) && baseValue >= 3
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
             ? baseValue
             : ArcThickness;
     }

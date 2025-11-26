@@ -80,7 +80,7 @@ public partial class KnobCycle
     /// <param name="baseValue">The value.</param>
     protected virtual double CoerceGripsDash(double baseValue)
     {
-        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > -1
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue >= 0
             ? baseValue
             : GripsDash;
     }
