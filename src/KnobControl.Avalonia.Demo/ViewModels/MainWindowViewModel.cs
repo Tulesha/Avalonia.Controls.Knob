@@ -15,6 +15,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private double _sweepAngle = 270.0;
     [ObservableProperty] private double _tickFrequency = 10.0;
     [ObservableProperty] private double _pointerThickness = 3.0;
+    [ObservableProperty] private double _pointerSize = 10.0;
     [ObservableProperty] private double _arcThickness = 3.0;
     [ObservableProperty] private double _ticksThickness = 1.0;
     [ObservableProperty] private double _minMaxTicksSize = 8.0;

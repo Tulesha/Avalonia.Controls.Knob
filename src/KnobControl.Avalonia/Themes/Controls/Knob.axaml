@@ -91,7 +91,7 @@
                              StartAngle="{TemplateBinding PointerStartAngle}"
                              SweepAngle="{TemplateBinding PointerThickness}"
                              IsVisible="{TemplateBinding IsPointerVisible}"
-                             StrokeThickness="10"
+                             StrokeThickness="{TemplateBinding PointerSize}"
                              Stretch="None">
                             <Arc.Margin>
                                 <MultiBinding

@@ -29,6 +29,7 @@ settings panels, and any scenario where you need a circular value selection inte
 | SweepAngle                            | `double`                | Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300)                        |
 | IsPointerVisible                      | `bool`                  | Gets or sets whether the pointer indicator is visible (default: true)                                               |
 | PointerThickness                      | `double`                | Gets or sets the thickness of the pointer indicator (default: 3.0)                                                  |
+| PointerSize                           | `double`                | Gets or sets the size of the pointer indicator (default: 10.0)                                                      |
 | ArcThickness                          | `double`                | Gets or sets the thckness of the arc indicator (default: 3.0)                                                       |
 | TickFrequency                         | `double`                | Gets or sets the interval between tick marks for value snapping                                                     |
 | Ticks                                 | `AvaloniaList<double>?` | Gets or sets a collection of custom tick values for precise positioning                                             |

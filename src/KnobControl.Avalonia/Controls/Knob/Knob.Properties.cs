@@ -119,6 +119,36 @@ public partial class Knob
 
     #endregion
 
+    #region PointerSize Property
+
+    /// <summary>
+    /// Defines the <see cref="PointerSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> PointerSizeProperty =
+        AvaloniaProperty.Register<Knob, double>(
+            nameof(PointerSize),
+            defaultValue: 10.0,
+            coerce: CoercePointerSize);
+
+    /// <summary>
+    /// Gets or sets the size of the pointer.
+    /// </summary>
+    public double PointerSize
+    {
+        get => GetValue(PointerSizeProperty);
+        set => SetValue(PointerSizeProperty, value);
+    }
+
+    private static double CoercePointerSize(AvaloniaObject sender, double value)
+    {
+        if (sender is Knob knob)
+            return knob.CoercePointerSize(value);
+
+        return value;
+    }
+
+    #endregion
+
     #region ArcThickness Property
 
     /// <summary>
@@ -359,6 +389,18 @@ public partial class Knob
         return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
             ? baseValue
             : PointerThickness;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="PointerSize"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    /// <returns></returns>
+    protected virtual double CoercePointerSize(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
+            ? baseValue
+            : PointerSize;
     }
 
     /// <summary>
