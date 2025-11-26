@@ -22,7 +22,8 @@
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="120" />
         <Setter Property="Background" Value="{DynamicResource SliderTrackFill}" />
-        <Setter Property="Foreground" Value="{DynamicResource SliderTrackValueFill}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+        <Setter Property="Stroke" Value="{DynamicResource SliderTrackValueFill}" />
 
         <Setter Property="Template">
             <ControlTemplate>
@@ -32,7 +33,7 @@
                         <Ellipse x:Name="PART_Ellipse"
                                  Margin="20"
                                  Fill="{TemplateBinding Background}"
-                                 Stroke="{TemplateBinding Foreground}"
+                                 Stroke="{TemplateBinding Stroke}"
                                  StrokeThickness="{TemplateBinding GripsThickness}"
                                  StrokeDashArray="{TemplateBinding GripsDash, Converter={x:Static converters:KnobCycleStrokeDashArrayConverter.Instance}}"
                                  StrokeLineCap="Round">
@@ -134,6 +135,9 @@
                         Value="{DynamicResource SliderThumbBackgroundDisabled}" />
                 <Setter Property="Stroke"
                         Value="{DynamicResource SliderTrackValueFillDisabled}" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter#PART_HeaderValueContentPresenter">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlForegroundDisabled}" />
             </Style>
         </Style>
 

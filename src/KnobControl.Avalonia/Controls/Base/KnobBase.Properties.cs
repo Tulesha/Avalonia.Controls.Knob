@@ -1,12 +1,33 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Mixins;
+using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace KnobControl.Avalonia;
 
 public partial class KnobBase
 {
+    #region Stroke Property
+
+    /// <summary>
+    /// Defines the <see cref="Stroke"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush?> StrokeProperty =
+        Shape.StrokeProperty.AddOwner<KnobBase>();
+
+    /// <summary>
+    /// Gets or sets the brush for shape elements inside Knob base controls.
+    /// </summary>
+    public IBrush? Stroke
+    {
+        get => GetValue(StrokeProperty);
+        set => SetValue(StrokeProperty, value);
+    }
+
+    #endregion
+
     #region IsHeaderValueVisible Property
 
     /// <summary>
