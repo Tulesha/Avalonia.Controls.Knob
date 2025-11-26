@@ -29,8 +29,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private double _minimumCycle = -50.0;
     [ObservableProperty] private double _smallChangeCycle = 1.0;
     [ObservableProperty] private double _largeChangeCycle = 10.0;
-    [ObservableProperty] private double _gripsCountCycle = 10.0;
-    [ObservableProperty] private double _gripsSizeCycle = 10.0;
+    [ObservableProperty] private double _gripsDashCycle = 3.0;
     [ObservableProperty] private double _gripsThicknessCycle = 3.0;
     [ObservableProperty] private bool _isHeaderValueVisibleCycle = true;
     [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacementCycle = KnobHeaderPlacement.Bottom;

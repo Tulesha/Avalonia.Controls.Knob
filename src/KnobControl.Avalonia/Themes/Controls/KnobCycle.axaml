@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:KnobControl.Avalonia"
+                    xmlns:converters="clr-namespace:KnobControl.Avalonia.Converters"
                     x:CompileBindings="True">
     <Design.PreviewWith>
         <Panel Width="400"
@@ -12,7 +13,7 @@
                                 Minimum="0"
                                 Maximum="200"
                                 SmallChange="1"
-                                GripsCount="10" />
+                                GripsDash="3" />
         </Panel>
     </Design.PreviewWith>
 
@@ -28,23 +29,18 @@
                 <DataValidationErrors>
                     <Panel x:Name="PART_KnobCycleContainer"
                            Background="{DynamicResource SliderContainerBackground}">
-                        <Panel>
-                            <controls:KnobCycleGrips x:Name="PART_KnobCycleGrips"
-                                                     Margin="18"
-                                                     Fill="{TemplateBinding Foreground}"
-                                                     GripsCount="{TemplateBinding GripsCount}"
-                                                     GripsSize="{TemplateBinding GripsSize}"
-                                                     DecoratorThickness="{TemplateBinding GripsThickness}">
-                                <controls:KnobCycleGrips.RenderTransform>
-                                    <RotateTransform
-                                        Angle="{Binding RotateAngle, RelativeSource={RelativeSource AncestorType=controls:KnobCycle}}" />
-                                </controls:KnobCycleGrips.RenderTransform>
-                            </controls:KnobCycleGrips>
-
-                            <Ellipse x:Name="PART_Ellipse"
-                                     Margin="20"
-                                     Fill="{TemplateBinding Background}" />
-                        </Panel>
+                        <Ellipse x:Name="PART_Ellipse"
+                                 Margin="20"
+                                 Fill="{TemplateBinding Background}"
+                                 Stroke="{TemplateBinding Foreground}"
+                                 StrokeThickness="{TemplateBinding GripsThickness}"
+                                 StrokeDashArray="{TemplateBinding GripsDash, Converter={x:Static converters:KnobCycleStrokeDashArrayConverter.Instance}}"
+                                 StrokeLineCap="Round">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform
+                                    Angle="{Binding RotateAngle, RelativeSource={RelativeSource AncestorType=controls:KnobCycle}}" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
 
                         <ContentPresenter x:Name="PART_HeaderValueContentPresenter"
                                           Content="{TemplateBinding Value}"
@@ -112,6 +108,8 @@
             <Style Selector="^ /template/ Ellipse#PART_Ellipse">
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundPointerOver}" />
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillPointerOver}" />
             </Style>
         </Style>
 
@@ -124,6 +122,8 @@
             <Style Selector="^ /template/ Ellipse#PART_Ellipse">
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundPressed}" />
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillPressed}" />
             </Style>
         </Style>
 
@@ -132,6 +132,8 @@
             <Style Selector="^ /template/ Ellipse#PART_Ellipse">
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundDisabled}" />
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillDisabled}" />
             </Style>
         </Style>
 

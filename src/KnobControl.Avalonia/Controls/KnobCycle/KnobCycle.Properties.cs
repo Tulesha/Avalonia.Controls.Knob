@@ -1,43 +1,36 @@
 ﻿using Avalonia;
+using KnobControl.Avalonia.Helpers;
 
 namespace KnobControl.Avalonia;
 
 public partial class KnobCycle
 {
-    #region GripsCount Property
+    #region GripsDash Property
 
     /// <summary>
-    /// Defines the <see cref="GripsCount"/> property.
+    /// Defines the <see cref="GripsDash"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> GripsCountProperty =
-        KnobCycleGrips.GripsCountProperty.AddOwner<KnobCycle>();
+    public static readonly StyledProperty<double> GripsDashProperty =
+        AvaloniaProperty.Register<KnobCycle, double>(
+            nameof(GripsDash),
+            defaultValue: 3.0,
+            coerce: CoerceGripsDash);
 
     /// <summary>
-    /// Gets or sets the count of grips inside the KnobCycle.
+    /// Gets or sets the dash of grips inside the KnobCycle.
     /// </summary>
-    public double GripsCount
+    public double GripsDash
     {
-        get => GetValue(GripsCountProperty);
-        set => SetValue(GripsCountProperty, value);
+        get => GetValue(GripsDashProperty);
+        set => SetValue(GripsDashProperty, value);
     }
 
-    #endregion
-
-    #region GripsSize Property
-
-    /// <summary>
-    /// Defines the <see cref="GripsSize"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> GripsSizeProperty =
-        KnobCycleGrips.GripsSizeProperty.AddOwner<KnobCycle>();
-
-    /// <summary>
-    /// Gets or sets the size of grips.
-    /// </summary>
-    public double GripsSize
+    private static double CoerceGripsDash(AvaloniaObject sender, double value)
     {
-        get => GetValue(GripsSizeProperty);
-        set => SetValue(GripsSizeProperty, value);
+        if (sender is KnobCycle knobCycle)
+            return knobCycle.CoerceGripsDash(value);
+
+        return value;
     }
 
     #endregion
@@ -49,7 +42,7 @@ public partial class KnobCycle
     /// </summary>
     public static readonly StyledProperty<double> GripsThicknessProperty =
         KnobDecoratorBase.DecoratorThicknessProperty.AddOwner<KnobCycle>(
-            new StyledPropertyMetadata<double>(defaultValue: 3));
+            new StyledPropertyMetadata<double>(defaultValue: 3.0));
 
     /// <summary>
     /// Gets or sets the thickness of grips.
@@ -80,4 +73,15 @@ public partial class KnobCycle
     public double RotateAngle => _rotateAngle;
 
     #endregion
+
+    /// <summary>
+    /// Called when the <see cref="GripsDash"/> property has to be coerced.
+    /// </summary>
+    /// <param name="baseValue">The value.</param>
+    protected virtual double CoerceGripsDash(double baseValue)
+    {
+        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > -1
+            ? baseValue
+            : GripsDash;
+    }
 }

@@ -170,6 +170,10 @@
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundPointerOver}" />
             </Style>
+            <Style Selector="^ /template/ Arc#PART_LevelArc, ^ /template/ Arc#PART_LevelPointerArc">
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillPointerOver}" />
+            </Style>
         </Style>
 
         <!--  Pressed State  -->
@@ -182,6 +186,10 @@
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundPressed}" />
             </Style>
+            <Style Selector="^ /template/ Arc#PART_LevelArc, ^ /template/ Arc#PART_LevelPointerArc">
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillPressed}" />
+            </Style>
         </Style>
 
         <!-- Disabled State -->
@@ -189,6 +197,10 @@
             <Style Selector="^ /template/ Ellipse#PART_Ellipse">
                 <Setter Property="Fill"
                         Value="{DynamicResource SliderThumbBackgroundDisabled}" />
+            </Style>
+            <Style Selector="^ /template/ Arc#PART_LevelArc, ^ /template/ Arc#PART_LevelPointerArc">
+                <Setter Property="Stroke"
+                        Value="{DynamicResource SliderTrackValueFillDisabled}" />
             </Style>
         </Style>
 

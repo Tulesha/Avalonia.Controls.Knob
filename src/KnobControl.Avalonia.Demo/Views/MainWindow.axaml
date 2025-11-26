@@ -203,8 +203,7 @@
                                     Minimum="{Binding MinimumCycle}"
                                     SmallChange="{Binding SmallChangeCycle}"
                                     LargeChange="{Binding LargeChangeCycle}"
-                                    GripsCount="{Binding GripsCountCycle}"
-                                    GripsSize="{Binding GripsSizeCycle}"
+                                    GripsDash="{Binding GripsDashCycle}"
                                     GripsThickness="{Binding GripsThicknessCycle}"
                                     IsHeaderValueVisible="{Binding IsHeaderValueVisibleCycle}"
                                     HeaderValuePlacement="{Binding SelectedHeaderValuePlacementCycle}" />
@@ -212,7 +211,7 @@
                 <Grid Grid.Column="1"
                       VerticalAlignment="Center"
                       ColumnDefinitions="Auto, *"
-                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                       ColumnSpacing="8"
                       RowSpacing="4">
                     <TextBlock Grid.Column="0"
@@ -257,42 +256,34 @@
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="5"
-                               Text="Grips Count Cycle"
+                               Text="Grips Dash"
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="5"
-                                   Value="{Binding GripsCountCycle}" />
+                                   Value="{Binding GripsDashCycle}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="6"
-                               Text="Grips Size Cycle"
+                               Text="Grips Thickness"
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="6"
-                                   Value="{Binding GripsSizeCycle}" />
-
-                    <TextBlock Grid.Column="0"
-                               Grid.Row="7"
-                               Text="Grips Thickness Cycle"
-                               VerticalAlignment="Center" />
-                    <NumericUpDown Grid.Column="1"
-                                   Grid.Row="7"
                                    Value="{Binding GripsThicknessCycle}" />
 
                     <TextBlock Grid.Column="0"
-                               Grid.Row="8"
+                               Grid.Row="7"
                                Text="Is Header Value Visible"
                                VerticalAlignment="Center" />
                     <CheckBox Grid.Column="1"
-                              Grid.Row="8"
+                              Grid.Row="7"
                               IsChecked="{Binding IsHeaderValueVisibleCycle}" />
 
                     <TextBlock Grid.Column="0"
-                               Grid.Row="9"
+                               Grid.Row="8"
                                Text="Header Value Placement"
                                VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="9"
+                              Grid.Row="8"
                               ItemsSource="{Binding HeaderValuePlacements}"
                               SelectedItem="{Binding SelectedHeaderValuePlacementCycle}" />
                 </Grid>

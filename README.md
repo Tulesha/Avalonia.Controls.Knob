@@ -60,8 +60,7 @@ more like `gear`. Perfect for controls like oscilloscope knobs without stoppers.
 | HeaderValueHorizontalContentAlignment | `HorizontalAlignment` | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch) |
 | HeaderValueVerticalContentAlignment   | `VerticalAlignment`   | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)   |
 | HeaderValuePlacement                  | `KnobHeaderPlacement` | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                        |
-| GripsCount                            | `double`              | Gets or sets the count of the grips (default: 10.0)                                                                 |
-| GripsSize                             | `double`              | Gets or sets the size of the grips (default: 10.0)                                                                  |
+| GripsDash                             | `double`              | Gets or sets the dash of the grips (default: 3.0)                                                                   |
 | GripsThickness                        | `double`              | Gets or sets the thickness of the grips (default: 3.0)                                                              |
 
 ### Demo
