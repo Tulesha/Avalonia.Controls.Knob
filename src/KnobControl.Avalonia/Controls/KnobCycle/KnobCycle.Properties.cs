@@ -5,6 +5,25 @@ namespace KnobControl.Avalonia;
 
 public partial class KnobCycle
 {
+    #region ArrowSize Property
+
+    /// <summary>
+    /// Defines the <see cref="ArrowSize"/> property.
+    /// </summary>
+    public static readonly StyledProperty<double> ArrowSizeProperty =
+        KnobCycleArrow.ArrowSizeProperty.AddOwner<KnobCycle>();
+
+    /// <summary>
+    /// Gets or sets the arrow size.
+    /// </summary>
+    public double ArrowSize
+    {
+        get => GetValue(ArrowSizeProperty);
+        set => SetValue(ArrowSizeProperty, value);
+    }
+
+    #endregion
+
     #region GripsDash Property
 
     /// <summary>
@@ -41,8 +60,9 @@ public partial class KnobCycle
     /// Defines the <see cref="GripsThickness"/> property.
     /// </summary>
     public static readonly StyledProperty<double> GripsThicknessProperty =
-        KnobDecoratorBase.DecoratorThicknessProperty.AddOwner<KnobCycle>(
-            new StyledPropertyMetadata<double>(defaultValue: 3.0));
+        AvaloniaProperty.Register<KnobCycle, double>(
+            nameof(GripsThickness),
+            defaultValue: 3.0);
 
     /// <summary>
     /// Gets or sets the thickness of grips.

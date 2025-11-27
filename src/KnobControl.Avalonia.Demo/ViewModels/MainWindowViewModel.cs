@@ -30,6 +30,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private double _minimumCycle = -50.0;
     [ObservableProperty] private double _smallChangeCycle = 1.0;
     [ObservableProperty] private double _largeChangeCycle = 10.0;
+    [ObservableProperty] private double _startAngleCycle = -225.0;
+    [ObservableProperty] private double _sweepAngleCycle = 270.0;
+    [ObservableProperty] private double _arcThicknessCycle = 3.0;
+    [ObservableProperty] private double _arrowSizeCycle = 10.0;
     [ObservableProperty] private double _gripsDashCycle = 3.0;
     [ObservableProperty] private double _gripsThicknessCycle = 3.0;
     [ObservableProperty] private bool _isHeaderValueVisibleCycle = true;

@@ -13,30 +13,31 @@ settings panels, and any scenario where you need a circular value selection inte
 
 ### API
 
-| PROPERTY NAME                         | TYPE                    | DESCRIPTION                                                                                                         |
-|---------------------------------------|-------------------------|---------------------------------------------------------------------------------------------------------------------|
-| Value                                 | `double`                | Inherited from RangeBase - Gets or sets the current value of the knob                                               |
-| Minimum                               | `double`                | Inherited from RangeBase - Gets or sets the minimum allowed value                                                   |
-| Maximum                               | `double`                | Inherited from RangeBase - Gets or sets the maximum allowed value                                                   |
-| SmallChange                           | `double`                | Inherited from RangeBase - Gets or sets the small change increment                                                  |
-| LargeChange                           | `double`                | Inherited from RangeBase - Gets or sets the large change increment                                                  |
-| IsHeaderValueVisible                  | `bool`                  | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                         |
-| HeaderValueTemplate                   | `IDataTemplate?`        | Inherited from KnobBase - Gets or sets the data template for the header value display                               |
-| HeaderValueHorizontalContentAlignment | `HorizontalAlignment`   | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch) |
-| HeaderValueVerticalContentAlignment   | `VerticalAlignment`     | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)   |
-| HeaderValuePlacement                  | `KnobHeaderPlacement`   | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                        |
-| StartAngle                            | `double`                | Gets or sets the start angle in degrees for the knob's sweep range (default: -240)                                  |
-| SweepAngle                            | `double`                | Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300)                        |
-| IsPointerVisible                      | `bool`                  | Gets or sets whether the pointer indicator is visible (default: true)                                               |
-| PointerThickness                      | `double`                | Gets or sets the thickness of the pointer indicator (default: 3.0)                                                  |
-| PointerSize                           | `double`                | Gets or sets the size of the pointer indicator (default: 10.0)                                                      |
-| ArcThickness                          | `double`                | Gets or sets the thckness of the arc indicator (default: 3.0)                                                       |
-| TickFrequency                         | `double`                | Gets or sets the interval between tick marks for value snapping                                                     |
-| Ticks                                 | `AvaloniaList<double>?` | Gets or sets a collection of custom tick values for precise positioning                                             |
-| MinMaxTicksSize                       | `double`                | Gets or sets the size of the minimum and maximum ticks (default: 8.0)                                               |
-| TicksSize                             | `double`                | Gets or sets the size of the ticks (default: 4.0)                                                                   |
-| TicksThickness                        | `double`                | Gets or sets the thicknes of the ticks (default: 1.0)                                                               |
-| IsSnapToTickEnabled                   | `bool`                  | Gets or sets whether the knob automatically snaps to the closest tick mark                                          |
+| PROPERTY NAME                         | TYPE                    | DESCRIPTION                                                                                                            |
+|---------------------------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Value                                 | `double`                | Inherited from RangeBase - Gets or sets the current value of the knob                                                  |
+| Minimum                               | `double`                | Inherited from RangeBase - Gets or sets the minimum allowed value                                                      |
+| Maximum                               | `double`                | Inherited from RangeBase - Gets or sets the maximum allowed value                                                      |
+| SmallChange                           | `double`                | Inherited from RangeBase - Gets or sets the small change increment                                                     |
+| LargeChange                           | `double`                | Inherited from RangeBase - Gets or sets the large change increment                                                     |
+| Stroke                                | `IBrush`                | Inhetited from KnobBase -  Gets or sets the brush for shape elements inside Knob base controls.                        |
+| StartAngle                            | `double`                | Inherited from KnobBase - Gets or sets the start angle in degrees for the knob's sweep range (default: -240)           |
+| SweepAngle                            | `double`                | Inherited from KnobBase - Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300) |
+| ArcThickness                          | `double`                | Inherited from KnobBase - Gets or sets the thckness of the arc indicator (default: 3.0)                                |
+| IsHeaderValueVisible                  | `bool`                  | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                            |
+| HeaderValueTemplate                   | `IDataTemplate?`        | Inherited from KnobBase - Gets or sets the data template for the header value display                                  |
+| HeaderValueHorizontalContentAlignment | `HorizontalAlignment`   | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch)    |
+| HeaderValueVerticalContentAlignment   | `VerticalAlignment`     | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)      |
+| HeaderValuePlacement                  | `KnobHeaderPlacement`   | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                           |
+| IsPointerVisible                      | `bool`                  | Gets or sets whether the pointer indicator is visible (default: true)                                                  |
+| PointerThickness                      | `double`                | Gets or sets the thickness of the pointer indicator (default: 3.0)                                                     |
+| PointerSize                           | `double`                | Gets or sets the size of the pointer indicator (default: 10.0)                                                         |
+| TickFrequency                         | `double`                | Gets or sets the interval between tick marks for value snapping                                                        |
+| Ticks                                 | `AvaloniaList<double>?` | Gets or sets a collection of custom tick values for precise positioning                                                |
+| MinMaxTicksSize                       | `double`                | Gets or sets the size of the minimum and maximum ticks (default: 8.0)                                                  |
+| TicksSize                             | `double`                | Gets or sets the size of the ticks (default: 4.0)                                                                      |
+| TicksThickness                        | `double`                | Gets or sets the thicknes of the ticks (default: 1.0)                                                                  |
+| IsSnapToTickEnabled                   | `bool`                  | Gets or sets whether the knob automatically snaps to the closest tick mark                                             |
 
 ### Demo
 
@@ -49,20 +50,25 @@ more like `gear`. Perfect for controls like oscilloscope knobs without stoppers.
 
 ### API
 
-| PROPERTY NAME                         | TYPE                  | DESCRIPTION                                                                                                         |
-|---------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------|
-| Value                                 | `double`              | Inherited from RangeBase - Gets or sets the current value of the knob                                               |
-| Minimum                               | `double`              | Inherited from RangeBase - Gets or sets the minimum allowed value                                                   |
-| Maximum                               | `double`              | Inherited from RangeBase - Gets or sets the maximum allowed value                                                   |
-| SmallChange                           | `double`              | Inherited from RangeBase - Gets or sets the small change increment                                                  |
-| LargeChange                           | `double`              | Inherited from RangeBase - Gets or sets the large change increment                                                  |
-| IsHeaderValueVisible                  | `bool`                | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                         |
-| HeaderValueTemplate                   | `IDataTemplate?`      | Inherited from KnobBase - Gets or sets the data template for the header value display                               |
-| HeaderValueHorizontalContentAlignment | `HorizontalAlignment` | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch) |
-| HeaderValueVerticalContentAlignment   | `VerticalAlignment`   | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)   |
-| HeaderValuePlacement                  | `KnobHeaderPlacement` | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                        |
-| GripsDash                             | `double`              | Gets or sets the dash of the grips (default: 3.0)                                                                   |
-| GripsThickness                        | `double`              | Gets or sets the thickness of the grips (default: 3.0)                                                              |
+| PROPERTY NAME                         | TYPE                  | DESCRIPTION                                                                                                            |
+|---------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| Value                                 | `double`              | Inherited from RangeBase - Gets or sets the current value of the knob                                                  |
+| Minimum                               | `double`              | Inherited from RangeBase - Gets or sets the minimum allowed value                                                      |
+| Maximum                               | `double`              | Inherited from RangeBase - Gets or sets the maximum allowed value                                                      |
+| SmallChange                           | `double`              | Inherited from RangeBase - Gets or sets the small change increment                                                     |
+| LargeChange                           | `double`              | Inherited from RangeBase - Gets or sets the large change increment                                                     |
+| Stroke                                | `IBrush`              | Inhetited from KnobBase -  Gets or sets the brush for shape elements inside Knob base controls.                        |
+| StartAngle                            | `double`              | Inherited from KnobBase - Gets or sets the start angle in degrees for the knob's sweep range (default: -240)           |
+| SweepAngle                            | `double`              | Inherited from KnobBase - Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300) |
+| ArcThickness                          | `double`              | Inherited from KnobBase - Gets or sets the thckness of the arc indicator (default: 3.0)                                |
+| IsHeaderValueVisible                  | `bool`                | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                            |
+| HeaderValueTemplate                   | `IDataTemplate?`      | Inherited from KnobBase - Gets or sets the data template for the header value display                                  |
+| HeaderValueHorizontalContentAlignment | `HorizontalAlignment` | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch)    |
+| HeaderValueVerticalContentAlignment   | `VerticalAlignment`   | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)      |
+| HeaderValuePlacement                  | `KnobHeaderPlacement` | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                           |
+| ArrowSize                             | `double`              | Gets or sets the arrow size. (default: 10.0)                                                                           |
+| GripsDash                             | `double`              | Gets or sets the dash of the grips (default: 3.0)                                                                      |
+| GripsThickness                        | `double`              | Gets or sets the thickness of the grips (default: 3.0)                                                                 |
 
 ### Demo
 

@@ -10,6 +10,9 @@ namespace KnobControl.Avalonia;
 /// </summary>
 public abstract partial class KnobDecoratorBase : Control
 {
+    /// <summary>
+    /// Get the point from center, radians angle and radius
+    /// </summary>
     protected static Point GetPoint(Point center, double angleRad, double radius)
     {
         var x = center.X + Math.Cos(angleRad) * radius;

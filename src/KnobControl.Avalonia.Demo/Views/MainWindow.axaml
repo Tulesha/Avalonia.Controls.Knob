@@ -212,6 +212,10 @@
                                     Minimum="{Binding MinimumCycle}"
                                     SmallChange="{Binding SmallChangeCycle}"
                                     LargeChange="{Binding LargeChangeCycle}"
+                                    StartAngle="{Binding StartAngleCycle}"
+                                    SweepAngle="{Binding SweepAngleCycle}"
+                                    ArcThickness="{Binding ArcThicknessCycle}"
+                                    ArrowSize="{Binding ArrowSizeCycle}"
                                     GripsDash="{Binding GripsDashCycle}"
                                     GripsThickness="{Binding GripsThicknessCycle}"
                                     IsHeaderValueVisible="{Binding IsHeaderValueVisibleCycle}"
@@ -220,7 +224,7 @@
                 <Grid Grid.Column="1"
                       VerticalAlignment="Center"
                       ColumnDefinitions="Auto, *"
-                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                       ColumnSpacing="8"
                       RowSpacing="4">
                     <TextBlock Grid.Column="0"
@@ -265,34 +269,66 @@
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="5"
-                               Text="Grips Dash"
+                               Text="Start Angle"
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="5"
-                                   Value="{Binding GripsDashCycle}" />
+                                   Value="{Binding StartAngleCycle}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="6"
-                               Text="Grips Thickness"
+                               Text="Sweep Angle"
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="6"
-                                   Value="{Binding GripsThicknessCycle}" />
+                                   Value="{Binding SweepAngleCycle}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="7"
-                               Text="Is Header Value Visible"
+                               Text="Arc Thickness"
                                VerticalAlignment="Center" />
-                    <CheckBox Grid.Column="1"
-                              Grid.Row="7"
-                              IsChecked="{Binding IsHeaderValueVisibleCycle}" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="7"
+                                   Value="{Binding ArcThicknessCycle}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="8"
+                               Text="Arrow Size"
+                               VerticalAlignment="Center" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="8"
+                                   Value="{Binding ArrowSizeCycle}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="9"
+                               Text="Grips Dash"
+                               VerticalAlignment="Center" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="9"
+                                   Value="{Binding GripsDashCycle}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="10"
+                               Text="Grips Thickness"
+                               VerticalAlignment="Center" />
+                    <NumericUpDown Grid.Column="1"
+                                   Grid.Row="10"
+                                   Value="{Binding GripsThicknessCycle}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="11"
+                               Text="Is Header Value Visible"
+                               VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1"
+                              Grid.Row="11"
+                              IsChecked="{Binding IsHeaderValueVisibleCycle}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="12"
                                Text="Header Value Placement"
                                VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="8"
+                              Grid.Row="12"
                               ItemsSource="{Binding HeaderValuePlacements}"
                               SelectedItem="{Binding SelectedHeaderValuePlacementCycle}" />
                 </Grid>

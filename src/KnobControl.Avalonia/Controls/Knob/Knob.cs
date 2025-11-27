@@ -21,12 +21,12 @@ public partial class Knob : KnobBase
     /// <summary>
     /// Get the start angle in radians.
     /// </summary>
-    protected double StartAngleRad => StartAngle * Math.PI / 180.0;
+    protected double StartAngleRad => MathHelpers.Deg2Rad(StartAngle);
 
     /// <summary>
     /// Get the sweep angle in radians.
     /// </summary>
-    protected double SweepAngleRad => SweepAngle * Math.PI / 180.0;
+    protected double SweepAngleRad => MathHelpers.Deg2Rad(SweepAngle);
 
     /// <summary>
     /// Get the end angle in radians.

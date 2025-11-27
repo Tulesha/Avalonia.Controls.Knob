@@ -3,7 +3,7 @@
 namespace KnobControl.Avalonia.Helpers;
 
 /// <summary>
-/// Copy of methods from <see cref="Avalonia.Utilities.MathUtilities"/>.
+/// Copy of methods from Avalonia.Utilities.MathUtilities.
 /// </summary>
 internal static class MathHelpers
 {
@@ -81,4 +81,9 @@ internal static class MathHelpers
     {
         return value1 > value2 || AreClose(value1, value2);
     }
+
+    /// <summary>Converts an angle in degrees to radians.</summary>
+    /// <param name="angle">The angle in degrees.</param>
+    /// <returns>The angle in radians.</returns>
+    public static double Deg2Rad(double angle) => angle * (Math.PI / 180.0);
 }

@@ -30,8 +30,14 @@
                 <DataValidationErrors>
                     <Panel x:Name="PART_KnobCycleContainer"
                            Background="{DynamicResource SliderContainerBackground}">
+                        <controls:KnobCycleArrow Fill="{TemplateBinding Stroke}"
+                                                 StartAngle="{TemplateBinding StartAngle}"
+                                                 SweepAngle="{TemplateBinding SweepAngle}"
+                                                 DecoratorThickness="{TemplateBinding ArcThickness}"
+                                                 ArrowSize="{TemplateBinding ArrowSize}" />
+
                         <Ellipse x:Name="PART_Ellipse"
-                                 Margin="20"
+                                 Margin="{TemplateBinding ArcThickness, Converter={x:Static converters:KnobCycleEllipseMarginConverter.Instance}}"
                                  Fill="{TemplateBinding Background}"
                                  Stroke="{TemplateBinding Stroke}"
                                  StrokeThickness="{TemplateBinding GripsThickness}"

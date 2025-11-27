@@ -8,66 +8,6 @@ namespace KnobControl.Avalonia;
 
 public partial class Knob
 {
-    #region StartAngle Property
-
-    /// <summary>
-    /// Defines the <see cref="StartAngle"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<Knob, double>(
-            nameof(StartAngle),
-            defaultValue: -240.0,
-            coerce: CoerceStartAngle);
-
-    /// <summary>
-    /// Gets or sets the start angle in degree.
-    /// </summary>
-    public double StartAngle
-    {
-        get => GetValue(StartAngleProperty);
-        set => SetValue(StartAngleProperty, value);
-    }
-
-    private static double CoerceStartAngle(AvaloniaObject sender, double value)
-    {
-        if (sender is Knob knob)
-            return knob.CoerceStartAngle(value);
-
-        return value;
-    }
-
-    #endregion
-
-    #region SweepAngle Property
-
-    /// <summary>
-    /// Defines the <see cref="SweepAngle"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> SweepAngleProperty =
-        AvaloniaProperty.Register<Knob, double>(
-            nameof(SweepAngle),
-            defaultValue: 300.0,
-            coerce: CoerceSweepAngle);
-
-    /// <summary>
-    /// Gets or sets the sweep angle in degree.
-    /// </summary>
-    public double SweepAngle
-    {
-        get => GetValue(SweepAngleProperty);
-        set => SetValue(SweepAngleProperty, value);
-    }
-
-    private static double CoerceSweepAngle(AvaloniaObject sender, double value)
-    {
-        if (sender is Knob knob)
-            return knob.CoerceSweepAngle(value);
-
-        return value;
-    }
-
-    #endregion
-
     #region IsPointerVisible Property
 
     /// <summary>
@@ -143,36 +83,6 @@ public partial class Knob
     {
         if (sender is Knob knob)
             return knob.CoercePointerSize(value);
-
-        return value;
-    }
-
-    #endregion
-
-    #region ArcThickness Property
-
-    /// <summary>
-    /// Defines the <see cref="ArcThickness"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> ArcThicknessProperty =
-        AvaloniaProperty.Register<Knob, double>(
-            nameof(ArcThickness),
-            defaultValue: 3.0,
-            coerce: CoerceArcThickness);
-
-    /// <summary>
-    /// Gets or sets the thickness of the arc.
-    /// </summary>
-    public double ArcThickness
-    {
-        get => GetValue(ArcThicknessProperty);
-        set => SetValue(ArcThicknessProperty, value);
-    }
-
-    private static double CoerceArcThickness(AvaloniaObject sender, double value)
-    {
-        if (sender is Knob knob)
-            return knob.CoerceArcThickness(value);
 
         return value;
     }
@@ -363,24 +273,6 @@ public partial class Knob
     }
 
     /// <summary>
-    /// Called when the <see cref="StartAngle"/> property has to be coerced.
-    /// </summary>
-    /// <param name="baseValue">The value.</param>
-    protected virtual double CoerceStartAngle(double baseValue)
-    {
-        return CoerceHelpers.CoerceStartAngle(baseValue, StartAngle);
-    }
-
-    /// <summary>
-    /// Called when the <see cref="SweepAngle"/> property has to be coerced.
-    /// </summary>
-    /// <param name="baseValue">The value.</param>
-    protected virtual double CoerceSweepAngle(double baseValue)
-    {
-        return CoerceHelpers.CoerceSweepAngle(baseValue, SweepAngle);
-    }
-
-    /// <summary>
     /// Called when the <see cref="PointerThickness"/> property has to be coerced.
     /// </summary>
     /// <param name="baseValue">The value.</param>
@@ -401,16 +293,5 @@ public partial class Knob
         return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
             ? baseValue
             : PointerSize;
-    }
-
-    /// <summary>
-    /// Called when the <see cref="ArcThickness"/> property has to be coerced.
-    /// </summary>
-    /// <param name="baseValue">The value.</param>
-    protected virtual double CoerceArcThickness(double baseValue)
-    {
-        return ValidateHelpers.ValidateDouble(baseValue) && baseValue > 0
-            ? baseValue
-            : ArcThickness;
     }
 }

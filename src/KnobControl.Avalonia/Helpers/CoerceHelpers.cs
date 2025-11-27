@@ -3,7 +3,7 @@
 internal static class CoerceHelpers
 {
     /// <summary>
-    /// Coerce for <see cref="Knob.StartAngleProperty"/> and <see cref="KnobTickBar.StartAngleProperty"/> properties.
+    /// Coerce for <see cref="KnobBase.StartAngleProperty"/> and <see cref="KnobDecoratorBase.StartAngleProperty"/> properties.
     /// </summary>
     /// <param name="value">Value from coerce.</param>
     /// <param name="defaultValue">Value which will be returned if coerce doesn't pass.</param>
@@ -18,7 +18,7 @@ internal static class CoerceHelpers
     }
 
     /// <summary>
-    /// Coerce for <see cref="Knob.SweepAngleProperty"/> and <see cref="KnobTickBar.SweepAngleProperty"/> properties.
+    /// Coerce for <see cref="KnobBase.SweepAngleProperty"/> and <see cref="KnobDecoratorBase.SweepAngleProperty"/> properties.
     /// </summary>
     /// <param name="value">Value from coerce.</param>
     /// <param name="defaultValue">Value which will be returned if coerce doesn't pass.</param>
