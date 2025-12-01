@@ -3,7 +3,7 @@ using KnobControl.Avalonia.Helpers;
 
 namespace KnobControl.Avalonia;
 
-public partial class KnobCycleArrow
+public partial class KnobEndlessArrow
 {
     #region ArrowSize Property
 
@@ -11,7 +11,7 @@ public partial class KnobCycleArrow
     /// Defines the <see cref="ArrowSize"/> property.
     /// </summary>
     public static readonly StyledProperty<double> ArrowSizeProperty =
-        AvaloniaProperty.Register<KnobCycleArrow, double>(
+        AvaloniaProperty.Register<KnobEndlessArrow, double>(
             nameof(ArrowSize),
             defaultValue: 10.0,
             coerce: CoerceArrowSize);
@@ -27,17 +27,17 @@ public partial class KnobCycleArrow
 
     private static double CoerceArrowSize(AvaloniaObject sender, double value)
     {
-        if (sender is KnobCycleArrow knobCycleArrow)
-            return knobCycleArrow.CoerceArrowSize(value);
+        if (sender is KnobEndlessArrow knobEndlessArrow)
+            return knobEndlessArrow.CoerceArrowSize(value);
 
         return value;
     }
 
     #endregion
 
-    static KnobCycleArrow()
+    static KnobEndlessArrow()
     {
-        AffectsRender<KnobCycleArrow>(ArrowSizeProperty);
+        AffectsRender<KnobEndlessArrow>(ArrowSizeProperty);
     }
 
     /// <summary>

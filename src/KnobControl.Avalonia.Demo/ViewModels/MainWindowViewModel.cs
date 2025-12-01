@@ -25,19 +25,19 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private bool _isHeaderValueVisible = true;
     [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacement = KnobHeaderPlacement.Bottom;
 
-    [ObservableProperty] private double _valueCycle = 21.0;
-    [ObservableProperty] private double _maximumCycle = 100.0;
-    [ObservableProperty] private double _minimumCycle = -50.0;
-    [ObservableProperty] private double _smallChangeCycle = 1.0;
-    [ObservableProperty] private double _largeChangeCycle = 10.0;
-    [ObservableProperty] private double _startAngleCycle = -225.0;
-    [ObservableProperty] private double _sweepAngleCycle = 270.0;
-    [ObservableProperty] private double _arcThicknessCycle = 3.0;
-    [ObservableProperty] private double _arrowSizeCycle = 10.0;
-    [ObservableProperty] private double _gripsDashCycle = 3.0;
-    [ObservableProperty] private double _gripsThicknessCycle = 3.0;
-    [ObservableProperty] private bool _isHeaderValueVisibleCycle = true;
-    [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacementCycle = KnobHeaderPlacement.Bottom;
+    [ObservableProperty] private double _valueEndless = 21.0;
+    [ObservableProperty] private double _maximumEndless = 100.0;
+    [ObservableProperty] private double _minimumEndless = -50.0;
+    [ObservableProperty] private double _smallChangeEndless = 1.0;
+    [ObservableProperty] private double _largeChangeEndless = 10.0;
+    [ObservableProperty] private double _startAngleEndless = -225.0;
+    [ObservableProperty] private double _sweepAngleEndless = 270.0;
+    [ObservableProperty] private double _arcThicknessEndless = 3.0;
+    [ObservableProperty] private double _arrowSizeEndless = 10.0;
+    [ObservableProperty] private double _gripsDashEndless = 3.0;
+    [ObservableProperty] private double _gripsThicknessEndless = 3.0;
+    [ObservableProperty] private bool _isHeaderValueVisibleEndless = true;
+    [ObservableProperty] private KnobHeaderPlacement _selectedHeaderValuePlacementEndless = KnobHeaderPlacement.Bottom;
 
     public IEnumerable<KnobHeaderPlacement> HeaderValuePlacements => Enum.GetValues<KnobHeaderPlacement>();
 }

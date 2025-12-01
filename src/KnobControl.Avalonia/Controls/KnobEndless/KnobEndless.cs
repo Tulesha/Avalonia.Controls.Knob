@@ -6,9 +6,9 @@ using KnobControl.Avalonia.Helpers;
 namespace KnobControl.Avalonia;
 
 /// <summary>
-/// Knob cycle control
+/// Knob endless control
 /// </summary>
-public partial class KnobCycle : KnobBase
+public partial class KnobEndless : KnobBase
 {
     private const double SweepAngleRad = Math.PI * 2;
 

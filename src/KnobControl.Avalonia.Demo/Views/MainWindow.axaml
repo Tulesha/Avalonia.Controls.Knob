@@ -201,25 +201,25 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="KnobCycle">
+        <TabItem Header="KnobEndless">
             <Grid ColumnDefinitions="*, *"
                   ColumnSpacing="8">
-                <controls:KnobCycle Grid.Column="0"
+                <controls:KnobEndless Grid.Column="0"
                                     Width="120"
                                     Height="120"
-                                    Value="{Binding ValueCycle}"
-                                    Maximum="{Binding MaximumCycle}"
-                                    Minimum="{Binding MinimumCycle}"
-                                    SmallChange="{Binding SmallChangeCycle}"
-                                    LargeChange="{Binding LargeChangeCycle}"
-                                    StartAngle="{Binding StartAngleCycle}"
-                                    SweepAngle="{Binding SweepAngleCycle}"
-                                    ArcThickness="{Binding ArcThicknessCycle}"
-                                    ArrowSize="{Binding ArrowSizeCycle}"
-                                    GripsDash="{Binding GripsDashCycle}"
-                                    GripsThickness="{Binding GripsThicknessCycle}"
-                                    IsHeaderValueVisible="{Binding IsHeaderValueVisibleCycle}"
-                                    HeaderValuePlacement="{Binding SelectedHeaderValuePlacementCycle}" />
+                                    Value="{Binding ValueEndless}"
+                                    Maximum="{Binding MaximumEndless}"
+                                    Minimum="{Binding MinimumEndless}"
+                                    SmallChange="{Binding SmallChangeEndless}"
+                                    LargeChange="{Binding LargeChangeEndless}"
+                                    StartAngle="{Binding StartAngleEndless}"
+                                    SweepAngle="{Binding SweepAngleEndless}"
+                                    ArcThickness="{Binding ArcThicknessEndless}"
+                                    ArrowSize="{Binding ArrowSizeEndless}"
+                                    GripsDash="{Binding GripsDashEndless}"
+                                    GripsThickness="{Binding GripsThicknessEndless}"
+                                    IsHeaderValueVisible="{Binding IsHeaderValueVisibleEndless}"
+                                    HeaderValuePlacement="{Binding SelectedHeaderValuePlacementEndless}" />
 
                 <Grid Grid.Column="1"
                       VerticalAlignment="Center"
@@ -233,7 +233,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="0"
-                                   Value="{Binding ValueCycle}" />
+                                   Value="{Binding ValueEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="1"
@@ -241,7 +241,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="1"
-                                   Value="{Binding MaximumCycle}" />
+                                   Value="{Binding MaximumEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="2"
@@ -249,7 +249,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="2"
-                                   Value="{Binding MinimumCycle}" />
+                                   Value="{Binding MinimumEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="3"
@@ -257,7 +257,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="3"
-                                   Value="{Binding SmallChangeCycle}" />
+                                   Value="{Binding SmallChangeEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="4"
@@ -265,7 +265,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="4"
-                                   Value="{Binding LargeChangeCycle}" />
+                                   Value="{Binding LargeChangeEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="5"
@@ -273,7 +273,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="5"
-                                   Value="{Binding StartAngleCycle}" />
+                                   Value="{Binding StartAngleEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="6"
@@ -281,7 +281,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="6"
-                                   Value="{Binding SweepAngleCycle}" />
+                                   Value="{Binding SweepAngleEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="7"
@@ -289,7 +289,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="7"
-                                   Value="{Binding ArcThicknessCycle}" />
+                                   Value="{Binding ArcThicknessEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="8"
@@ -297,7 +297,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="8"
-                                   Value="{Binding ArrowSizeCycle}" />
+                                   Value="{Binding ArrowSizeEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="9"
@@ -305,7 +305,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="9"
-                                   Value="{Binding GripsDashCycle}" />
+                                   Value="{Binding GripsDashEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="10"
@@ -313,7 +313,7 @@
                                VerticalAlignment="Center" />
                     <NumericUpDown Grid.Column="1"
                                    Grid.Row="10"
-                                   Value="{Binding GripsThicknessCycle}" />
+                                   Value="{Binding GripsThicknessEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="11"
@@ -321,7 +321,7 @@
                                VerticalAlignment="Center" />
                     <CheckBox Grid.Column="1"
                               Grid.Row="11"
-                              IsChecked="{Binding IsHeaderValueVisibleCycle}" />
+                              IsChecked="{Binding IsHeaderValueVisibleEndless}" />
 
                     <TextBlock Grid.Column="0"
                                Grid.Row="12"
@@ -330,7 +330,7 @@
                     <ComboBox Grid.Column="1"
                               Grid.Row="12"
                               ItemsSource="{Binding HeaderValuePlacements}"
-                              SelectedItem="{Binding SelectedHeaderValuePlacementCycle}" />
+                              SelectedItem="{Binding SelectedHeaderValuePlacementEndless}" />
                 </Grid>
             </Grid>
         </TabItem>

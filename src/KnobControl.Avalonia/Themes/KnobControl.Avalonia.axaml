@@ -4,7 +4,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="../Themes/Controls/Knob.axaml" />
-                <ResourceInclude Source="../Themes/Controls/KnobCycle.axaml" />
+                <ResourceInclude Source="../Themes/Controls/KnobEndless.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

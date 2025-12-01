@@ -7,9 +7,9 @@ using KnobControl.Avalonia.Helpers;
 namespace KnobControl.Avalonia;
 
 /// <summary>
-/// An element that is used for drawing circular arrow for <see cref="KnobCycle"/>.
+/// An element that is used for drawing circular arrow for <see cref="KnobEndless"/>.
 /// </summary>
-public partial class KnobCycleArrow : KnobDecoratorBase
+public partial class KnobEndlessArrow : KnobDecoratorBase
 {
     /// <inheritdoc />
     public override void Render(DrawingContext context)

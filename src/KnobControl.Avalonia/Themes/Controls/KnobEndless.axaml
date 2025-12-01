@@ -7,18 +7,18 @@
         <Panel Width="400"
                Height="400"
                Background="White">
-            <controls:KnobCycle Width="120"
-                                Height="120"
-                                Value="21"
-                                Minimum="0"
-                                Maximum="200"
-                                SmallChange="1"
-                                GripsDash="3" />
+            <controls:KnobEndless Width="120"
+                                  Height="120"
+                                  Value="21"
+                                  Minimum="0"
+                                  Maximum="200"
+                                  SmallChange="1"
+                                  GripsDash="3" />
         </Panel>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="{x:Type controls:KnobCycle}"
-                  TargetType="controls:KnobCycle">
+    <ControlTheme x:Key="{x:Type controls:KnobEndless}"
+                  TargetType="controls:KnobEndless">
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="120" />
         <Setter Property="Background" Value="{DynamicResource SliderTrackFill}" />
@@ -28,24 +28,24 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <DataValidationErrors>
-                    <Panel x:Name="PART_KnobCycleContainer"
+                    <Panel x:Name="PART_KnobEndlessContainer"
                            Background="{DynamicResource SliderContainerBackground}">
-                        <controls:KnobCycleArrow Fill="{TemplateBinding Stroke}"
-                                                 StartAngle="{TemplateBinding StartAngle}"
-                                                 SweepAngle="{TemplateBinding SweepAngle}"
-                                                 DecoratorThickness="{TemplateBinding ArcThickness}"
-                                                 ArrowSize="{TemplateBinding ArrowSize}" />
+                        <controls:KnobEndlessArrow Fill="{TemplateBinding Stroke}"
+                                                   StartAngle="{TemplateBinding StartAngle}"
+                                                   SweepAngle="{TemplateBinding SweepAngle}"
+                                                   DecoratorThickness="{TemplateBinding ArcThickness}"
+                                                   ArrowSize="{TemplateBinding ArrowSize}" />
 
                         <Ellipse x:Name="PART_Ellipse"
-                                 Margin="{TemplateBinding ArcThickness, Converter={x:Static converters:KnobCycleEllipseMarginConverter.Instance}}"
+                                 Margin="{TemplateBinding ArcThickness, Converter={x:Static converters:KnobEndlessEllipseMarginConverter.Instance}}"
                                  Fill="{TemplateBinding Background}"
                                  Stroke="{TemplateBinding Stroke}"
                                  StrokeThickness="{TemplateBinding GripsThickness}"
-                                 StrokeDashArray="{TemplateBinding GripsDash, Converter={x:Static converters:KnobCycleStrokeDashArrayConverter.Instance}}"
+                                 StrokeDashArray="{TemplateBinding GripsDash, Converter={x:Static converters:KnobEndlessStrokeDashArrayConverter.Instance}}"
                                  StrokeLineCap="Round">
                             <Ellipse.RenderTransform>
                                 <RotateTransform
-                                    Angle="{Binding RotateAngle, RelativeSource={RelativeSource AncestorType=controls:KnobCycle}}" />
+                                    Angle="{Binding RotateAngle, RelativeSource={RelativeSource AncestorType=controls:KnobEndless}}" />
                             </Ellipse.RenderTransform>
                         </Ellipse>
 
@@ -108,7 +108,7 @@
 
         <!--  PointerOver State  -->
         <Style Selector="^:pointerover">
-            <Style Selector="^ /template/ Panel#PART_KnobCycleContainer">
+            <Style Selector="^ /template/ Panel#PART_KnobEndlessContainer">
                 <Setter Property="Background"
                         Value="{DynamicResource SliderContainerBackgroundPointerOver}" />
             </Style>
@@ -122,7 +122,7 @@
 
         <!--  Pressed State  -->
         <Style Selector="^:pressed">
-            <Style Selector="^ /template/ Panel#PART_KnobCycleContainer">
+            <Style Selector="^ /template/ Panel#PART_KnobEndlessContainer">
                 <Setter Property="Background"
                         Value="{DynamicResource SliderContainerBackgroundPressed}" />
             </Style>

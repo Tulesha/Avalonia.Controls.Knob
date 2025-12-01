@@ -3,7 +3,7 @@ using KnobControl.Avalonia.Helpers;
 
 namespace KnobControl.Avalonia;
 
-public partial class KnobCycle
+public partial class KnobEndless
 {
     #region ArrowSize Property
 
@@ -11,7 +11,7 @@ public partial class KnobCycle
     /// Defines the <see cref="ArrowSize"/> property.
     /// </summary>
     public static readonly StyledProperty<double> ArrowSizeProperty =
-        KnobCycleArrow.ArrowSizeProperty.AddOwner<KnobCycle>();
+        KnobEndlessArrow.ArrowSizeProperty.AddOwner<KnobEndless>();
 
     /// <summary>
     /// Gets or sets the arrow size.
@@ -30,13 +30,13 @@ public partial class KnobCycle
     /// Defines the <see cref="GripsDash"/> property.
     /// </summary>
     public static readonly StyledProperty<double> GripsDashProperty =
-        AvaloniaProperty.Register<KnobCycle, double>(
+        AvaloniaProperty.Register<KnobEndless, double>(
             nameof(GripsDash),
             defaultValue: 3.0,
             coerce: CoerceGripsDash);
 
     /// <summary>
-    /// Gets or sets the dash of grips inside the KnobCycle.
+    /// Gets or sets the dash of grips inside the <see cref="KnobEndless"/>.
     /// </summary>
     public double GripsDash
     {
@@ -46,8 +46,8 @@ public partial class KnobCycle
 
     private static double CoerceGripsDash(AvaloniaObject sender, double value)
     {
-        if (sender is KnobCycle knobCycle)
-            return knobCycle.CoerceGripsDash(value);
+        if (sender is KnobEndless knobEndless)
+            return knobEndless.CoerceGripsDash(value);
 
         return value;
     }
@@ -60,7 +60,7 @@ public partial class KnobCycle
     /// Defines the <see cref="GripsThickness"/> property.
     /// </summary>
     public static readonly StyledProperty<double> GripsThicknessProperty =
-        AvaloniaProperty.Register<KnobCycle, double>(
+        AvaloniaProperty.Register<KnobEndless, double>(
             nameof(GripsThickness),
             defaultValue: 3.0);
 
@@ -82,8 +82,8 @@ public partial class KnobCycle
     /// <summary>
     /// Defines the <see cref="RotateAngle"/> property.
     /// </summary>
-    public static readonly DirectProperty<KnobCycle, double> RotateAngleProperty =
-        AvaloniaProperty.RegisterDirect<KnobCycle, double>(
+    public static readonly DirectProperty<KnobEndless, double> RotateAngleProperty =
+        AvaloniaProperty.RegisterDirect<KnobEndless, double>(
             nameof(RotateAngle),
             o => o.RotateAngle);
 

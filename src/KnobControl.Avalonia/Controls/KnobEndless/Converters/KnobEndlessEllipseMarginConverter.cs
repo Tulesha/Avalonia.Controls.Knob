@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Globalization;
 using Avalonia;
-using Avalonia.Collections;
 using Avalonia.Data.Converters;
 
 namespace KnobControl.Avalonia.Converters;
 
 /// <summary>
-/// Stroke dash array converter for PART_Ellipse control in <see cref="KnobCycle"/>
+/// Margin converter for Ellipse control in <see cref="KnobEndless"/>. 
 /// </summary>
-public class KnobCycleStrokeDashArrayConverter : IValueConverter
+public class KnobEndlessEllipseMarginConverter : IValueConverter
 {
+    private const double Indent = 14.0;
+
     /// <summary>
     /// Instance
     /// </summary>
-    public static readonly KnobCycleStrokeDashArrayConverter Instance = new();
+    public static readonly KnobEndlessEllipseMarginConverter Instance = new();
 
     /// <inheritdoc />
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not double dashGrips)
+        if (value is not double arcThickness)
             return AvaloniaProperty.UnsetValue;
 
-        return new AvaloniaList<double> { 1, dashGrips };
+        return new Thickness(arcThickness + Indent);
     }
 
     /// <inheritdoc />

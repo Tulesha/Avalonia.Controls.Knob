@@ -8,8 +8,7 @@ A customizable `Knob` control for `Avalonia UI` framework that provides a circul
 supports
 angular dragging,
 click-to-position functionality, keyboard navigation, mouse wheel interaction, and tick-based positioning. Perfect for
-audio controls,
-settings panels, and any scenario where you need a circular value selection interface.
+potentiometers, audio controls, settings panels, and any scenario where you need a circular value selection interface.
 
 ### API
 
@@ -43,10 +42,10 @@ settings panels, and any scenario where you need a circular value selection inte
 
 ![](https://github.com/Tulesha/KnobControl.Avalonia/blob/main/workflows/KnobSample.gif)
 
-## KnobCycle
+## KnobEndless
 
-`KnobCycle` is an extension of the original `Knob` that introduces **cyclic behavior**. There is no level arcs and looks
-more like `gear`. Perfect for controls like oscilloscope knobs without stoppers.
+`KnobEndless` is an extension of the original `Knob` that introduces **endless behavior**. Perfect for encoders or
+controls like oscilloscope knobs without stoppers.
 
 ### API
 
@@ -72,4 +71,4 @@ more like `gear`. Perfect for controls like oscilloscope knobs without stoppers.
 
 ### Demo
 
-![](https://github.com/Tulesha/KnobControl.Avalonia/blob/main/workflows/KnobCycleSample.gif)
+![](https://github.com/Tulesha/KnobControl.Avalonia/blob/main/workflows/KnobEndlessSample.gif)
