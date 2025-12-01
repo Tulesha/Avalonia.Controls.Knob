@@ -77,10 +77,8 @@ public partial class KnobCycle : KnobBase
         var normalizedDelta = angleDelta / SweepAngleRad;
         var rawValueChange = normalizedDelta * Range;
 
-        SetCurrentValue(ValueProperty, Value + Math.Sign(rawValueChange) * SmallChange);
+        MoveToNextValue(Math.Sign(rawValueChange) * SmallChange);
         _startDragAngleRad = currentAngle;
-
-        SetAndRaise(RotateAngleProperty, ref _rotateAngle, _rotateAngle + Math.Sign(rawValueChange) * SmallChange);
     }
 
     /// <summary>
@@ -105,6 +103,21 @@ public partial class KnobCycle : KnobBase
         }
 
         _isCaptured = false;
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Called when the <see cref="InputElement.PointerWheelChangedEvent"/> event called.
+    /// </summary>
+    /// <param name="e">Pointer wheel changed event args</param>
+    protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+    {
+        base.OnPointerWheelChanged(e);
+
+        if (!IsEnabled)
+            return;
+
+        MoveToNextValue(e.Delta.Y * SmallChange);
         e.Handled = true;
     }
 
