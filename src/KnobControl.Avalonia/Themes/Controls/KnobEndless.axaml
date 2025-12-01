@@ -13,7 +13,7 @@
                                   Minimum="0"
                                   Maximum="200"
                                   SmallChange="1"
-                                  GripsDash="3" />
+                                  GripsDash="1, 2" />
         </Panel>
     </Design.PreviewWith>
 
@@ -41,7 +41,7 @@
                                  Fill="{TemplateBinding Background}"
                                  Stroke="{TemplateBinding Stroke}"
                                  StrokeThickness="{TemplateBinding GripsThickness}"
-                                 StrokeDashArray="{TemplateBinding GripsDash, Converter={x:Static converters:KnobEndlessStrokeDashArrayConverter.Instance}}"
+                                 StrokeDashArray="{TemplateBinding GripsDash}"
                                  StrokeLineCap="Round">
                             <Ellipse.RenderTransform>
                                 <RotateTransform

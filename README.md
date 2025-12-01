@@ -49,25 +49,25 @@ controls like oscilloscope knobs without stoppers.
 
 ### API
 
-| PROPERTY NAME                         | TYPE                  | DESCRIPTION                                                                                                            |
-|---------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------------------|
-| Value                                 | `double`              | Inherited from RangeBase - Gets or sets the current value of the knob                                                  |
-| Minimum                               | `double`              | Inherited from RangeBase - Gets or sets the minimum allowed value                                                      |
-| Maximum                               | `double`              | Inherited from RangeBase - Gets or sets the maximum allowed value                                                      |
-| SmallChange                           | `double`              | Inherited from RangeBase - Gets or sets the small change increment                                                     |
-| LargeChange                           | `double`              | Inherited from RangeBase - Gets or sets the large change increment                                                     |
-| Stroke                                | `IBrush`              | Inhetited from KnobBase -  Gets or sets the brush for shape elements inside Knob base controls.                        |
-| StartAngle                            | `double`              | Inherited from KnobBase - Gets or sets the start angle in degrees for the knob's sweep range (default: -240)           |
-| SweepAngle                            | `double`              | Inherited from KnobBase - Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300) |
-| ArcThickness                          | `double`              | Inherited from KnobBase - Gets or sets the thckness of the arc indicator (default: 3.0)                                |
-| IsHeaderValueVisible                  | `bool`                | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                            |
-| HeaderValueTemplate                   | `IDataTemplate?`      | Inherited from KnobBase - Gets or sets the data template for the header value display                                  |
-| HeaderValueHorizontalContentAlignment | `HorizontalAlignment` | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch)    |
-| HeaderValueVerticalContentAlignment   | `VerticalAlignment`   | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)      |
-| HeaderValuePlacement                  | `KnobHeaderPlacement` | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                           |
-| ArrowSize                             | `double`              | Gets or sets the arrow size. (default: 10.0)                                                                           |
-| GripsDash                             | `double`              | Gets or sets the dash of the grips (default: 3.0)                                                                      |
-| GripsThickness                        | `double`              | Gets or sets the thickness of the grips (default: 3.0)                                                                 |
+| PROPERTY NAME                         | TYPE                   | DESCRIPTION                                                                                                            |
+|---------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Value                                 | `double`               | Inherited from RangeBase - Gets or sets the current value of the knob                                                  |
+| Minimum                               | `double`               | Inherited from RangeBase - Gets or sets the minimum allowed value                                                      |
+| Maximum                               | `double`               | Inherited from RangeBase - Gets or sets the maximum allowed value                                                      |
+| SmallChange                           | `double`               | Inherited from RangeBase - Gets or sets the small change increment                                                     |
+| LargeChange                           | `double`               | Inherited from RangeBase - Gets or sets the large change increment                                                     |
+| Stroke                                | `IBrush`               | Inhetited from KnobBase -  Gets or sets the brush for shape elements inside Knob base controls.                        |
+| StartAngle                            | `double`               | Inherited from KnobBase - Gets or sets the start angle in degrees for the knob's sweep range (default: -240)           |
+| SweepAngle                            | `double`               | Inherited from KnobBase - Gets or sets the sweep angle in degrees that defines the knob's angular range (default: 300) |
+| ArcThickness                          | `double`               | Inherited from KnobBase - Gets or sets the thckness of the arc indicator (default: 3.0)                                |
+| IsHeaderValueVisible                  | `bool`                 | Inherited from KnobBase - Gets or sets the visibility of the header control (default: true)                            |
+| HeaderValueTemplate                   | `IDataTemplate?`       | Inherited from KnobBase - Gets or sets the data template for the header value display                                  |
+| HeaderValueHorizontalContentAlignment | `HorizontalAlignment`  | Inherited from KnobBase - Gets or sets the horizontal alignment of content in the header section (default: Stretch)    |
+| HeaderValueVerticalContentAlignment   | `VerticalAlignment`    | Inherited from KnobBase - Gets or sets the vertical alignment of content in the header section (default: Stretch)      |
+| HeaderValuePlacement                  | `KnobHeaderPlacement`  | Inherited from KnobBase - Gets or sets the placement of the header control (default: Bottom)                           |
+| ArrowSize                             | `double`               | Gets or sets the arrow size. (default: 10.0)                                                                           |
+| GripsDash                             | `AvaloniaList<double>` | Gets or sets the dash list of the grips (default: null)                                                                |
+| GripsThickness                        | `double`               | Gets or sets the thickness of the grips (default: 3.0)                                                                 |
 
 ### Demo
 
